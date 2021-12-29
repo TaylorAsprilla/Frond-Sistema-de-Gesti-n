@@ -1,0 +1,132 @@
+<div class="hold-transition register-page">
+  <div class="register-box pt-5">
+    <div class="register-logo">
+      <img
+        src="./../../../assets/imagenes/logo.png"
+        width="30%"
+        class="img-fluid"
+        alt="Sistema de gestión de la Congregación Mita"
+      />
+    </div>
+
+    <div class="card">
+      <div class="card-body register-card-body">
+        <p class="login-box-msg">Registrar un nuevo miembro</p>
+
+        <form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="crearUsuario()">
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Primer Nombre"
+              formControlName="primerNombre"
+              required
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Segundo Nombre" formControlName="segundoNombre" />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Primer Apellido"
+              formControlName="primerApellido"
+              required
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" formControlName="segundoApellido" placeholder="Segundo Apellido" />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="email"
+              class="form-control"
+              formControlName="email"
+              placeholder="Correo Electrónico"
+              required
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-envelope"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input type="password" class="form-control" formControlName="password" placeholder="Contraseña" required />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="input-group mb-3">
+            <input
+              type="password"
+              class="form-control"
+              formControlName="password2"
+              placeholder="Vuelva a escribir la contraseña"
+              required
+            />
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="agreeTerms" name="terms" value="agree" formControlName="terminos" />
+                <label for="agreeTerms"> Acepto los <a href="#"> términos y condiciones</a> </label>
+              </div>
+            </div>
+
+            <!-- /.col -->
+            <div class="col-4">
+              <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+            </div>
+            <!-- /.col -->
+          </div>
+
+          <div class="row">
+            <div class="col text-danger">
+              <p *ngIf="campoNoValido('primerNombre')">El Nombre es obligatorio</p>
+              <p *ngIf="campoNoValido('primerApellido')">El Primer Apellido es obligatorio</p>
+
+              <p *ngIf="campoNoValido('email')">El Email es obligatorio</p>
+              <p *ngIf="aceptaTerminos()">Debe de aceptar los términos y condiciones</p>
+
+              <p *ngIf="contrasnasNoValidas()">Las contraseñas deben de ser iguales</p>
+            </div>
+          </div>
+        </form>
+
+        <a href="login.html" class="text-center">Tengo una cuenta</a>
+      </div>
+      <!-- /.form-box -->
+    </div>
+    <!-- /.card -->
+  </div>
+  <!-- /.register-box -->
+</div>

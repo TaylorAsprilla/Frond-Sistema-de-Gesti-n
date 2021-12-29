@@ -1,0 +1,66 @@
+<section class="content">
+  <!-- Default box -->
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title"></h3>
+    </div>
+    <div class="card-body">
+      <div class="progress">
+        <div
+          class="
+            progress-bar
+            bg-primary
+            progress-bar-striped progress-bar-animated
+          "
+          role="progressbar"
+          aria-valuenow="40"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [style.width]="getProgreso1"
+        ></div>
+      </div>
+      <div class="progress mt-3">
+        <div
+          class="
+            progress-bar
+            bg-info
+            progress-bar-striped progress-bar-animated
+          "
+          role="progressbar"
+          aria-valuenow="40"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          [style.width]="getProgreso2"
+        ></div>
+      </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">Footer</div>
+    <!-- /.card-footer-->
+  </div>
+  <!-- /.card -->
+
+  <div class="row">
+    <div class="col-6">
+      <div class="card md-6">
+        <div class="card-body">
+          <app-incrementador
+            (valorSalida)="progreso1 = $event"
+            [progreso]="progreso1"
+          ></app-incrementador>
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <div class="card md-6">
+        <div class="card-body md-6">
+          <app-incrementador
+            (valorSalida)="progreso2 = $event"
+            [progreso]="progreso2"
+            [btnClass]="'btn-info'"
+          ></app-incrementador>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
