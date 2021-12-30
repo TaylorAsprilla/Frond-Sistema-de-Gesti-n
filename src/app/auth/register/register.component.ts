@@ -13,18 +13,24 @@ export class RegisterComponent implements OnInit {
   public formSubmitted: boolean = false;
   public registerForm = this.formBuilder.group(
     {
-      primerNombre: ['Prueba Nombre', [Validators.required, Validators.minLength(3)]],
-      segundoNombre: ['', [Validators.minLength(3)]],
-      primerApellido: ['Prueba', [Validators.required, Validators.minLength(3)]],
-      segundoApellido: ['', [Validators.minLength(3)]],
-      email: ['ta@gmail.com', [Validators.required, Validators.email]],
-      password: ['12345', [Validators.required, Validators.minLength(3)]],
-      password2: ['12345', [Validators.required, Validators.minLength(3)]],
+      primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
+      segundo_nombre: ['', [Validators.minLength(3)]],
+      primer_apellido: ['', [Validators.required, Validators.minLength(3)]],
+      segundo_apellido: ['', [Validators.minLength(3)]],
+      id_tipoDocumento: ['', [Validators.required]],
+      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
+      fecha_nacimiento: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      celular: ['', [Validators.minLength(3)]],
+      id_genero: ['', [Validators.required]],
+      id_vacuna: ['', [Validators.required]],
+      imagen: ['', []],
+      id_congregacion: ['', [Validators.required]],
       terminos: [true, [Validators.required]],
-    },
-    {
-      validators: this.passwordsIguales('password', 'password2'),
     }
+    // {
+    //   validators: this.passwordsIguales('password', 'password2'),
+    // }
   );
 
   constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService, private router: Router) {}
@@ -41,8 +47,9 @@ export class RegisterComponent implements OnInit {
 
     // Realizar el posteo
     this.usuarioService.crearUsuario(this.registerForm.value).subscribe(
-      (resp) => {
+      (respuestaUsuario) => {
         //Navegar al Dashboard
+        Swal.fire('Usuario', respuestaUsuario.msg, 'success');
         this.router.navigateByUrl('/');
       },
       (err) => {
@@ -60,31 +67,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  contrasnasNoValidas() {
-    const pass1 = this.registerForm.get('password').value;
-    const pass2 = this.registerForm.get('password2').value;
-
-    if (pass1 !== pass2 && this.formSubmitted) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
   aceptaTerminos() {
     return !this.registerForm.get('terminos').value && this.formSubmitted;
-  }
-
-  passwordsIguales(password: string, password2: string) {
-    return (formGroup: FormGroup) => {
-      const pass1Control = formGroup.get(password);
-      const pass2Control = formGroup.get(password2);
-
-      if (pass1Control.value === pass2Control.value) {
-        pass2Control.setErrors(null);
-      } else {
-        pass2Control.setErrors({ noEsIgual: true });
-      }
-    };
   }
 }

@@ -15,7 +15,7 @@
 
         <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
           <div class="input-group mb-3">
-            <input type="email" class="form-control" placeholder="Correo Electrónico" formControlName="email" />
+            <input type="text" class="form-control" placeholder="Usuario" formControlName="login" />
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-envelope"></span>
@@ -45,16 +45,8 @@
           </div>
         </form>
 
-        <div class="social-auth-links text-center mt-2 mb-3 google-btn">
-          <div id="my-signin2"></div>
-        </div>
-        <!-- /.social-auth-links -->
-
-        <p class="mb-1">
-          <a href="forgot-password.html"> Olvidé mi contraseña</a>
-        </p>
-        <p class="mb-0">
-          <a routerLink="/register" class="text-center">Registrarse</a>
+        <p class="mt-2">
+          <span>¿No tienes una cuenta? <a routerLink="/register" class="text-center">Registrarse</a></span>
         </p>
       </div>
       <!-- /.card-body -->

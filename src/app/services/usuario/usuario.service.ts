@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginForm } from 'src/app/interfaces/login-form.interface';
+import { RegisterForm } from 'src/app/interfaces/register-form.interface';
 import { UsuarioInterface } from 'src/app/interfaces/usuario.interface';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 
@@ -19,22 +20,7 @@ export class UsuarioService {
   public auth2: any;
   public usuario: UsuarioModel;
 
-  constructor(private httpClient: HttpClient, private router: Router, private ngZone: NgZone) {
-    this.googleInit();
-  }
-
-  googleInit() {
-    return new Promise<void>((resolve) => {
-      gapi.load('auth2', () => {
-        this.auth2 = gapi.auth2.init({
-          client_id: '659520052183-7up5bpa0oc64p06a8hpmps1difupahbh.apps.googleusercontent.com',
-          cookiepolicy: 'single_host_origin',
-        });
-
-        resolve();
-      });
-    });
-  }
+  constructor(private httpClient: HttpClient, private router: Router, private ngZone: NgZone) {}
 
   logout() {
     sessionStorage.removeItem('token');
@@ -99,27 +85,18 @@ export class UsuarioService {
       );
   }
 
-  // crearUsuario(formData: RegisterForm) {
-  //   return this.httpClient.post(`${base_url}/usuarios`, formData).pipe(
-  //     tap((resp: any) => {
-  //       sessionStorage.setItem('token', resp.token);
-  //     })
-  //   );
-  // }
-
-  login(formData: LoginForm) {
-    return this.httpClient.post(`${base_url}/login`, formData).pipe(
+  crearUsuario(formData: RegisterForm) {
+    return this.httpClient.post(`${base_url}/usuarios`, formData).pipe(
       tap((resp: any) => {
         sessionStorage.setItem('token', resp.token);
       })
     );
   }
 
-  loginGoogle(token) {
-    console.log(token);
-    return this.httpClient.post(`${base_url}/login/google`, { token }).pipe(
+  login(formData: LoginForm) {
+    return this.httpClient.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
-        sessionStorage.setItem('token', resp.token);
+        localStorage.setItem('token', resp.token);
       })
     );
   }
@@ -138,9 +115,5 @@ export class UsuarioService {
 
   actualizarUsuario(id: string, usuarioActualizado: UsuarioModel) {
     return this.httpClient.put(`${base_url}/usuarios${id}`, usuarioActualizado);
-  }
-
-  crearUsuario(usuario: UsuarioInterface) {
-    return this.httpClient.post(`${base_url}/usuarios`, usuario);
   }
 }

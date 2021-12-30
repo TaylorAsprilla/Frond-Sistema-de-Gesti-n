@@ -4,17 +4,18 @@ const base_url = environment.base_url;
 
 export class UsuarioModel {
   constructor(
-    public primerNombre: string,
-    public primerApellido: string,
-    public numeroDocumento: string,
-    public fechaNacimiento: Date,
+    public primer_nombre: string,
+    public primer_apellido: string,
+    public numero_documento: string,
+    public fecha_nacimiento: Date,
     public congregacion: number,
-    public tipoDocumento: number,
+    public tipo_documento: number,
     public genero: number,
+    public estado: boolean,
     public login?: string,
-    public clave?: string,
-    public segundoNombre?: string,
-    public segundoApellido?: string,
+    public password?: string,
+    public segundo_nombre?: string,
+    public segundo_apellido?: string,
     public celular?: string,
     public email?: string,
     public imagen?: string
