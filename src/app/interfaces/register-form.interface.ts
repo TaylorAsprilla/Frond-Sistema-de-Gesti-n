@@ -1,10 +1,15 @@
 export interface RegisterForm {
-  primeNombre: string;
-  segundoNombre: string;
-  primerApellido: string;
-  segundoApellido: string;
+  primer_nombre: string;
+  segundo_nombre: string;
+  primer_apellido: string;
+  segundo_apellido: string;
   email: string;
-  password: string;
-  password2: string;
+  celular: string;
+  numero_documento: string;
+  imagen: string;
+  id_congregacion: number;
+  id_genero: number;
+  id_tipoDocumento: number;
+  id_vacuna: number;
   terminos: boolean;
 }

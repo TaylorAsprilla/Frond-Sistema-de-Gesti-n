@@ -20,8 +20,8 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
     this.usuario = this.usuarioService.usuario;
     this.imagenUrl = this.usuario.imagenUrl;
-    this.primerNombre = this.usuario.primerNombre;
-    this.primerApellido = this.usuario.primerApellido;
+    this.primerNombre = this.usuario.primer_nombre;
+    this.primerApellido = this.usuario.primer_apellido;
     this.email = this.usuario.email;
   }
 
