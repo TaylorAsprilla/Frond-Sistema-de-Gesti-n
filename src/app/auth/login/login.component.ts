@@ -4,8 +4,6 @@ import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import Swal from 'sweetalert2';
 
-declare const gapi: any;
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -25,16 +23,16 @@ export class LoginComponent implements OnInit {
       (res) => console.log(res),
       (err) => console.error(err)
     );
-    console.log();
   }
 
   login() {
+    this.router.navigateByUrl('/dasboard');
     this.usuarioService.login(this.loginForm.value).subscribe(
       (loginUsuario) => {
         if (this.loginForm.get('remember').value) {
-          sessionStorage.setItem('login', this.loginForm.get('login').value);
+          localStorage.setItem('login', this.loginForm.get('login').value);
         } else {
-          sessionStorage.removeItem('login');
+          localStorage.removeItem('login');
         }
         Swal.fire({
           icon: 'success',
@@ -44,7 +42,6 @@ export class LoginComponent implements OnInit {
         });
         // Navegar al Dashboard
         this.router.navigateByUrl('/');
-        console.log(loginUsuario);
       },
       (err) => {
         Swal.fire({ icon: 'error', html: err.error.msg });

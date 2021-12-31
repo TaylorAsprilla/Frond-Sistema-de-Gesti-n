@@ -18,6 +18,7 @@ export class UsuarioModel {
     public segundo_apellido?: string,
     public celular?: string,
     public email?: string,
+    public vacuna?: number,
     public imagen?: string
   ) {}
 
@@ -26,9 +27,9 @@ export class UsuarioModel {
       return this.imagen;
     }
     if (this.imagen) {
-      return `${base_url}/upload/usuarios/${this.imagen}`;
+      return `${base_url}/uploads/usuarios/${this.imagen}`;
     } else {
-      return `${base_url}/upload/usuarios/no-image`;
+      return `${base_url}/uploads/usuarios/no-image.jpg`;
     }
   }
 }
