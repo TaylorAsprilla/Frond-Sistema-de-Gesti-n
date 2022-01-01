@@ -142,7 +142,7 @@
       <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <!-- User image -->
         <li class="user-header bg-primary">
-          <img [src]="imagenUrl" class="img-circle elevation-2" alt="User Image" />
+          <img [src]="imagenUrl" class="img-circle elevation-2" [alt]="primerNombre" />
 
           <p>
             {{ primerNombre }} {{ primerApellido }}
@@ -166,7 +166,7 @@
         </li>
         <!-- Menu Footer-->
         <li class="user-footer">
-          <a href="#" class="btn btn-default btn-flat">Profile</a>
+          <a routerLink="./perfil" class="btn btn-default btn-flat">Perfil</a>
           <a (click)="logout()" class="btn btn-default btn-flat float-right">Cerrar Sesión</a>
         </li>
       </ul>

@@ -15,6 +15,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
     PromesasComponent,
     RxjsComponent,
     NopagefoundComponent,
+    PerfilComponent,
   ],
   exports: [
     DashboardComponent,

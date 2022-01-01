@@ -1,11 +1,10 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginForm } from 'src/app/interfaces/login-form.interface';
 import { RegisterForm } from 'src/app/interfaces/register-form.interface';
-import { UsuarioInterface } from 'src/app/interfaces/usuario.interface';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 
 import { environment } from 'src/environments/environment';
@@ -17,78 +16,78 @@ declare const gapi: any;
   providedIn: 'root',
 })
 export class UsuarioService {
-  public auth2: any;
   public usuario: UsuarioModel;
+  public idUsuario: number;
 
-  constructor(private httpClient: HttpClient, private router: Router, private ngZone: NgZone) {}
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   logout() {
-    sessionStorage.removeItem('token');
-
-    this.auth2.signOut().then(() => {
-      this.ngZone.run(() => {
-        this.router.navigateByUrl('/login');
-      });
-    });
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('/login');
   }
 
   validarToken(): Observable<boolean> {
-    const token = sessionStorage.getItem('token') || '';
+    const token = localStorage.getItem('token') || '';
 
     return this.httpClient
-      .get(`${base_url}/login/renew`, {
+      .get(`${base_url}/login/renew/`, {
         headers: {
           'x-token': token,
         },
       })
       .pipe(
-        map((resp: any) => {
+        map((respuesta: any) => {
           const {
-            primerNombre,
-            primerApellido,
-            numeroDocumento,
-            fechaNacimiento,
-            congregacion,
-            tipoDocumento,
-            genero,
-            login,
-            clave,
-            segundoNombre,
-            segundoApellido,
-            celular,
+            primer_nombre,
+            segundo_nombre,
+            primer_apellido,
+            segundo_apellido,
+            numero_documento,
             email,
-            imagen,
-          } = resp.usuario;
+            celular,
+            fecha_nacimiento,
+            estado,
+            id_congregacion,
+            id_tipoDocumento,
+            id_genero,
+            id_vacuna,
+            login,
+            imagen = '',
+          } = respuesta.usuario;
 
           this.usuario = new UsuarioModel(
-            primerNombre,
-            primerApellido,
-            numeroDocumento,
-            fechaNacimiento,
-            congregacion,
-            tipoDocumento,
-            genero,
+            primer_nombre,
+            primer_apellido,
+            numero_documento,
+            fecha_nacimiento,
+            id_congregacion,
+            id_tipoDocumento,
+            id_genero,
+            estado,
             login,
-            clave,
-            segundoNombre,
-            segundoApellido,
+            '',
+            segundo_nombre,
+            segundo_apellido,
             celular,
             email,
+            id_vacuna,
             imagen
           );
-
-          sessionStorage.setItem('token', resp.token);
+          localStorage.setItem('token', respuesta.token);
           return true;
         }),
 
-        catchError((error) => of(false))
+        catchError((error) => {
+          console.log(error);
+          return of(false);
+        })
       );
   }
 
   crearUsuario(formData: RegisterForm) {
     return this.httpClient.post(`${base_url}/usuarios`, formData).pipe(
       tap((resp: any) => {
-        sessionStorage.setItem('token', resp.token);
+        localStorage.setItem('token', resp.token);
       })
     );
   }
@@ -97,6 +96,7 @@ export class UsuarioService {
     return this.httpClient.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
+        this.idUsuario = resp.usuario.id;
       })
     );
   }
