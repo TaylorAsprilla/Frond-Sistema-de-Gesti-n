@@ -10,9 +10,8 @@ export class AuthGuard implements CanActivate {
   constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const idUsuario = this.usuarioService.usuarioLogiado();
-
-    return this.usuarioService.validarToken(idUsuario).pipe(
+    // this.idUsuario = this.usuarioService.usuarioLogiado();
+    return this.usuarioService.validarToken().pipe(
       tap((estaAutenticado) => {
         if (!estaAutenticado) {
           this.router.navigateByUrl('/login');

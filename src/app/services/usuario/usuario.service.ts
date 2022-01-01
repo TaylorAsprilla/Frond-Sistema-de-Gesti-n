@@ -22,15 +22,15 @@ export class UsuarioService {
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   logout() {
-    sessionStorage.removeItem('token');
+    localStorage.removeItem('token');
     this.router.navigateByUrl('/login');
   }
 
-  validarToken(id: number): Observable<boolean> {
-    const token = sessionStorage.getItem('token') || '';
+  validarToken(): Observable<boolean> {
+    const token = localStorage.getItem('token') || '';
 
     return this.httpClient
-      .get(`${base_url}/login/renew/${id}`, {
+      .get(`${base_url}/login/renew/`, {
         headers: {
           'x-token': token,
         },
@@ -73,7 +73,7 @@ export class UsuarioService {
             id_vacuna,
             imagen
           );
-          sessionStorage.setItem('token', respuesta.token);
+          localStorage.setItem('token', respuesta.token);
           return true;
         }),
 
@@ -87,7 +87,7 @@ export class UsuarioService {
   crearUsuario(formData: RegisterForm) {
     return this.httpClient.post(`${base_url}/usuarios`, formData).pipe(
       tap((resp: any) => {
-        sessionStorage.setItem('token', resp.token);
+        localStorage.setItem('token', resp.token);
       })
     );
   }
@@ -95,14 +95,10 @@ export class UsuarioService {
   login(formData: LoginForm) {
     return this.httpClient.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
-        sessionStorage.setItem('token', resp.token);
+        localStorage.setItem('token', resp.token);
         this.idUsuario = resp.usuario.id;
       })
     );
-  }
-
-  usuarioLogiado(): number {
-    return this.idUsuario;
   }
 
   listarUsuarios() {

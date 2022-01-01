@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   constructor(private router: Router, private formBuilder: FormBuilder, private usuarioService: UsuarioService) {}
 
   public loginForm = this.formBuilder.group({
-    login: [sessionStorage.getItem('login') || '', [Validators.required, Validators.email]],
+    login: [localStorage.getItem('login') || '', [Validators.required, Validators.email]],
     password: ['123456', [Validators.required, Validators.minLength(3)]],
     remember: [false],
   });
