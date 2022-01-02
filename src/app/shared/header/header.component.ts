@@ -9,16 +9,12 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
   styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent implements OnInit {
-  public imagenUrl = '';
-  public primerNombre: string = '';
-  public primerApellido: string = '';
-  public email: string = '';
-
   public usuario: UsuarioModel;
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
     this.usuario = this.usuarioService.usuario;
+    console.log(this.usuario);
   }
 
   logout() {

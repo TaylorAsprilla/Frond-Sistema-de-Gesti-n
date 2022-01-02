@@ -206,13 +206,18 @@
       </div>
 
       <div class="card-body">
-        <img src="" />
+        <div class="text-center">
+          <img *ngIf="!imagenTemporal" [src]="usuario.imagenUrl" class="img-thumbnail" />
+          <img *ngIf="imagenTemporal" [src]="imagenTemporal" class="img-thumbnail" />
+        </div>
 
-        <input type="file" />
-        <br />
+        <div class="mt-4">
+          <input type="file" (change)="cambiarImagen($event.target.files[0])" />
+          <br />
+        </div>
       </div>
       <div class="card-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="perfilForm.invalid">
+        <button type="submit" class="btn btn-primary" [disabled]="!imagenSubir" (click)="subirImagen()">
           <i class="fa fa-save"></i> Cambiar Imagen
         </button>
       </div>

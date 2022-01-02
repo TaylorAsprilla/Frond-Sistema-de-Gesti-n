@@ -11,4 +11,5 @@ export interface UsuarioInterface {
   congregacion: number;
   tipoDocumento: number;
   genero: number;
+  imagen: string;
 }
