@@ -4,6 +4,7 @@ const base_url = environment.base_url;
 
 export class UsuarioModel {
   constructor(
+    public id: string,
     public primer_nombre: string,
     public primer_apellido: string,
     public numero_documento: string,
@@ -20,12 +21,15 @@ export class UsuarioModel {
     public email?: string,
     public vacuna?: number,
     public imagen?: string
-  ) {}
+  ) {
+    console.log('Imagen', imagen);
+  }
 
   get imagenUrl() {
     if (this.imagen.includes('https')) {
       return this.imagen;
     }
+
     if (this.imagen) {
       return `${base_url}/uploads/usuarios/${this.imagen}`;
     } else {

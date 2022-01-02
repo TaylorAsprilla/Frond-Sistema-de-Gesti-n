@@ -5,6 +5,7 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoginForm } from 'src/app/interfaces/login-form.interface';
 import { RegisterForm } from 'src/app/interfaces/register-form.interface';
+import { UsuarioInterface } from 'src/app/interfaces/usuario.interface';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 
 import { environment } from 'src/environments/environment';
@@ -19,7 +20,17 @@ export class UsuarioService {
   public usuario: UsuarioModel;
   public idUsuario: number;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router) {
+    console.log(this.usuario);
+  }
+
+  get token(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  get usuarioId(): string {
+    return this.usuario.id || '';
+  }
 
   logout() {
     localStorage.removeItem('token');
@@ -27,17 +38,16 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean> {
-    const token = localStorage.getItem('token') || '';
-
     return this.httpClient
       .get(`${base_url}/login/renew/`, {
         headers: {
-          'x-token': token,
+          'x-token': this.token,
         },
       })
       .pipe(
         map((respuesta: any) => {
           const {
+            id,
             primer_nombre,
             segundo_nombre,
             primer_apellido,
@@ -56,6 +66,7 @@ export class UsuarioService {
           } = respuesta.usuario;
 
           this.usuario = new UsuarioModel(
+            id,
             primer_nombre,
             primer_apellido,
             numero_documento,
@@ -74,6 +85,7 @@ export class UsuarioService {
             imagen
           );
           localStorage.setItem('token', respuesta.token);
+          console.log('Presuesta usuario', respuesta);
           return true;
         }),
 
@@ -113,7 +125,11 @@ export class UsuarioService {
     return this.httpClient.delete(`${base_url}/usuarios${id}`);
   }
 
-  actualizarUsuario(id: string, usuarioActualizado: UsuarioModel) {
-    return this.httpClient.put(`${base_url}/usuarios${id}`, usuarioActualizado);
+  actualizarUsuario(usuarioActualizado: UsuarioInterface) {
+    return this.httpClient.put(`${base_url}/usuarios/${this.usuarioId}`, usuarioActualizado, {
+      headers: {
+        'x-token': this.token,
+      },
+    });
   }
 }

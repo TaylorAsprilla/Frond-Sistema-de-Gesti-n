@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Modulos propios
 import { SharedModule } from '../shared/shared.module';
@@ -38,6 +38,6 @@ import { PerfilComponent } from './perfil/perfil.component';
     NopagefoundComponent,
   ],
 
-  imports: [CommonModule, FormsModule, SharedModule, RouterModule, ComponentsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, ComponentsModule],
 })
 export class PagesModule {}

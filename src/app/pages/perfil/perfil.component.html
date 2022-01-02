@@ -1,1 +1,226 @@
-<p>perfil works!</p>
+<div class="row">
+  <div class="col-md-6">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Mi perfil de usuario</h3>
+      </div>
+      <!-- /.card-header -->
+      <!-- form start -->
+      <form [formGroup]="perfilForm" (submit)="actualizarPerfil()">
+        <div class="card-body">
+          <div class="form-group">
+            <label for="primer_nombre">Primer Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="primer_nombre"
+              formControlName="primer_nombre"
+              placeholder="Primer Nombre"
+            />
+          </div>
+          <div class="form-group">
+            <label for="segundo_nombre">Segundo Nombre</label>
+            <input
+              type="text"
+              class="form-control"
+              id="segundo_nombre"
+              formControlName="segundo_nombre"
+              placeholder="Segundo Nombre"
+            />
+          </div>
+          <div class="form-group">
+            <label for="primer_apellido">Primer Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="primer_apellido"
+              formControlName="primer_apellido"
+              placeholder="Primer Apellido"
+            />
+          </div>
+          <div class="form-group">
+            <label for="segundo_apellido">Segundo Apellido</label>
+            <input
+              type="text"
+              class="form-control"
+              id="segundo_apellido"
+              formControlName="segundo_apellido"
+              placeholder="Segundo Apellido"
+            />
+          </div>
+          <div class="form-group">
+            <label for="id_tipoDocumento">Tipo de Documento</label>
+            <div class="input-group mb-3">
+              <select class="form-control" formControlName="id_tipoDocumento" placeholder="Tipo Documento">
+                <option value="" disabled>Seleccione un tipo de documento</option>
+                <option value="1">Cédula de Ciudadanía</option>
+                <option value="2">Cédula de Extranjería</option>
+                <option value="3">Pasaporte</option>
+                <option value="4">Tarjeta de Identidad</option>
+                <option value="5">Registro Civil</option>
+              </select>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="numeroDocumento">Número de Documento</label>
+            <div class="input-group mb-3">
+              <input
+                type="numeroDocumento"
+                class="form-control"
+                formControlName="numero_documento"
+                placeholder="Número de Documento"
+                required
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+
+            <div class="input-group mb-3">
+              <input
+                type="date"
+                class="form-control"
+                formControlName="fecha_nacimiento"
+                placeholder="Fecha de Nacimiento"
+                required
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="email">Correo Electrónico</label>
+            <div class="input-group mb-3">
+              <input
+                type="email"
+                class="form-control"
+                formControlName="email"
+                placeholder="Correo Electrónico"
+                required
+              />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="celular">Número de Celular</label>
+
+            <div class="input-group mb-3">
+              <input type="number" class="form-control" formControlName="celular" placeholder="Número de Celular" />
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-envelope"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="id_congregacion">Congregación</label>
+            <div class="input-group mb-3">
+              <select class="form-control" formControlName="id_congregacion" placeholder="Congregación">
+                <option value="" disabled>Seleccione la Congregación</option>
+                <option value="1">Bogotá</option>
+                <option value="2">Buenaventura</option>
+                <option value="3">Buga</option>
+                <option value="4">Bugalagrande</option>
+                <option value="5">Cabuyal</option>
+                <option value="6">Cali</option>
+              </select>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="id_genero">Género</label>
+            <div class="input-group mb-3">
+              <select class="form-control" formControlName="id_genero" placeholder="Género">
+                <option value="" disabled>Seleccione el género</option>
+                <option value="1">Femenino</option>
+                <option value="2">Masculino</option>
+              </select>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="id_vacuna">Vacuna</label>
+            <div class="input-group mb-3">
+              <select class="form-control" formControlName="id_vacuna" placeholder="Vacuna">
+                <option value="" disabled>Seleccione la Vacuna</option>
+                <option value="1">Moderna</option>
+                <option value="2">Sinovac</option>
+                <option value="3">Pfizer</option>
+                <option value="4">Johnson & Johnson</option>
+                <option value="5">AstraZeneca</option>
+                <option value="6">Sin Vacuna</option>
+              </select>
+              <div class="input-group-append">
+                <div class="input-group-text">
+                  <span class="fas fa-user"></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /.card-body -->
+
+        <div class="card-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="perfilForm.invalid">
+            <i class="fa fa-save"></i> Guardar Cambios
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card card-primary">
+      <div class="card-header">
+        <h3 class="card-title">Imagen de usuario</h3>
+      </div>
+
+      <div class="card-body">
+        <div class="text-center">
+          <img *ngIf="!imagenTemporal" [src]="usuario.imagenUrl" class="img-thumbnail" />
+          <img *ngIf="imagenTemporal" [src]="imagenTemporal" class="img-thumbnail" />
+        </div>
+
+        <div class="mt-4">
+          <input type="file" (change)="cambiarImagen($event.target.files[0])" />
+          <br />
+        </div>
+      </div>
+      <div class="card-footer">
+        <button type="submit" class="btn btn-primary" [disabled]="!imagenSubir" (click)="subirImagen()">
+          <i class="fa fa-save"></i> Cambiar Imagen
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

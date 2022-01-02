@@ -10,6 +10,7 @@ export class SidebarService {
       icono: 'fas fa-angle-left',
       submenu: [
         { titulo: 'Main', url: '/' },
+        { titulo: 'Perfil', url: 'perfil' },
         { titulo: 'ProgressBar', url: 'progress' },
         { titulo: 'Grafica1', url: 'grafica1' },
         { titulo: 'Promesas', url: 'promesas' },
