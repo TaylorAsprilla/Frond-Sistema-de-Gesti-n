@@ -26,11 +26,11 @@ export class UsuarioModel {
   }
 
   get imagenUrl() {
-    if (this.imagen.includes('https')) {
+    if (!this.imagen) {
+      return `${base_url}/uploads/usuarios/no-image.jpg`;
+    } else if (this.imagen.includes('https')) {
       return this.imagen;
-    }
-
-    if (this.imagen) {
+    } else if (this.imagen) {
       return `${base_url}/uploads/usuarios/${this.imagen}`;
     } else {
       return `${base_url}/uploads/usuarios/no-image.jpg`;

@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth/auth.guard';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
@@ -51,6 +52,13 @@ const routes: Routes = [
         path: 'perfil',
         component: PerfilComponent,
         data: { titulo: 'Perfil de usuario' },
+      },
+
+      // Administración
+      {
+        path: 'usuarios',
+        component: UsuariosComponent,
+        data: { titulo: 'Usuarios Registrados' },
       },
     ],
   },
