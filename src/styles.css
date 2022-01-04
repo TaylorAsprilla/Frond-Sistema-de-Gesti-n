@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+.w100 {
+  width: 100px;
+}
+
+.avatar {
+  border-radius: 100%;
+  width: 50px;
+}

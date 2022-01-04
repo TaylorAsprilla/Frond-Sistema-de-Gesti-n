@@ -16,6 +16,8 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
+import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     RxjsComponent,
     NopagefoundComponent,
     PerfilComponent,
+    UsuariosComponent,
+    MinisteriosComponent,
   ],
   exports: [
     DashboardComponent,

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
+import { ListarUsuario } from 'src/app/interfaces/listar-usuario.interface';
 import { LoginForm } from 'src/app/interfaces/login-form.interface';
 import { RegisterForm } from 'src/app/interfaces/register-form.interface';
 import { UsuarioInterface } from 'src/app/interfaces/usuario.interface';
@@ -11,7 +12,6 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
-declare const gapi: any;
 
 @Injectable({
   providedIn: 'root',
@@ -30,6 +30,14 @@ export class UsuarioService {
 
   get usuarioId(): string {
     return this.usuario.id || '';
+  }
+
+  get headers() {
+    return {
+      headers: {
+        'x-token': this.token,
+      },
+    };
   }
 
   logout() {
@@ -113,16 +121,42 @@ export class UsuarioService {
     );
   }
 
-  listarUsuarios() {
-    return this.httpClient.get(`${base_url}/usuarios`);
+  listarUsuarios(desde: number = 0) {
+    return this.httpClient.get<ListarUsuario>(`${base_url}/usuarios?desde=${desde}`, this.headers).pipe(
+      map((usuariosRespuesta) => {
+        const usuarios = usuariosRespuesta.usuarios.map(
+          (usuario) =>
+            new UsuarioModel(
+              usuario.id,
+              usuario.primer_nombre,
+              usuario.primer_apellido,
+              usuario.numero_documento,
+              usuario.fecha_nacimiento,
+              usuario.congregacion,
+              usuario.tipo_documento,
+              usuario.genero,
+              usuario.estado,
+              usuario.login,
+              usuario.password,
+              usuario.segundo_nombre,
+              usuario.segundo_apellido,
+              usuario.celular,
+              usuario.email,
+              usuario.vacuna,
+              usuario.imagen
+            )
+        );
+        return { totalUsuarios: usuariosRespuesta.totalUsuarios, usuarios };
+      })
+    );
   }
 
   getUsuario(id: string) {
     return this.httpClient.get(`${base_url}/usuarios${id}`);
   }
 
-  eliminarUsuario(id: string) {
-    return this.httpClient.delete(`${base_url}/usuarios${id}`);
+  eliminarUsuario(usuario: UsuarioModel) {
+    return this.httpClient.delete(`${base_url}/usuarios/${usuario.id}`, this.headers);
   }
 
   actualizarUsuario(usuarioActualizado: UsuarioInterface) {

@@ -1,0 +1,127 @@
+<section class="content">
+  <div class="row animate__fadeIn animate__slow">
+    <div class="col-12">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"></h3>
+        </div>
+        <div class="card-body">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar Usuario"
+            (keyup)="buscarUsuario(termino.value)"
+            #termino
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Default box -->
+  <div class="row animate__fadeIn animate__slow" *ngIf="cargando">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        <h4 class="alert-heading">Cargando</h4>
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+        <p class="mb-0">Por favor espere</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card animate__fadeIn animate__slow" *ngIf="!cargando">
+    <div class="card-header">
+      <h3 class="card-title">Total de usuarios registrados: {{ totalUsuarios }}</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th class="w100">Imagen</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th class="w100">Fecha de Nacimiento</th>
+              <th>Tipo de Documento</th>
+              <th>Número de documento</th>
+              <th>Vacunación</th>
+              <th>Ministerio</th>
+              <th class="w100">Congregación</th>
+              <th class="w100">Estado</th>
+              <th class="w100">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let usuario of usuarios">
+              <td class="text-center">
+                <img
+                  [src]="usuario.imagenUrl"
+                  alt="{{ usuario.primer_nombre }}"
+                  class="avatar pointer"
+                  (click)="cambiarImagen(usuario)"
+                />
+              </td>
+              <td>
+                {{ usuario.primer_nombre }} {{ usuario.segundo_nombre }} {{ usuario.primer_apellido }}
+                {{ usuario.segundo_apellido }}
+              </td>
+              <td>{{ usuario.email }}</td>
+              <td>{{ usuario.fecha_nacimiento }}</td>
+              <td>{{ usuario.id_tipoDocumento }}</td>
+              <td>{{ usuario.numero_documento }}</td>
+              <td>{{ usuario.id_vacuna }}</td>
+              <td>{{ usuario.id_ministerio }}</td>
+              <td>
+                <span class="badge badge-primary">Congregación</span>
+                <span class="badge badge-info">Campo</span>
+
+                {{ usuario.id_congregacion }}
+              </td>
+
+              <td>
+                <span *ngIf="usuario.estado" class="badge badge-primary">Activo</span>
+                <span *ngIf="!usuario.estado" class="badge badge-danger">Deshabilitado</span>
+
+                {{ usuario.id_congregacion }}
+              </td>
+              <td class="text-center">
+                <a href="#" data-toggle="tooltip" data-original-title="Editar" class="btn bg-info"
+                  ><i class="fas fa-pencil-alt"></i
+                ></a>
+
+                <a
+                  data-toggle="tooltip"
+                  data-original-title="Borrar"
+                  class="btn bg-danger"
+                  (click)="eliminarUsuario(usuario)"
+                  ><i class="fas fa-trash-alt"></i
+                ></a>
+              </td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th class="w100">Imagen</th>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Fecha de Nacimiento</th>
+              <th>Tipo de Documento</th>
+              <th>Número de documento</th>
+              <th>Vacunación</th>
+              <th>Ministerio</th>
+              <th>Congregación</th>
+              <th class="w100">Estado</th>
+              <th class="w100">Acciones</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div class="md-4 py-2 pl-4" *ngIf="termino.value.length === 0">
+      <button class="btn btn-secondary" (click)="cambiarPagina(-5)">Anterior</button> &nbsp;
+      <button class="btn btn-secondary" (click)="cambiarPagina(5)">Siguiente</button>
+    </div>
+  </div>
+</section>
