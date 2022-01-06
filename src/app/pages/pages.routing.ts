@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth/auth.guard';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
@@ -59,6 +60,11 @@ const routes: Routes = [
         path: 'usuarios',
         component: UsuariosComponent,
         data: { titulo: 'Usuarios Registrados' },
+      },
+      {
+        path: 'ministerios',
+        component: MinisteriosComponent,
+        data: { titulo: 'Ministerios' },
       },
     ],
   },

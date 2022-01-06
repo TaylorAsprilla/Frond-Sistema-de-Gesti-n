@@ -1,5 +1,5 @@
 <section class="content">
-  <div class="row animate__fadeIn animate__slow">
+  <div class="row animate__animated animate__fadeIn animate__slow">
     <div class="col-12">
       <!-- Default box -->
       <div class="card">
@@ -20,7 +20,7 @@
   </div>
 
   <!-- Default box -->
-  <div class="row animate__fadeIn animate__slow" *ngIf="cargando">
+  <div class="row animate__animated animate__fadeIn animate__slow" *ngIf="cargando">
     <div class="col-12">
       <div class="alert alert-info text-center">
         <h4 class="alert-heading">Cargando</h4>
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <div class="card animate__fadeIn animate__slow" *ngIf="!cargando">
+  <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
     <div class="card-header">
       <h3 class="card-title">Total de usuarios registrados: {{ totalUsuarios }}</h3>
     </div>

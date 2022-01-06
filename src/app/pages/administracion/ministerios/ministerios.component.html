@@ -1,1 +1,126 @@
-<p>ministerios works!</p>
+<section class="content">
+  <div class="row animated fadeIn fast">
+    <div class="col-12">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"></h3>
+        </div>
+        <div class="card-body">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Buscar Usuario"
+            (keyup)="buscarMinisterio(txtTermino.value)"
+            #txtTermino
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Default box -->
+  <div class="row animate__animated animate__fadeIn animate__slow" *ngIf="cargando">
+    <div class="col-12">
+      <div class="alert alert-info text-center">
+        <h4 class="alert-heading">Cargando</h4>
+        <i class="fa fa-spinner fa-spin fa-2x"></i>
+        <p class="mb-0">Por favor espere</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-8">
+          <h3 class="card-title">Ministerios ({{ ministerios.length }})</h3>
+          <p>Ministerios registrados en la aplicación</p>
+        </div>
+        <div class="col">
+          <div class="text-right">
+            <button (click)="crearMinisterio()" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Crear Ministerio
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body animate__animated animate__fadeIn animate__slow">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="w100">Logo</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th class="w100">Estado</th>
+            <th class="w200">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ministerio of ministerios">
+            <td>
+              <img
+                [src]="ministerio.logo | imagen: 'ministerios'"
+                [alt]="ministerio.nombre"
+                class="avatar pointer"
+                (click)="cambiarLogo(ministerio)"
+              />
+            </td>
+
+            <td class="text-center">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Nombre del ministerio"
+                [(ngModel)]="ministerio.nombre"
+                disabled="editar"
+              />
+            </td>
+            <td>
+              <input type="text" class="form-control" placeholder="Descripción" [(ngModel)]="ministerio.descripcion" />
+            </td>
+            <td>
+              <span *ngIf="ministerio.estado" class="badge badge-primary">Activo</span>
+              <span *ngIf="!ministerio.estado" class="badge badge-danger">Deshabilitado</span>
+            </td>
+
+            <td class="text-center">
+              <a
+                (click)="guardarCambios(ministerio)"
+                data-toggle="tooltip"
+                data-original-title="Guardar"
+                class="btn bg-primary"
+                ><i class="fas fa-save"></i
+              ></a>
+              <a data-toggle="tooltip" data-original-title="Editar" class="btn bg-info"
+                ><i class="fas fa-pencil-alt"></i
+              ></a>
+              <a
+                (click)="elimininarMinisterio(ministerio)"
+                data-toggle="tooltip"
+                data-original-title="Borrar"
+                class="btn bg-danger"
+                ><i class="fas fa-trash-alt"></i
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th>Logo</th>
+            <th>Nombre</th>
+            <th>Descripción</th>
+            <th class="w100">Estado</th>
+            <th>Acciones</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="md-4 py-2 pl-4">
+      <button class="btn btn-secondary">Siguiente</button> &nbsp;
+      <button class="btn btn-secondary">Anterior</button>
+    </div>
+  </div>
+</section>

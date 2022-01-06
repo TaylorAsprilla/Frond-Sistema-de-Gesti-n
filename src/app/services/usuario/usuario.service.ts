@@ -20,9 +20,7 @@ export class UsuarioService {
   public usuario: UsuarioModel;
   public idUsuario: number;
 
-  constructor(private httpClient: HttpClient, private router: Router) {
-    console.log(this.usuario);
-  }
+  constructor(private httpClient: HttpClient, private router: Router) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';

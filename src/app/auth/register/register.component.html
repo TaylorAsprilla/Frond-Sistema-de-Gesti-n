@@ -129,14 +129,30 @@
           </div>
 
           <div class="input-group mb-3">
-            <select class="form-control" formControlName="id_congregacion" placeholder="Congregación">
+            <select
+              class="form-control"
+              formControlName="id_congregacion"
+              (change)="listarCampos(txtCongregacion.value)"
+              #txtCongregacion
+            >
               <option value="" disabled>Seleccione la Congregación</option>
-              <option value="1">Bogotá</option>
-              <option value="2">Buenaventura</option>
-              <option value="3">Buga</option>
-              <option value="4">Bugalagrande</option>
-              <option value="5">Cabuyal</option>
-              <option value="6">Cali</option>
+              <option *ngFor="let congregacion of congregaciones" [value]="congregacion.id">
+                {{ congregacion.nombre }}
+              </option>
+            </select>
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="input-group mb-3" *ngIf="camposFiltrados.length > 0">
+            <select class="form-control" formControlName="campo">
+              <option value="" disabled>Seleccione el campo al que pertenece</option>
+              <option *ngFor="let campo of camposFiltrados" [value]="campo.id">
+                {{ campo.nombre }}
+              </option>
             </select>
             <div class="input-group-append">
               <div class="input-group-text">

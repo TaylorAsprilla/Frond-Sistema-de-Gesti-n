@@ -18,6 +18,7 @@ import { NopagefoundComponent } from './nopagefound/nopagefound.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,6 @@ import { MinisteriosComponent } from './administracion/ministerios/ministerios.c
     NopagefoundComponent,
   ],
 
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, ComponentsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, ComponentsModule, PipesModule],
 })
 export class PagesModule {}
