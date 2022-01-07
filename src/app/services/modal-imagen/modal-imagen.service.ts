@@ -18,15 +18,22 @@ export class ModalImagenService {
     return this._ocultarModal;
   }
 
+  get imagenUrl() {
+    if (this.imagen) {
+      return this.imagen;
+    } else {
+      return `${base_url}/uploads/usuarios/no-image.jpg`;
+    }
+  }
+
   abrirModal(id: string, tipo: 'usuarios' | 'ministerios', imagen: string = 'no-image.jpg') {
-    console.log('Imagen', imagen, tipo);
     this.id = id;
     this.imagen = imagen;
     this._ocultarModal = false;
     this.tipo = tipo;
 
-    if (imagen.includes('https')) {
-      this.imagen = imagen;
+    if (imagen === null || !imagen) {
+      return `${base_url}/uploads/usuarios/no-image.jpg`;
     } else {
       this.imagen = `${base_url}/uploads/${tipo}/${imagen}`;
     }

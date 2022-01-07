@@ -21,15 +21,11 @@ export class UsuarioModel {
     public email?: string,
     public vacuna?: number,
     public imagen?: string
-  ) {
-    console.log('Imagen', imagen);
-  }
+  ) {}
 
   get imagenUrl() {
     if (!this.imagen) {
       return `${base_url}/uploads/usuarios/no-image.jpg`;
-    } else if (this.imagen.includes('https')) {
-      return this.imagen;
     } else if (this.imagen) {
       return `${base_url}/uploads/usuarios/${this.imagen}`;
     } else {

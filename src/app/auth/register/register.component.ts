@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { Router } from '@angular/router';
+import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
+import { Subscription } from 'rxjs';
+import { CongregacionModel } from 'src/app/models/congregacion.model';
+import { CampoService } from 'src/app/services/campo/campo.service';
+import { CampoModel } from 'src/app/models/campo.model';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, OnDestroy {
   public formSubmitted: boolean = false;
   public registerForm = this.formBuilder.group(
     {
@@ -26,6 +31,7 @@ export class RegisterComponent implements OnInit {
       id_vacuna: ['', [Validators.required]],
       imagen: ['', []],
       id_congregacion: ['', [Validators.required]],
+      campo: ['', [Validators.required]],
       terminos: [true, [Validators.required]],
     }
     // {
@@ -33,9 +39,46 @@ export class RegisterComponent implements OnInit {
     // }
   );
 
-  constructor(private formBuilder: FormBuilder, private usuarioService: UsuarioService, private router: Router) {}
+  // congregacionSeleccionada: CongregacionModel;
+  congregaciones: CongregacionModel[];
+  congregacionSeleccionada: number;
+  campos: CampoModel[];
+  camposFiltrados: CampoModel[] = [];
 
-  ngOnInit(): void {}
+  congregacionSubscription: Subscription;
+  campoSubscription: Subscription;
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private usuarioService: UsuarioService,
+    private router: Router,
+    private congregacionService: CongregacionService,
+    private campoService: CampoService
+  ) {}
+
+  ngOnInit(): void {
+    this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregacion) => {
+      this.congregaciones = congregacion;
+    });
+
+    this.campoSubscription = this.campoService.listarCampos().subscribe((campos: CampoModel[]) => {
+      this.campos = campos;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.congregacionSubscription.unsubscribe();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (!!changes.itemSeleccionado) {
+      //   this.itemSeleccionado =
+      //     changes.itemSeleccionado.currentValue instanceof PoModel
+      //       ? changes.itemSeleccionado.currentValue.itemParentId
+      //       : changes.itemSeleccionado.currentValue;
+      // }
+    }
+  }
 
   crearUsuario() {
     this.formSubmitted = true;
@@ -68,5 +111,9 @@ export class RegisterComponent implements OnInit {
 
   aceptaTerminos() {
     return !this.registerForm.get('terminos').value && this.formSubmitted;
+  }
+
+  listarCampos(congregacion: string) {
+    this.camposFiltrados = this.campos.filter((campoBuscar) => campoBuscar.id_congregacion === parseInt(congregacion));
   }
 }

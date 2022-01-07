@@ -21,7 +21,7 @@
           <p>Selecciones una imagen</p>
 
           <div class="text-center">
-            <img *ngIf="!imagenTemporal" [src]="modalImagenServices.imagen" class="img-thumbnail" />
+            <img *ngIf="!imagenTemporal" [src]="modalImagenServices.imagenUrl" class="img-thumbnail" />
             <img *ngIf="imagenTemporal" [src]="imagenTemporal" class="img-thumbnail" />
           </div>
 

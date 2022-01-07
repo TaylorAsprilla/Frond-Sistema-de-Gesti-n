@@ -2,3 +2,7 @@
 .register-page {
   height: auto;
 }
+.login-box,
+.register-box {
+  width: 50%;
+}

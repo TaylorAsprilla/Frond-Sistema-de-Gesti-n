@@ -49,7 +49,6 @@ export class PerfilComponent implements OnInit {
         this.usuario.primer_nombre = primer_nombre;
         this.usuario.primer_apellido = primer_apellido;
         this.usuario.email = email;
-        console.log('usuarioActualizado', usuarioActualizado);
 
         Swal.fire('Guardado', 'Los datos del usuario se actualizaron', 'success');
       },
