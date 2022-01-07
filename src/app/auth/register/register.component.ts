@@ -59,7 +59,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregacion) => {
       this.congregaciones = congregacion;
-      console.log(this.congregaciones && this.congregacionSeleccionada);
     });
 
     this.campoSubscription = this.campoService.listarCampos().subscribe((campos: CampoModel[]) => {
@@ -72,7 +71,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log(changes);
     if (!!changes.itemSeleccionado) {
       //   this.itemSeleccionado =
       //     changes.itemSeleccionado.currentValue instanceof PoModel

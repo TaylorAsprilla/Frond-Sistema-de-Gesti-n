@@ -10,30 +10,31 @@ export class SidebarService {
       icono: 'fas fa-home',
       submenu: [
         { titulo: 'Main', url: '/' },
-        { titulo: 'Perfil', url: 'perfil' },
+
         { titulo: 'ProgressBar', url: 'progress' },
-        { titulo: 'Grafica1', url: 'grafica1' },
-        { titulo: 'Promesas', url: 'promesas' },
-        { titulo: 'RXJS', url: 'rxjs' },
+        // { titulo: 'Grafica1', url: 'grafica1' },
+        // { titulo: 'Promesas', url: 'promesas' },
+        // { titulo: 'RXJS', url: 'rxjs' },
       ],
     },
-    {
-      titulo: 'Vacunación',
-      icono: 'fas fa-notes-medical',
-      submenu: [
-        { titulo: 'Registro', url: '/' },
-        { titulo: 'Validación', url: 'validacion' },
-        { titulo: 'Grafica1', url: 'grafica1' },
-      ],
-    },
+    // {
+    //   titulo: 'Vacunación',
+    //   icono: 'fas fa-notes-medical',
+    //   submenu: [
+    //     { titulo: 'Validación', url: 'validacion' },
+    //     { titulo: 'Grafica1', url: 'grafica1' },
+    //   ],
+    // },
     {
       titulo: 'Administración',
       icono: 'fas fa-user-lock',
       submenu: [
+        { titulo: 'Perfil', url: 'perfil' },
         { titulo: 'Usuarios', url: 'usuarios' },
+        { titulo: 'Registro', url: '../registro' },
         { titulo: 'Ministerios', url: 'ministerios' },
-        { titulo: 'Vacunas', url: 'vacunas' },
-        { titulo: 'Permisos', url: 'permisos' },
+        // { titulo: 'Vacunas', url: 'vacunas' },
+        // { titulo: 'Permisos', url: 'permisos' },
       ],
     },
   ];

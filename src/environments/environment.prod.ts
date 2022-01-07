@@ -2,5 +2,5 @@
 
 export const environment = {
   production: true,
-  base_url: 'https://congregacionmitacol.org/sistemaGestion/node',
+  base_url: 'https://congregacionmitacol.org/sistemagestion/node/',
 };

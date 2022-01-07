@@ -91,7 +91,6 @@ export class UsuarioService {
             imagen
           );
           localStorage.setItem('token', respuesta.token);
-          console.log('Presuesta usuario', respuesta);
           return true;
         }),
 
