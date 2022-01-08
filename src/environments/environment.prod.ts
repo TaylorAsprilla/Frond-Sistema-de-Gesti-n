@@ -2,5 +2,5 @@
 
 export const environment = {
   production: true,
-  base_url: 'https://congregacionmitacol.org/sistemagestion/node/',
+  base_url: 'https://serve-cma.herokuapp.com',
 };

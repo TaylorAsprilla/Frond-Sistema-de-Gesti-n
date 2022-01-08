@@ -13,21 +13,24 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sistemaGestion",
+            "outputPath": "dist/sistemagestion",
             "index": "src/index.html",
+            "extractCss": false,
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
             "aot": true,
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "./src/favicon.ico",
+              "./src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./src/styles.css"
             ],
             "scripts": [
-
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./src/assets/js/bootstrap.bundle.min.js",
+              "./src/assets/js/adminlte.min.js"
             ]
           },
           "configurations": {
@@ -57,7 +60,8 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "index": "src/prod/index.html"
             }
           }
         },
@@ -86,13 +90,17 @@
             "tsConfig": "tsconfig.spec.json",
             "karmaConfig": "karma.conf.js",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "./src/favicon.ico",
+              "./src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "./src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./src/assets/js/bootstrap.bundle.min.js",
+              "./src/assets/js/adminlte.min.js"
+            ]
           }
         },
         "lint": {
