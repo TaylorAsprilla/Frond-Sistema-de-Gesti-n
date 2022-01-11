@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
-
+declare var $: any;
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,5 +18,9 @@ export class HeaderComponent implements OnInit {
 
   logout() {
     this.usuarioService.logout();
+  }
+
+  changeStatusMenu() {
+    $('[data-widget="pushmenu"]').PushMenu('toggle');
   }
 }
