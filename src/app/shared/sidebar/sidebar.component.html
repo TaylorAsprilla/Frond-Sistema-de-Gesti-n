@@ -40,8 +40,8 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li *ngFor="let menuItem of menuItems" class="nav-item">
-          <a href="#" class="nav-link">
+        <li *ngFor="let menuItem of menuItems" class="nav-item" aria-expanded="false">
+          <a href="#" class="nav-link" data-toggle="collapse">
             <i class="nav-icon {{ menuItem.icono }}"></i>
             <p>
               {{ menuItem.titulo }}

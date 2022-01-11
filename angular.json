@@ -30,7 +30,7 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./src/assets/js/bootstrap.bundle.min.js",
-              "./src/assets/js/adminlte.min.js"
+              "./node_modules/admin-lte/dist/js/adminlte.js"
             ]
           },
           "configurations": {
@@ -99,7 +99,7 @@
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
               "./src/assets/js/bootstrap.bundle.min.js",
-              "./src/assets/js/adminlte.min.js"
+              "./node_modules/admin-lte/dist/js/adminlte.js"
             ]
           }
         },
