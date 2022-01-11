@@ -16,7 +16,8 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img [src]="usuario.imagenUrl" class="img-circle elevation-2" [alt]="usuario.primer_nombre" />
+        <!-- <img [src]="usuario.imagenUrl" class="img-circle elevation-2" [alt]="usuario.primer_nombre" /> -->
+        <img src="../../../assets/imagenes/avatar5.png" class="img-circle elevation-2" [alt]="usuario.primer_nombre" />
       </div>
       <div class="info">
         <a routerLink="./perfil" class="d-block">{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</a>
@@ -40,8 +41,8 @@
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-        <li *ngFor="let menuItem of menuItems" class="nav-item">
-          <a href="#" class="nav-link">
+        <li *ngFor="let menuItem of menuItems" class="nav-item" aria-expanded="false">
+          <a href="#" class="nav-link" data-toggle="collapse">
             <i class="nav-icon {{ menuItem.icono }}"></i>
             <p>
               {{ menuItem.titulo }}
