@@ -207,8 +207,11 @@
 
       <div class="card-body">
         <div class="text-center">
-          <img *ngIf="!imagenTemporal" [src]="usuario.imagenUrl" class="img-thumbnail" />
-          <img *ngIf="imagenTemporal" [src]="imagenTemporal" class="img-thumbnail" />
+          <!-- <img *ngIf="!imagenTemporal" [src]="usuario.imagenUrl" class="img-thumbnail" />
+          <img *ngIf="imagenTemporal" [src]="imagenTemporal" class="img-thumbnail" /> -->
+
+          <img *ngIf="!imagenTemporal" src="../../../assets/imagenes/avatar5.png" class="img-thumbnail" />
+          <img *ngIf="imagenTemporal" src="../../../assets/imagenes/avatar5.png" class="img-thumbnail" />
         </div>
 
         <div class="mt-4">
