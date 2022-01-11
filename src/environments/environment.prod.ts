@@ -2,5 +2,5 @@
 
 export const environment = {
   production: true,
-  base_url: 'https://serve-cma.herokuapp.com',
+  base_url: 'https://serve-cma.herokuapp.com/api/',
 };
