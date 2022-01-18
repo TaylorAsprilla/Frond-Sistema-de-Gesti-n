@@ -59,14 +59,13 @@
             </div>
           </div>
           <div class="input-group mb-3">
-            <select class="form-control" formControlName="id_tipoDocumento" placeholder="Tipo Documento">
+            <select class="form-control" formControlName="id_tipoDocumento">
               <option value="" disabled>Seleccione un tipo de documento</option>
-              <option value="1">Cédula de Ciudadanía</option>
-              <option value="2">Cédula de Extranjería</option>
-              <option value="3">Pasaporte</option>
-              <option value="4">Tarjeta de Identidad</option>
-              <option value="5">Registro Civil</option>
+              <option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.id">
+                {{ tipoDocumento.nombre }}
+              </option>
             </select>
+
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
@@ -175,15 +174,13 @@
           </div>
 
           <div class="input-group mb-3">
-            <select class="form-control" formControlName="id_vacuna" placeholder="Vacuna">
-              <option value="" disabled>Seleccione la Vacuna</option>
-              <option value="1">Moderna</option>
-              <option value="2">Sinovac</option>
-              <option value="3">Pfizer</option>
-              <option value="4">Johnson & Johnson</option>
-              <option value="5">AstraZeneca</option>
-              <option value="6">Sin Vacuna</option>
+            <select class="form-control" formControlName="id_vacuna">
+              <option value="" disabled>Seleccione la vacuna</option>
+              <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
+                {{ vacuna.nombre }}
+              </option>
             </select>
+
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>

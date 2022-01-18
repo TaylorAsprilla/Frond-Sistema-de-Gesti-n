@@ -56,14 +56,8 @@
           <tbody>
             <tr *ngFor="let usuario of usuarios">
               <td class="text-center">
-                <!-- <img
-                  [src]="usuario.imagenUrl"
-                  alt="{{ usuario.primer_nombre }}"
-                  class="avatar pointer"
-                  (click)="cambiarImagen(usuario)"
-                /> -->
                 <img
-                  src="../../../assets/imagenes/avatar5.png"
+                  [src]="usuario.imagenUrl"
                   alt="{{ usuario.primer_nombre }}"
                   class="avatar pointer"
                   (click)="cambiarImagen(usuario)"
