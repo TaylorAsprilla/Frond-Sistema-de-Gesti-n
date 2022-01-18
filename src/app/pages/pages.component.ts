@@ -1,12 +1,11 @@
-import { Component, OnInit } from "@angular/core";
-import { SettingsService } from "../services/settings/settings.service";
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: "app-pages",
-  templateUrl: "./pages.component.html",
+  selector: 'app-pages',
+  templateUrl: './pages.component.html',
 })
 export class PagesComponent implements OnInit {
-  constructor(private settingsService: SettingsService) {}
+  constructor() {}
 
   ngOnInit(): void {}
 }

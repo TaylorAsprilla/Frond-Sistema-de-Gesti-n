@@ -12,6 +12,8 @@ import { TipoDocumentoModel } from 'src/app/models/tipo-documento.model';
 import { TipoDocumentoService } from 'src/app/services/tipo-documento/tipo-documento.service';
 import { VacunaService } from 'src/app/services/vacuna/vacuna.service';
 import { VacunaModel } from 'src/app/models/vacuna.model';
+import { GeneroModel } from 'src/app/models/genero.model';
+import { GeneroService } from 'src/app/services/genero/genero.service';
 
 @Component({
   selector: 'app-register',
@@ -49,11 +51,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
   camposFiltrados: CampoModel[] = [];
   tipoDocumentos: TipoDocumentoModel[];
   vacunas: VacunaModel[];
+  generos: GeneroModel[];
 
   congregacionSubscription: Subscription;
   campoSubscription: Subscription;
   tipoDocumentoSubscription: Subscription;
   vacunaSubscription: Subscription;
+  generoSubscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -62,7 +66,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private congregacionService: CongregacionService,
     private campoService: CampoService,
     private tipoDocumentoService: TipoDocumentoService,
-    private vacunaService: VacunaService
+    private vacunaService: VacunaService,
+    private generoService: GeneroService
   ) {}
 
   ngOnInit(): void {
@@ -83,6 +88,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.vacunaSubscription = this.vacunaService.listarVacunas().subscribe((vacuna: VacunaModel[]) => {
       this.vacunas = vacuna;
     });
+
+    this.generoSubscription = this.generoService.listarGenero().subscribe((genero: GeneroModel[]) => {
+      this.generos = genero;
+    });
   }
 
   ngOnDestroy(): void {
@@ -90,6 +99,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.campoSubscription.unsubscribe();
     this.tipoDocumentoSubscription.unsubscribe();
     this.vacunaSubscription.unsubscribe();
+    this.generoSubscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

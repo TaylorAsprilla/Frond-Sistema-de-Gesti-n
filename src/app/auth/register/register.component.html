@@ -161,11 +161,13 @@
           </div>
 
           <div class="input-group mb-3">
-            <select class="form-control" formControlName="id_genero" placeholder="Género">
+            <select class="form-control" formControlName="id_genero">
               <option value="" disabled>Seleccione el género</option>
-              <option value="1">Femenino</option>
-              <option value="2">Masculino</option>
+              <option *ngFor="let genero of generos" [value]="genero.id">
+                {{ genero.nombre }}
+              </option>
             </select>
+
             <div class="input-group-append">
               <div class="input-group-text">
                 <span class="fas fa-user"></span>
