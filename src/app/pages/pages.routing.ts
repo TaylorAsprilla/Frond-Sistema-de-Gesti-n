@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth/auth.guard';
-import { AccountSettingsComponent } from './account-settings/account-settings.component';
+
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -34,11 +34,7 @@ const routes: Routes = [
         component: Grafica1Component,
         data: { titulo: 'Gráfica # 1' },
       },
-      {
-        path: 'account-settings',
-        component: AccountSettingsComponent,
-        data: { titulo: 'Cuenta' },
-      },
+
       {
         path: 'promesas',
         component: PromesasComponent,

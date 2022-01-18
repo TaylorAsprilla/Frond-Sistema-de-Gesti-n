@@ -20,3 +20,7 @@
 .pointer {
   cursor: pointer;
 }
+
+.sidebar-mini {
+  height: auto;
+}

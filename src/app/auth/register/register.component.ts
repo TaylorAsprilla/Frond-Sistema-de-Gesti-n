@@ -8,6 +8,12 @@ import { Subscription } from 'rxjs';
 import { CongregacionModel } from 'src/app/models/congregacion.model';
 import { CampoService } from 'src/app/services/campo/campo.service';
 import { CampoModel } from 'src/app/models/campo.model';
+import { TipoDocumentoModel } from 'src/app/models/tipo-documento.model';
+import { TipoDocumentoService } from 'src/app/services/tipo-documento/tipo-documento.service';
+import { VacunaService } from 'src/app/services/vacuna/vacuna.service';
+import { VacunaModel } from 'src/app/models/vacuna.model';
+import { GeneroModel } from 'src/app/models/genero.model';
+import { GeneroService } from 'src/app/services/genero/genero.service';
 
 @Component({
   selector: 'app-register',
@@ -39,21 +45,29 @@ export class RegisterComponent implements OnInit, OnDestroy {
     // }
   );
 
-  // congregacionSeleccionada: CongregacionModel;
   congregaciones: CongregacionModel[];
   congregacionSeleccionada: number;
   campos: CampoModel[];
   camposFiltrados: CampoModel[] = [];
+  tipoDocumentos: TipoDocumentoModel[];
+  vacunas: VacunaModel[];
+  generos: GeneroModel[];
 
   congregacionSubscription: Subscription;
   campoSubscription: Subscription;
+  tipoDocumentoSubscription: Subscription;
+  vacunaSubscription: Subscription;
+  generoSubscription: Subscription;
 
   constructor(
     private formBuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private router: Router,
     private congregacionService: CongregacionService,
-    private campoService: CampoService
+    private campoService: CampoService,
+    private tipoDocumentoService: TipoDocumentoService,
+    private vacunaService: VacunaService,
+    private generoService: GeneroService
   ) {}
 
   ngOnInit(): void {
@@ -64,10 +78,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.campoSubscription = this.campoService.listarCampos().subscribe((campos: CampoModel[]) => {
       this.campos = campos;
     });
+
+    this.tipoDocumentoSubscription = this.tipoDocumentoService
+      .listarTipoDocumento()
+      .subscribe((tipoDocumento: TipoDocumentoModel[]) => {
+        this.tipoDocumentos = tipoDocumento;
+      });
+
+    this.vacunaSubscription = this.vacunaService.listarVacunas().subscribe((vacuna: VacunaModel[]) => {
+      this.vacunas = vacuna;
+    });
+
+    this.generoSubscription = this.generoService.listarGenero().subscribe((genero: GeneroModel[]) => {
+      this.generos = genero;
+    });
   }
 
   ngOnDestroy(): void {
     this.congregacionSubscription.unsubscribe();
+    this.campoSubscription.unsubscribe();
+    this.tipoDocumentoSubscription.unsubscribe();
+    this.vacunaSubscription.unsubscribe();
+    this.generoSubscription.unsubscribe();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -61,14 +61,8 @@
         <tbody>
           <tr *ngFor="let ministerio of ministerios">
             <td>
-              <!-- <img
-                [src]="ministerio.logo | imagen: 'ministerios'"
-                [alt]="ministerio.nombre"
-                class="avatar pointer"
-                (click)="cambiarLogo(ministerio)"
-              /> -->
               <img
-                src="../../../assets/imagenes/default-150x150.png"
+                [src]="ministerio.logo | imagen: 'ministerios'"
                 [alt]="ministerio.nombre"
                 class="avatar pointer"
                 (click)="cambiarLogo(ministerio)"
