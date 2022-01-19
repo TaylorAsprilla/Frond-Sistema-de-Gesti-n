@@ -34,11 +34,11 @@ export class CongregacionService {
     return this.httpClient.post(`${base_url}/congregacion`, congregacion, this.headers);
   }
 
-  actualizarMinisterio(congregacion: CongregacionModel) {
+  actualizarCongregacion(congregacion: CongregacionModel) {
     return this.httpClient.put(`${base_url}/congregacion/${congregacion.id}`, congregacion, this.headers);
   }
 
-  elimiminarMinisterio(congregacion: CongregacionModel) {
+  elimiminarCongregacion(congregacion: CongregacionModel) {
     return this.httpClient.delete(`${base_url}/congregacion/${congregacion.id}`, this.headers);
   }
 }

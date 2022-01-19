@@ -14,12 +14,24 @@
   </div>
 
   <!-- Cargado información -->
-  <app-cargando-informacion [cargando]="cargando"></app-cargando-informacion>
-
-  <div class="card">
+  <app-cargando-informacion *ngIf="cargando"></app-cargando-informacion>
+  <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
     <div class="card-header">
-      <h3 class="card-title">Usuarios registrados en la aplización</h3>
+      <div class="row">
+        <div class="col-8">
+          <h3 class="card-title">Total de Congregaciones ({{ congregaciones.length }})</h3>
+          <p>Congregaciones registradas en la aplicación</p>
+        </div>
+        <div class="col">
+          <div class="text-right">
+            <a routerLink="/dashboard/congregacion/nuevo" class="btn btn-primary">
+              <i class="fas fa-plus"></i> Crear Congregación
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
+
     <!-- /.card-header -->
     <div class="card-body">
       <table id="example1" class="table table-bordered table-striped">
@@ -27,6 +39,7 @@
           <tr>
             <th class="w100">item</th>
             <th>Nombre</th>
+            <th class="w100">Estado</th>
             <th class="w100">Acciones</th>
           </tr>
         </thead>
@@ -36,10 +49,23 @@
             <td>{{ congregacion.nombre }}</td>
 
             <td>
-              <a href="#" data-toggle="tooltip" data-original-title="Editar" class="btn bg-info"
+              <span *ngIf="congregacion.estado" class="badge badge-primary">Activo</span>
+              <span *ngIf="!congregacion.estado" class="badge badge-danger">Deshabilitado</span>
+            </td>
+
+            <td>
+              <a
+                [routerLink]="['/dashboard/congregacion', 'congregacion.id']"
+                data-toggle="tooltip"
+                data-original-title="Editar"
+                class="btn bg-info"
                 ><i class="fas fa-pencil-alt"></i
               ></a>
-              <a href="#" data-toggle="tooltip" data-original-title="Borrar" class="btn bg-danger"
+              <a
+                data-toggle="tooltip"
+                data-original-title="Borrar"
+                class="btn bg-danger"
+                (click)="borrarCongregacion(congregacion)"
                 ><i class="fas fa-trash-alt"></i
               ></a>
             </td>
@@ -49,6 +75,7 @@
           <tr>
             <th class="w100">item</th>
             <th>Nombre</th>
+            <th class="w100">Estado</th>
             <th class="w100">Acciones</th>
           </tr>
         </tfoot>

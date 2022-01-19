@@ -2,7 +2,7 @@
   <!-- Buscardor-->
   <app-buscardor [placeholder]="placeholder"></app-buscardor>
   <!-- Cargado información -->
-  <app-cargando-informacion [cargando]="cargando"></app-cargando-informacion>
+  <app-cargando-informacion *ngIf="cargando"></app-cargando-informacion>
 
   <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
     <div class="card-header">
@@ -69,7 +69,7 @@
                   data-toggle="tooltip"
                   data-original-title="Borrar"
                   class="btn bg-danger"
-                  (click)="eliminarUsuario(usuario)"
+                  (click)="borrarUsuario(usuario)"
                   ><i class="fas fa-trash-alt"></i
                 ></a>
               </td>

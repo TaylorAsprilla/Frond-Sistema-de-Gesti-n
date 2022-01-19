@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth/auth.guard';
 import { CongregacionesComponent } from './administracion/congregaciones/congregaciones.component';
+import { EditarCongregacionComponent } from './administracion/editar-congregacion/editar-congregacion.component';
 
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
@@ -67,6 +68,11 @@ const routes: Routes = [
         path: 'congregaciones',
         component: CongregacionesComponent,
         data: { titulo: 'Congregaciones' },
+      },
+      {
+        path: 'congregacion/:id',
+        component: EditarCongregacionComponent,
+        data: { titulo: 'Editar Congregacion' },
       },
     ],
   },
