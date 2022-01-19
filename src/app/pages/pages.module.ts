@@ -18,6 +18,7 @@ import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { CongregacionesComponent } from './administracion/congregaciones/congregaciones.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { PipesModule } from '../pipes/pipes.module';
     PerfilComponent,
     UsuariosComponent,
     MinisteriosComponent,
+    CongregacionesComponent,
   ],
   exports: [DashboardComponent, Grafica1Component, ProgressComponent, PagesComponent, NopagefoundComponent],
 
