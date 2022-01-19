@@ -18,6 +18,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public paginaDesde: number = 0;
   public cargando: boolean = true;
   public imagenSusbcription: Subscription;
+  public placeholder: string;
 
   constructor(
     private usuarioServices: UsuarioService,
@@ -30,6 +31,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.imagenSusbcription = this.modalImagenServices.nuevaImagen.subscribe((nuevaimagen) => {
       this.cargarUsuarios();
     });
+
+    this.placeholder = 'Buscar usuarios';
   }
 
   ngOnDestroy(): void {
@@ -57,15 +60,15 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargarUsuarios();
   }
 
-  buscarUsuario(termino: string) {
-    if (termino.length === 0) {
-      this.usuarios = this.usuariosTemporales;
-    } else {
-      this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
-        this.usuarios = usuarios;
-      });
-    }
-  }
+  // buscarUsuario(termino: string) {
+  //   if (termino.length === 0) {
+  //     this.usuarios = this.usuariosTemporales;
+  //   } else {
+  //     this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
+  //       this.usuarios = usuarios;
+  //     });
+  //   }
+  // }
 
   eliminarUsuario(usuario: UsuarioModel) {
     if (usuario.id === this.usuarioServices.usuarioId) {
