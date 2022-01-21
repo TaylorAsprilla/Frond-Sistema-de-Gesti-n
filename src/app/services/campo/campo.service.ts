@@ -38,7 +38,7 @@ export class CampoService {
     return this.httpClient.put(`${base_url}/campo/${campo.id}`, campo, this.headers);
   }
 
-  elimiminarMinisterio(campo: CampoModel) {
+  elimiminarCampo(campo: CampoModel) {
     return this.httpClient.delete(`${base_url}/campo/${campo.id}`, this.headers);
   }
 }

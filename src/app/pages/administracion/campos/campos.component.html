@@ -1,0 +1,87 @@
+<section class="content">
+  <div class="row animated fadeIn fast">
+    <div class="col-12">
+      <!-- Default box -->
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"></h3>
+        </div>
+        <div class="card-body">
+          <input type="text" class="form-control" placeholder="Buscar Usuario" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cargado información -->
+  <app-cargando-informacion *ngIf="cargando"></app-cargando-informacion>
+  <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-8">
+          <h3 class="card-title">Total de Campos ({{ campos.length }})</h3>
+          <p>Campos registrados en la aplicación</p>
+        </div>
+        <div class="col">
+          <div class="text-right">
+            <a routerLink="/dashboard/campo/nuevo" class="btn btn-primary"> <i class="fas fa-plus"></i> Crear Campo </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- /.card-header -->
+    <div class="card-body">
+      <table id="example1" class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th class="w100">item</th>
+            <th>Nombre</th>
+            <th>Congregación Asignada</th>
+            <th class="w100">Estado</th>
+            <th class="w100">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let campo of campos">
+            <td>{{ campo.id }}</td>
+            <td>{{ campo.nombre }}</td>
+
+            <td>{{ campo.id_congregacion }}</td>
+
+            <td>
+              <span *ngIf="campo.estado" class="badge badge-primary">Activo</span>
+              <span *ngIf="!campo.estado" class="badge badge-danger">Deshabilitado</span>
+            </td>
+
+            <td>
+              <a
+                [routerLink]="['/dashboard/campo', 'campo.id']"
+                data-toggle="tooltip"
+                data-original-title="Editar"
+                class="btn bg-info"
+                ><i class="fas fa-pencil-alt"></i
+              ></a>
+              <a data-toggle="tooltip" data-original-title="Borrar" class="btn bg-danger" (click)="borrarCampo(campo)"
+                ><i class="fas fa-trash-alt"></i
+              ></a>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <th class="w100">item</th>
+            <th>Nombre</th>
+            <th>Congregación Asignada</th>
+            <th class="w100">Estado</th>
+            <th class="w100">Acciones</th>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="md-4 py-2 pl-4">
+      <button class="btn btn-secondary">Siguiente</button> &nbsp;
+      <button class="btn btn-secondary">Anterior</button>
+    </div>
+  </div>
+</section>
