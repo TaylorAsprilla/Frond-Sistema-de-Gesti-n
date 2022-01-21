@@ -34,7 +34,7 @@ export class SidebarService {
         { titulo: 'Registro', url: '../registro' },
         { titulo: 'Ministerios', url: 'ministerios' },
         { titulo: 'Congregaciones', url: 'congregaciones' },
-        // { titulo: 'Vacunas', url: 'vacunas' },
+        { titulo: 'Campos', url: 'campos' },
         // { titulo: 'Permisos', url: 'permisos' },
       ],
     },

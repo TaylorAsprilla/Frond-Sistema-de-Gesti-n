@@ -19,6 +19,9 @@ import { UsuariosComponent } from './administracion/usuarios/usuarios.component'
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { CongregacionesComponent } from './administracion/congregaciones/congregaciones.component';
+import { EditarCongregacionComponent } from './administracion/editar-congregacion/editar-congregacion.component';
+import { CamposComponent } from './administracion/campos/campos.component';
+import { MantenimientoCamposComponent } from './administracion/mantenimiento-campos/mantenimiento-campos.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +36,9 @@ import { CongregacionesComponent } from './administracion/congregaciones/congreg
     UsuariosComponent,
     MinisteriosComponent,
     CongregacionesComponent,
+    EditarCongregacionComponent,
+    CamposComponent,
+    MantenimientoCamposComponent,
   ],
   exports: [DashboardComponent, Grafica1Component, ProgressComponent, PagesComponent, NopagefoundComponent],
 

@@ -6,7 +6,6 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./cargando-informacion.component.css'],
 })
 export class CargandoInformacionComponent implements OnInit {
-  @Input() cargando: boolean;
   constructor() {}
 
   ngOnInit(): void {}

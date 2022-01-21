@@ -20,7 +20,7 @@
   </div>
 
   <!-- Cargado información -->
-  <app-cargando-informacion [cargando]="cargando"></app-cargando-informacion>
+  <app-cargando-informacion *ngIf="cargando"></app-cargando-informacion>
 
   <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
     <div class="card-header">
