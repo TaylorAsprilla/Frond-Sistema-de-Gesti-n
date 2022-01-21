@@ -84,12 +84,16 @@
     </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-md-6 animate__animated animate__fadeIn animate__slow" *ngIf="congregacionSeleccionada">
     <div class="card card-info">
       <div class="card-header">
-        <h3 class="card-title">Congregación Asignada</h3>
+        <h3 class="card-title">Congregación Principal</h3>
       </div>
-      <div class="card-body">Nombre de la congregacion Dirección Telefóno</div>
+      <div class="card-body">
+        <p><strong>Congregación Seleccionada:</strong> {{ congregacionSeleccionada.nombre }}</p>
+        <p><strong>Dirección:</strong> {{ congregacionSeleccionada.direccion }}</p>
+        <p><strong>Teléfono:</strong> {{ congregacionSeleccionada.telefono }}</p>
+      </div>
     </div>
   </div>
 </div>

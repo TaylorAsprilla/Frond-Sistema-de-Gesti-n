@@ -30,6 +30,12 @@ export class CampoService {
       .pipe(map((campo: { ok: boolean; campo: CampoModel[] }) => campo.campo));
   }
 
+  getCampo(id: string) {
+    return this.httpClient
+      .get(`${base_url}/campo/${id}`, this.headers)
+      .pipe(map((campo: { ok: boolean; campo: CampoModel }) => campo.campo));
+  }
+
   crearCampo(campo: CampoModel) {
     return this.httpClient.post(`${base_url}/campo`, campo, this.headers);
   }
