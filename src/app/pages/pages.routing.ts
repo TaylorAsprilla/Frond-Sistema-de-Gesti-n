@@ -3,8 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from '../guards/auth/auth.guard';
 import { CamposComponent } from './administracion/campos/campos.component';
 import { CongregacionesComponent } from './administracion/congregaciones/congregaciones.component';
-import { EditarCongregacionComponent } from './administracion/editar-congregacion/editar-congregacion.component';
+
 import { MantenimientoCamposComponent } from './administracion/mantenimiento-campos/mantenimiento-campos.component';
+import { MantenimientoCongregacionComponent } from './administracion/mantenimiento-congregacion/mantenimiento-congregacion.component';
 
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
@@ -73,7 +74,7 @@ const routes: Routes = [
       },
       {
         path: 'congregacion/:id',
-        component: EditarCongregacionComponent,
+        component: MantenimientoCongregacionComponent,
         data: { titulo: 'Editar Congregacion' },
       },
 
