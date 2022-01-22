@@ -9,6 +9,7 @@ import { MantenimientoCongregacionComponent } from './administracion/mantenimien
 
 import { MinisteriosComponent } from './administracion/ministerios/ministerios.component';
 import { UsuariosComponent } from './administracion/usuarios/usuarios.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
@@ -54,6 +55,11 @@ const routes: Routes = [
         path: 'perfil',
         component: PerfilComponent,
         data: { titulo: 'Perfil de usuario' },
+      },
+      {
+        path: 'buscar/:termino',
+        component: BusquedaComponent,
+        data: { titulo: 'Busquedas' },
       },
 
       // Administración

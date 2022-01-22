@@ -33,8 +33,6 @@ export class CamposComponent implements OnInit, OnDestroy {
     });
   }
 
-  crearCongregacion() {}
-
   borrarCampo(campo: CampoModel) {
     Swal.fire({
       title: '¿Borrar Campo?',

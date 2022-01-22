@@ -26,8 +26,6 @@ export class CongregacionesComponent implements OnInit {
     });
   }
 
-  crearCongregacion() {}
-
   borrarCongregacion(congregacion: CongregacionModel) {
     Swal.fire({
       title: '¿Borrar Congregación?',

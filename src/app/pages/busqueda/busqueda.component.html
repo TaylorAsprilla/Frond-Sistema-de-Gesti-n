@@ -1,0 +1,179 @@
+<div class="row animate__animated animate__fadeIn">
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Usuarios</h3>
+        <div class="alert alert-info mt-2" *ngIf="usuarios.length === 0">
+          <p class="mb-0">No hay usuarios con ese término</p>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" *ngIf="usuarios.length > 0">
+        <table class="table table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>Foto</th>
+              <th>Nombre</th>
+              <th>Congregación</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let usuario of usuarios"
+              class="animate__animated animate__fadeIn pointer"
+              (click)="abrirUsuario(usuario)"
+            >
+              <td>
+                <img [src]="usuario.imagen | imagen: 'usuarios'" class="img-thumbnail" />
+              </td>
+              <td>
+                {{ usuario.primer_nombre }} {{ usuario.segundo_nombre }} {{ usuario.primer_apellido }}
+                {{ usuario.primer_apellido }}
+              </td>
+              <td>{{ usuario.id_congregacion }}</td>
+
+              <td>{{ usuario.estado }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Foto</th>
+              <th>Nombre</th>
+              <th>Congregación</th>
+              <th>Estado</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Congregaciones</h3>
+        <div class="alert alert-info mt-2" *ngIf="congregaciones.length === 0">
+          <p class="mb-0">No hay congregaciones con ese término</p>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" *ngIf="congregaciones.length > 0">
+        <table class="table table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let congregacion of congregaciones"
+              class="animate__animated animate__fadeIn pointer"
+              (click)="abrirCongregacion(congregacion)"
+            >
+              <td>{{ congregacion.nombre }}</td>
+              <td>{{ congregacion.direccion }}</td>
+
+              <td>{{ congregacion.telefono }}</td>
+
+              <td>{{ congregacion.estado }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Nombre</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Estado</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Campos</h3>
+        <div class="alert alert-info mt-2" *ngIf="campos.length === 0">
+          <p class="mb-0">No hay usuarios con ese término</p>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" *ngIf="campos.length > 0">
+        <table class="table table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>Campo</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let campo of campos"
+              class="animate__animated animate__fadeIn pointer"
+              (click)="abrirCampo(campo)"
+            >
+              <td>{{ campo.nombre }}</td>
+              <td>{{ campo.direccion }}</td>
+              <td>{{ campo.telefono }}</td>
+              <td>{{ campo.estado }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Campo</th>
+              <th>Dirección</th>
+              <th>Teléfono</th>
+              <th>Estado</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="card">
+      <div class="card-header">
+        <h3 class="card-title">Ministerios</h3>
+        <div class="alert alert-info mt-2" *ngIf="ministerios.length === 0">
+          <p class="mb-0">No hay ministerios con ese término</p>
+        </div>
+      </div>
+      <!-- /.card-header -->
+      <div class="card-body" *ngIf="ministerios.length > 0">
+        <table class="table table-responsive table-striped">
+          <thead>
+            <tr>
+              <th>Ministerio</th>
+              <th>Estado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let ministerio of ministerios"
+              class="animate__animated animate__fadeIn pointer"
+              (click)="abrirMinisterio(ministerio)"
+            >
+              <td>{{ ministerio.nombre }}</td>
+              <td>{{ ministerio.estado }}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th>Ministerio</th>
+              <th>Estado</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

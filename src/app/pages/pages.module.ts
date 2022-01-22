@@ -22,6 +22,7 @@ import { CongregacionesComponent } from './administracion/congregaciones/congreg
 import { MantenimientoCongregacionComponent } from './administracion/mantenimiento-congregacion/mantenimiento-congregacion.component';
 import { CamposComponent } from './administracion/campos/campos.component';
 import { MantenimientoCamposComponent } from './administracion/mantenimiento-campos/mantenimiento-campos.component';
+import { BusquedaComponent } from './busqueda/busqueda.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { MantenimientoCamposComponent } from './administracion/mantenimiento-cam
     MantenimientoCongregacionComponent,
     CamposComponent,
     MantenimientoCamposComponent,
+    BusquedaComponent,
   ],
   exports: [DashboardComponent, Grafica1Component, ProgressComponent, PagesComponent, NopagefoundComponent],
 

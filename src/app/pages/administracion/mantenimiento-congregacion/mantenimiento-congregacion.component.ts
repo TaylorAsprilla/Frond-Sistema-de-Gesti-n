@@ -72,6 +72,8 @@ export class MantenimientoCongregacionComponent implements OnInit {
       this.congregacionServices.getCongregacion(id).subscribe(
         (congregacion: CongregacionModel) => {
           const { nombre, direccion, telefono } = congregacion;
+          this.congregacionSeleccionada = congregacion;
+          this.congregacionForm.setValue({ nombre, direccion, telefono });
         },
         (error) => {
           return this.router.navigateByUrl(`/dashboard/congregaciones`);
