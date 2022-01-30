@@ -3,6 +3,8 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 
 import { SidebarService } from 'src/app/services/sidebar/sidebar.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
+import * as $ from 'jquery';
+import * as AdminLte from 'admin-lte';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,5 +29,11 @@ export class SidebarComponent implements OnInit {
     this.imagenUrl = this.usuario.imagenUrl;
     this.primerNombre = this.usuario.primer_nombre;
     this.primerApellido = this.usuario.primer_apellido;
+  }
+
+  ngAfterViewInit() {
+    $('[data-widget="treeview"]').each(function () {
+      AdminLte.Treeview._jQueryInterface.call($(this), 'init');
+    });
   }
 }

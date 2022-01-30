@@ -33,7 +33,7 @@ export class SidebarService {
     },
     {
       titulo: 'Administración',
-      icono: 'fas fa-user-lock',
+      icono: 'fas fa-users-cog',
       role: [Role.ADMINISTRADOR],
       submenu: [
         { titulo: 'Perfil', url: 'perfil' },
@@ -42,6 +42,15 @@ export class SidebarService {
         { titulo: 'Ministerios', url: 'ministerios' },
         { titulo: 'Congregaciones', url: 'congregaciones' },
         { titulo: 'Campos', url: 'campos' },
+        // { titulo: 'Permisos', url: 'permisos' },
+      ],
+    },
+    {
+      titulo: 'Usuarios',
+      icono: 'fas fa-users',
+      submenu: [
+        { titulo: 'Perfil', url: 'perfil' },
+        { titulo: 'Usuarios', url: 'usuarios' },
         // { titulo: 'Permisos', url: 'permisos' },
       ],
     },
