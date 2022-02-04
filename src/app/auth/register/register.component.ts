@@ -14,8 +14,6 @@ import { VacunaService } from 'src/app/services/vacuna/vacuna.service';
 import { VacunaModel } from 'src/app/models/vacuna.model';
 import { GeneroModel } from 'src/app/models/genero.model';
 import { GeneroService } from 'src/app/services/genero/genero.service';
-import Stepper from 'bs-stepper';
-import { ignoreElements } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',

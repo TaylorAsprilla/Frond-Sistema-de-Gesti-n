@@ -16,21 +16,18 @@ export class SidebarService {
       icono: 'fas fa-home',
       role: [Role.ADMINISTRADOR],
       submenu: [
-        { titulo: 'Main', url: '/' },
-        { titulo: 'ProgressBar', url: 'progress' },
-        // { titulo: 'Grafica1', url: 'grafica1' },
-        // { titulo: 'Promesas', url: 'promesas' },
-        // { titulo: 'RXJS', url: 'rxjs' },
+        { titulo: 'Inicio', url: '/' },
+        { titulo: 'Gráficas', url: 'progress' },
       ],
     },
-    {
-      titulo: 'Vacunación',
-      icono: 'fas fa-notes-medical',
-      submenu: [
-        { titulo: 'Validación', url: 'validacion' },
-        { titulo: 'Grafica1', url: 'grafica1' },
-      ],
-    },
+    // {
+    //   titulo: 'Vacunación',
+    //   icono: 'fas fa-notes-medical',
+    //   submenu: [
+    //     { titulo: 'Validación', url: 'validacion' },
+    //     { titulo: 'Grafica1', url: 'grafica1' },
+    //   ],
+    // },
     {
       titulo: 'Administración',
       icono: 'fas fa-users-cog',

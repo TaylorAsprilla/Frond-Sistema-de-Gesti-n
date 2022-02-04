@@ -2,7 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 
 import { CampoModel } from 'src/app/models/campo.model';
+import { CongregacionModel } from 'src/app/models/congregacion.model';
 import { CampoService } from 'src/app/services/campo/campo.service';
+import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -13,16 +15,24 @@ import Swal from 'sweetalert2';
 export class CamposComponent implements OnInit, OnDestroy {
   public cargando: boolean = true;
   public campos: CampoModel[] = [];
-  public camposSubscription: Subscription;
+  public congregaciones: CongregacionModel[] = [];
+  public nombreCongregaciones: string[] = [];
 
-  constructor(private campoServices: CampoService) {}
+  public camposSubscription: Subscription;
+  public congregacionesSubscription: Subscription;
+
+  constructor(private campoServices: CampoService, private congregacionServices: CongregacionService) {}
 
   ngOnInit(): void {
-    this.cargarCampos();
-  }
-
-  ngOnDestroy(): void {
-    this.camposSubscription?.unsubscribe();
+    this.congregacionesSubscription = this.congregacionServices
+      .listarCongregaciones()
+      .subscribe((congregaciones: CongregacionModel[]) => {
+        this.congregaciones = congregaciones;
+      });
+    if (!!this.congregacionesSubscription) {
+      this.cargarCampos();
+    }
+    console.log(this.campos);
   }
 
   cargarCampos() {
@@ -30,7 +40,23 @@ export class CamposComponent implements OnInit, OnDestroy {
     this.camposSubscription = this.campoServices.listarCampos().subscribe((campos: CampoModel[]) => {
       this.campos = campos;
       this.cargando = false;
+      // console.log('Campos cargados', this.campos);
+
+      this.campos.forEach((campo) => {
+        console.log('Campo', campo);
+        this.congregaciones.forEach((congregacion) => {
+          console.log('Congregacion 1', congregacion);
+          if (campo.id_congregacion.toString() === congregacion.id) {
+            this.nombreCongregaciones.push(congregacion.nombre);
+            console.log('Nombre de la congregacion', this.nombreCongregaciones);
+          }
+        });
+      });
     });
+  }
+
+  ngOnDestroy(): void {
+    this.camposSubscription?.unsubscribe();
   }
 
   borrarCampo(campo: CampoModel) {

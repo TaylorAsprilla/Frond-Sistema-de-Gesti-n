@@ -60,15 +60,15 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargarUsuarios();
   }
 
-  // buscarUsuario(termino: string) {
-  //   if (termino.length === 0) {
-  //     this.usuarios = this.usuariosTemporales;
-  //   } else {
-  //     this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
-  //       this.usuarios = usuarios;
-  //     });
-  //   }
-  // }
+  buscarUsuario(termino: string) {
+    if (termino.length === 0) {
+      this.usuarios = this.usuariosTemporales;
+    } else {
+      this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
+        this.usuarios = usuarios;
+      });
+    }
+  }
 
   borrarUsuario(usuario: UsuarioModel) {
     if (usuario.id === this.usuarioServices.usuarioId) {

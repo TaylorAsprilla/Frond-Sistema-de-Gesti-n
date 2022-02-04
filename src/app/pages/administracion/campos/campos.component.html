@@ -47,7 +47,9 @@
             <td>{{ campo.id }}</td>
             <td>{{ campo.nombre }}</td>
 
-            <td>{{ campo.id_congregacion }}</td>
+            <td>
+              {{ this.congregaciones[campo.id_congregacion - 1].nombre }}
+            </td>
 
             <td>
               <span *ngIf="campo.estado" class="badge badge-primary">Activo</span>

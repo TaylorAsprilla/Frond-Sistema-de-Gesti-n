@@ -13,12 +13,12 @@ export class BuscardorComponent implements OnInit {
   ngOnInit(): void {}
 
   buscarUsuario(termino: string) {
-    // if (termino.length === 0) {
-    //   this.usuarios = this.usuariosTemporales;
-    // } else {
-    //   this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
-    //     this.usuarios = usuarios;
-    //   });
-    // }
+    //   if (termino.length === 0) {
+    //     this.usuarios = this.usuariosTemporales;
+    //   } else {
+    //     this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
+    //       this.usuarios = usuarios;
+    //     });
+    //   }
   }
 }
