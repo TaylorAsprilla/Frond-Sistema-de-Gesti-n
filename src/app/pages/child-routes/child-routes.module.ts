@@ -14,6 +14,7 @@ import { CongregacionesComponent } from '../administracion/congregaciones/congre
 import { MantenimientoCongregacionComponent } from '../administracion/mantenimiento-congregacion/mantenimiento-congregacion.component';
 import { CamposComponent } from '../administracion/campos/campos.component';
 import { MantenimientoCamposComponent } from '../administracion/mantenimiento-campos/mantenimiento-campos.component';
+import { MantenimientoUsuariosComponent } from '../administracion/mantenimiento-usuarios/mantenimiento-usuarios.component';
 
 const childRoutes: Routes = [
   {
@@ -60,6 +61,11 @@ const childRoutes: Routes = [
     data: { titulo: 'Usuarios Registrados' },
   },
   {
+    path: 'usuario/:id',
+    component: MantenimientoUsuariosComponent,
+    data: { titulo: 'Editar Usuario' },
+  },
+  {
     path: 'ministerios',
     component: MinisteriosComponent,
     data: { titulo: 'Ministerios' },
@@ -72,7 +78,7 @@ const childRoutes: Routes = [
   {
     path: 'congregacion/:id',
     component: MantenimientoCongregacionComponent,
-    data: { titulo: 'Editar Congregacion' },
+    data: { titulo: 'Editar Congregación' },
   },
 
   {

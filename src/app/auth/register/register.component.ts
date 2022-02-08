@@ -22,7 +22,6 @@ import { GeneroService } from 'src/app/services/genero/genero.service';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   public formSubmitted: boolean = false;
-
   registroUnoFormGroup!: FormGroup;
   registroDosFormGroup!: FormGroup;
   registroTresFormGroup!: FormGroup;
@@ -58,12 +57,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.registroUnoFormGroup = this.formBuilder.group({
-      primer_nombre: ['ewewq', [Validators.required, Validators.minLength(3)]],
-      segundo_nombre: ['ewqewq', [Validators.minLength(3)]],
-      primer_apellido: ['qwew', [Validators.required, Validators.minLength(3)]],
-      segundo_apellido: ['qwe', [Validators.minLength(3)]],
-      id_tipoDocumento: ['1', [Validators.required]],
-      numero_documento: ['123123', [Validators.required, Validators.minLength(3)]],
+      primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
+      segundo_nombre: ['', [Validators.minLength(3)]],
+      primer_apellido: ['', [Validators.required, Validators.minLength(3)]],
+      segundo_apellido: ['', [Validators.minLength(3)]],
+      id_tipoDocumento: ['', [Validators.required]],
+      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
     });
 
     this.registroDosFormGroup = this.formBuilder.group({
@@ -77,8 +76,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       id_vacuna: ['', [Validators.required]],
       imagen: ['', []],
       id_congregacion: ['', [Validators.required]],
-      campo: ['', [Validators.required]],
-      terminos: [true, [Validators.required]],
+      campo: ['', []],
+      terminos: ['', [Validators.required]],
     });
 
     this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregacion) => {
@@ -102,7 +101,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.generoSubscription = this.generoService.listarGenero().subscribe((genero: GeneroModel[]) => {
       this.generos = genero;
     });
-    console.log('this.step ', this.step);
   }
 
   get registroUno() {
@@ -123,45 +121,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.generoSubscription.unsubscribe();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes.itemSeleccionado) {
-      //   this.itemSeleccionado =
-      //     changes.itemSeleccionado.currentValue instanceof PoModel
-      //       ? changes.itemSeleccionado.currentValue.itemParentId
-      //       : changes.itemSeleccionado.currentValue;
-      // }
-    }
-  }
-
-  // crearUsuario() {
-  //   this.formSubmitted = true;
-
-  //   // if (this.registerForm.invalid) {
-  //   //   return;
-  //   // }
-
-  //   // Realizar el posteo
-  //   // this.usuarioService.crearUsuario(this.registerForm.value).subscribe(
-  //   //   (respuestaUsuario) => {
-  //   //     //Navegar al Dashboard
-  //   //     Swal.fire('Usuario', respuestaUsuario.msg, 'success');
-  //   //     this.router.navigateByUrl('/');
-  //   //   },
-  //   //   (err) => {
-  //   //     // Si sucede un error
-  //   //     Swal.fire('Error', err.error.msg, 'error');
-  //   //   }
-  //   // );
-  // }
-
-  // // campoNoValido(campo: string): boolean {
-  // //   if (this.registerForm.get(campo).invalid && this.formSubmitted) {
-  // //     return true;
-  // //   } else {
-  // //     return false;
-  // //   }
-  // // }
-
   listarCampos(congregacion: string) {
     this.camposFiltrados = this.campos.filter((campoBuscar) => campoBuscar.id_congregacion === parseInt(congregacion));
   }
@@ -177,7 +136,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
     if (this.step == 2) {
       this.registroDos_step = true;
-      if (this.registroDos.invalid) {
+      if (this.registroDosFormGroup.invalid) {
         return;
       }
       this.step++;
@@ -194,38 +153,46 @@ export class RegisterComponent implements OnInit, OnDestroy {
     }
   }
 
-  aceptaTerminos() {
-    return !this.registroTresFormGroup.get('terminos').value && this.formSubmitted;
-  }
-
   submit() {
     if (this.step == 3) {
       this.registroTres_step = true;
-
       this.formSubmitted = true;
+      if (
+        !!this.registroUnoFormGroup.valid &&
+        !!this.registroDosFormGroup.valid &&
+        !!this.registroTresFormGroup.valid &&
+        !!this.registroTresFormGroup.get('terminos').value
+      ) {
+        let informacionFormulario = Object.assign(
+          this.registroUnoFormGroup.value,
+          this.registroDosFormGroup.value,
+          this.registroTresFormGroup.value
+        );
 
-      let informacionFormulario = Object.assign(
-        this.registroUnoFormGroup.value,
-        this.registroDosFormGroup.value,
-        this.registroTresFormGroup.value
-      );
+        // Realizar el posteo
+        this.usuarioService.crearUsuario(informacionFormulario).subscribe(
+          (respuestaUsuario) => {
+            //Navegar al Dashboard
+            Swal.fire('Usuario', 'Se registró el usuario en la plataforma', 'success');
+            this.reseteaFormularios();
+          },
+          (err) => {
+            // Si sucede un error
+            Swal.fire('Error', err.error.msg, 'error');
+          }
+        );
 
-      // Realizar el posteo
-      this.usuarioService.crearUsuario(informacionFormulario).subscribe(
-        (respuestaUsuario) => {
-          //Navegar al Dashboard
-          Swal.fire('Usuario', respuestaUsuario.msg, 'success');
-          this.router.navigateByUrl('/');
-        },
-        (err) => {
-          // Si sucede un error
-          Swal.fire('Error', err.error.msg, 'error');
+        if (this.registroTres.invalid) {
+          return;
         }
-      );
-
-      if (this.registroTres.invalid) {
-        return;
       }
     }
+  }
+
+  reseteaFormularios() {
+    this.registroUnoFormGroup.reset();
+    this.registroDosFormGroup.reset();
+    this.registroTresFormGroup.reset();
+    this.step = 1;
   }
 }

@@ -3,7 +3,7 @@
     <div class="register-logo">
       <img
         src="./../../../assets/imagenes/logo.png"
-        width="10%"
+        width="20%"
         class="img-fluid"
         alt="Sistema de gestión de la Congregación Mita"
       />
@@ -32,7 +32,9 @@
                   placeholder="Primer Nombre"
                 />
                 <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_nombre.errors">
-                  <div *ngIf="registroUno.primer_nombre.errors?.required">El primer nombre es obligatorio</div>
+                  <div class="txtObligatorio" *ngIf="registroUno.primer_nombre.errors?.required">
+                    El primer nombre es obligatorio
+                  </div>
                 </div>
                 <input
                   type="text"
@@ -47,7 +49,9 @@
                   placeholder="Primer Apellido"
                 />
                 <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_apellido.errors">
-                  <div *ngIf="registroUno.primer_apellido.errors?.required">El primer apellido es obligatorio</div>
+                  <div class="txtObligatorio" *ngIf="registroUno.primer_apellido.errors?.required">
+                    El primer apellido es obligatorio
+                  </div>
                 </div>
                 <input
                   type="text"
@@ -62,7 +66,9 @@
                   </option>
                 </select>
                 <div *ngIf="registroUno_step && registroUnoFormGroup.controls.id_tipoDocumento.errors">
-                  <div *ngIf="registroUno.id_tipoDocumento.errors?.required">El tipo de socumento es obligatorio</div>
+                  <div class="txtObligatorio" *ngIf="registroUno.id_tipoDocumento.errors?.required">
+                    El tipo de socumento es obligatorio
+                  </div>
                 </div>
                 <input
                   type="number"
@@ -71,7 +77,9 @@
                   placeholder="Número de Documento"
                 />
                 <div *ngIf="registroUno_step && registroUnoFormGroup.controls.numero_documento.errors">
-                  <div *ngIf="registroUno.numero_documento.errors?.required">El número de documento es obligatorio</div>
+                  <div class="txtObligatorio" *ngIf="registroUno.numero_documento.errors?.required">
+                    El número de documento es obligatorio
+                  </div>
                 </div>
 
                 <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
@@ -80,14 +88,18 @@
 
             <form [formGroup]="registroDosFormGroup" id="msform">
               <fieldset *ngIf="step == 2">
-                <h2 class="fs-title">Información de contacto</h2>
+                <h2 class="fs-title">Información Personal</h2>
                 <input type="date" formControlName="fecha_nacimiento" placeholder="Fecha de Nacimiento" />
                 <div *ngIf="registroDos_step && registroDosFormGroup.controls.fecha_nacimiento.errors">
-                  <div *ngIf="registroDos.fecha_nacimiento.errors?.required">La Fecha de Nacimiento es obligarotia</div>
+                  <div class="txtObligatorio" *ngIf="registroDos.fecha_nacimiento.errors?.required">
+                    La Fecha de Nacimiento es obligarotia
+                  </div>
                 </div>
                 <input type="email" formControlName="email" name="email" placeholder="Correo Electrónico" />
                 <div *ngIf="registroDos_step && registroDosFormGroup.controls.email.errors">
-                  <div *ngIf="registroDos.email.errors?.required">El Correo Electrónico es obligatorio</div>
+                  <div class="txtObligatorio" *ngIf="registroDos.email.errors?.required">
+                    El Correo Electrónico es obligatorio
+                  </div>
                 </div>
                 <input type="number" formControlName="celular" placeholder="Celular" />
 
@@ -95,6 +107,10 @@
                   <option value="" disabled>Seleccione el género</option>
                   <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
                 </select>
+
+                <div *ngIf="registroDos_step && registroDosFormGroup.controls.id_genero.errors">
+                  <div class="txtObligatorio" *ngIf="registroDos.id_genero.errors?.required">Seleccione el género</div>
+                </div>
 
                 <input
                   (click)="previous()"
@@ -108,13 +124,15 @@
             </form>
             <form [formGroup]="registroTresFormGroup" id="msform">
               <fieldset *ngIf="step == 3">
-                <h2 class="fs-title">Información Eclesiástica</h2>
+                <h2 class="fs-title">Información Personal</h2>
                 <select class="form-control" formControlName="id_vacuna">
                   <option value="" disabled>Seleccione la vacuna</option>
                   <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">{{ vacuna.nombre }}</option>
                 </select>
                 <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_vacuna.errors">
-                  <div *ngIf="registroTres.id_vacuna.errors?.required">Seleccione una vacuna</div>
+                  <div class="txtObligatorio" *ngIf="registroTres.id_vacuna.errors?.required">
+                    Seleccione una vacuna
+                  </div>
                 </div>
                 <input type="file" formControlName="imagen" />
 
@@ -130,7 +148,9 @@
                   </option>
                 </select>
                 <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_congregacion.errors">
-                  <div *ngIf="registroTres.id_congregacion.errors?.required">Seleccione la congregación</div>
+                  <div class="txtObligatorio" *ngIf="registroTres.id_congregacion.errors?.required">
+                    Seleccione la congregación
+                  </div>
                 </div>
 
                 <select class="form-control" formControlName="campo" *ngIf="camposFiltrados.length > 0">
@@ -139,16 +159,34 @@
                 </select>
 
                 <div *ngIf="registroTres_step && registroTresFormGroup.controls.campo.errors">
-                  <div *ngIf="registroTres.campo.errors?.required">Seleccione el campo</div>
+                  <div class="txtObligatorio" *ngIf="registroTres.campo.errors?.required">Seleccione el campo</div>
                 </div>
 
                 <div class="icheck-primary">
-                  <input type="checkbox" id="agreeTerms" name="terms" value="agree" formControlName="terminos" />
-                  <label for="agreeTerms"> Acepto los <a href="#"> términos y condiciones</a> </label>
+                  <p class="terminos">
+                    Para la atención de requerimientos relacionados con el tratamiento de tus datos personales y el
+                    ejercicio de los derechos mencionados en esta autorización puedes escribir al correo:
+                    protecciondedatos@congregacionmitacol.org y/o comunicarte con nuestra Oficina Central ubicada en la
+                    Calle 16 No. 18A – 59 de la ciudad de Santiago de Cali, de lunes a viernes de 9 am a 4 pm;
+                    atendiendo los requisitos para el trámite de consultas y reclamos establecidos en la política de
+                    protección de datos de la Congregación a la cual podrá tener acceso en la página web:
+                  </p>
+                  <input type="checkbox" id="agreeTerms" name="terms" formControlName="terminos" />
+
+                  <label for="agreeTerms">
+                    <a
+                      href=" https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
+                      target="_blank"
+                    >
+                      Acepto los términos y condiciones</a
+                    >
+                  </label>
                 </div>
 
                 <div *ngIf="registroTres_step && registroTresFormGroup.controls.terminos.errors">
-                  <div *ngIf="registroTres.terminos.errors?.required">Debe aceptar términos y condiciones</div>
+                  <div class="txtObligatorio" *ngIf="registroTres.terminos.errors?.required">
+                    Debe aceptar términos y condiciones
+                  </div>
                 </div>
 
                 <input

@@ -32,7 +32,6 @@ export class CamposComponent implements OnInit, OnDestroy {
     if (!!this.congregacionesSubscription) {
       this.cargarCampos();
     }
-    console.log(this.campos);
   }
 
   cargarCampos() {

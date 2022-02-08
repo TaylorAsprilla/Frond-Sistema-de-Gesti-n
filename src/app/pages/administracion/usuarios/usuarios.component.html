@@ -79,7 +79,11 @@
                 {{ usuario.id_congregacion }}
               </td>
               <td class="text-center">
-                <a href="#" data-toggle="tooltip" data-original-title="Editar" class="btn bg-info"
+                <a
+                  [routerLink]="['/dashboard/usuario', usuario.id]"
+                  data-toggle="tooltip"
+                  data-original-title="Editar"
+                  class="btn bg-info"
                   ><i class="fas fa-pencil-alt"></i
                 ></a>
 

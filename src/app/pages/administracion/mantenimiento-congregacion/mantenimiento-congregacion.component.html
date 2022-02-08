@@ -56,12 +56,8 @@
       </div>
 
       <div class="col-4">
-        <button
-          type="submit"
-          [disabled]="congregacionForm.invalid"
-          (click)="guardarCongregacion()"
-          class="btn btn-primary btn-block"
-        >
+        <button type="submit" [disabled]="congregacionForm.invalid" class="btn btn-primary btn-block">
+          <!-- (click)="guardarCongregacion()" -->
           <li class="fa fa-save"></li>
           Guardar
         </button>

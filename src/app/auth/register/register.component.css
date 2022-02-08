@@ -12,6 +12,18 @@
   margin-bottom: 1rem;
 }
 
+.txtObligatorio {
+  color: #d81f2c;
+  margin-bottom: 10px;
+  text-align: left;
+}
+
+.terminos {
+  font-size: 12px;
+  font-weight: 200;
+  text-align: justify;
+}
+
 /*form styles*/
 #msform {
   text-align: center;
@@ -105,7 +117,6 @@
 /*headings*/
 .fs-title {
   font-size: 18px;
-  text-transform: uppercase;
   color: #2c3e50;
   margin-bottom: 10px;
   letter-spacing: 2px;
