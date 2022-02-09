@@ -10,11 +10,11 @@ import { MinisterioService } from 'src/app/services/ministerio/ministerio.servic
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css'],
+  selector: 'app-inicio',
+  templateUrl: './inicio.component.html',
+  styleUrls: ['./inicio.component.css'],
 })
-export class DashboardComponent implements OnInit, OnDestroy {
+export class InicioComponent implements OnInit, OnDestroy {
   usuariosSubscription: Subscription;
   camposSubscription: Subscription;
   congregacionesSubscription: Subscription;
@@ -26,6 +26,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   usuarios: UsuarioModel[] = [];
 
   totalUsuarios: number;
+  titulo: string;
+  placeholderBuscador: string;
 
   constructor(
     private usuarioServices: UsuarioService,
@@ -35,9 +37,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    // this.usuariosSubscription = this.usuarioService.listarUsuarios().subscribe((usuarios: UsuarioModel[]) => {
-    //   this.usuarios = usuarios;
-    // });
+    this.titulo = 'Buscar usuarios vacunados';
+    this.placeholderBuscador = 'Ingrese el número de documento';
 
     this.usuariosSubscription = this.usuarioServices.listarUsuarios().subscribe(({ totalUsuarios, usuarios }) => {
       this.totalUsuarios = totalUsuarios;

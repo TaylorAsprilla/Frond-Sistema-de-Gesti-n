@@ -1,11 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-buscardor',
-  templateUrl: './buscardor.component.html',
-  styleUrls: ['./buscardor.component.css'],
+  selector: 'app-buscador',
+  templateUrl: './buscador.component.html',
+  styleUrls: ['./buscador.component.css'],
 })
-export class BuscardorComponent implements OnInit {
+export class BuscadorComponent implements OnInit {
+  @Input() titulo: string = '';
   @Input() placeholder: string = '';
 
   constructor() {}

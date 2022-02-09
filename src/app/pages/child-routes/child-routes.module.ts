@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from '../dashboard/dashboard.component';
-import { ProgressComponent } from '../progress/progress.component';
-import { Grafica1Component } from '../grafica1/grafica1.component';
-import { PromesasComponent } from '../promesas/promesas.component';
-import { RxjsComponent } from '../rxjs/rxjs.component';
+import { InicioComponent } from '../inicio/inicio.component';
 import { PerfilComponent } from '../perfil/perfil.component';
 import { BusquedaComponent } from '../busqueda/busqueda.component';
 import { UsuariosComponent } from '../administracion/usuarios/usuarios.component';
@@ -19,29 +14,8 @@ import { MantenimientoUsuariosComponent } from '../administracion/mantenimiento-
 const childRoutes: Routes = [
   {
     path: '',
-    component: DashboardComponent,
-    data: { titulo: 'Dashboard' },
-  },
-  {
-    path: 'progress',
-    component: ProgressComponent,
-    data: { titulo: 'Progress' },
-  },
-  {
-    path: 'grafica1',
-    component: Grafica1Component,
-    data: { titulo: 'Gráfica # 1' },
-  },
-
-  {
-    path: 'promesas',
-    component: PromesasComponent,
-    data: { titulo: 'Promesas' },
-  },
-  {
-    path: 'rxjs',
-    component: RxjsComponent,
-    data: { titulo: 'RxJs' },
+    component: InicioComponent,
+    data: { titulo: 'Inicio' },
   },
   {
     path: 'perfil',

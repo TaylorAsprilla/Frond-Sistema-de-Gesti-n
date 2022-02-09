@@ -1,20 +1,19 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuscardorComponent } from './buscardor.component';
+import { BuscadorComponent } from './buscador.component';
 
 describe('BuscardorComponent', () => {
-  let component: BuscardorComponent;
-  let fixture: ComponentFixture<BuscardorComponent>;
+  let component: BuscadorComponent;
+  let fixture: ComponentFixture<BuscadorComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BuscardorComponent ]
-    })
-    .compileComponents();
+      declarations: [BuscadorComponent],
+    }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BuscardorComponent);
+    fixture = TestBed.createComponent(BuscadorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
