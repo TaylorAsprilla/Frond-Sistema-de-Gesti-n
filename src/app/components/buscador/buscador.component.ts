@@ -1,4 +1,6 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+
+import { UsuarioModel } from 'src/app/models/usuario.model';
 
 @Component({
   selector: 'app-buscador',
@@ -9,17 +11,13 @@ export class BuscadorComponent implements OnInit {
   @Input() titulo: string = '';
   @Input() placeholder: string = '';
 
+  @Output() onTerminoBusqueda = new EventEmitter<string>();
+
   constructor() {}
 
   ngOnInit(): void {}
 
   buscarUsuario(termino: string) {
-    //   if (termino.length === 0) {
-    //     this.usuarios = this.usuariosTemporales;
-    //   } else {
-    //     this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
-    //       this.usuarios = usuarios;
-    //     });
-    //   }
+    this.onTerminoBusqueda.emit(termino);
   }
 }

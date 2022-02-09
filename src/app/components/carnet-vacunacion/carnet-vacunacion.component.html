@@ -1,0 +1,20 @@
+<div>
+  <div class="card">
+    <div class="card-body">
+      <div *ngFor="let usuario of busquedaUsuario">
+        <div class="titulo">
+          {{ usuario.primer_nombre }} {{ usuario.segundo_nombre }} {{ usuario.primer_apellido }}
+          {{ usuario.segundo_apellido }}
+        </div>
+
+        <div class="titulo">
+          {{ usuario.vacuna }}
+        </div>
+
+        <div class="mt-4 text-center">
+          <img [src]="usuario.imagenUrl" class="img-thumbnail" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

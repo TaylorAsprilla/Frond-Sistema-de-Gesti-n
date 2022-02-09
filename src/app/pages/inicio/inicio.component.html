@@ -5,6 +5,15 @@
   [totalMinisterios]="ministerios.length"
 ></app-dashboard>
 
-<div class="col-md-6">
-  <app-buscador [titulo]="titulo" [placeholder]="placeholderBuscador"></app-buscador>
+<div class="row">
+  <div class="col-md-6">
+    <app-buscador
+      [titulo]="titulo"
+      [placeholder]="placeholderBuscador"
+      (onTerminoBusqueda)="buscarUsuario($event)"
+    ></app-buscador>
+  </div>
+  <div class="col-md-6">
+    <app-carnet-vacunacion *ngIf="existeUsuario" [busquedaUsuario]="usuarios"></app-carnet-vacunacion>
+  </div>
 </div>

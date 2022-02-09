@@ -20,6 +20,7 @@ export class UsuarioModel {
     public celular?: string,
     public email?: string,
     public vacuna?: number,
+    public carnet?: string,
     public imagen?: string
   ) {}
 
