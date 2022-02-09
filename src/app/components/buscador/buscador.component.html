@@ -1,21 +1,18 @@
-<div class="row animate__animated animate__fadeIn animate__slow">
-  <div class="col-12">
-    <!-- Default box -->
-    <div class="card">
-      <div class="card-header">
-        <h3 class="card-title">
-          {{ titulo }}
-        </h3>
-      </div>
-      <div class="card-body">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="{{ placeholder }}"
-          (keyup)="buscarUsuario(termino.value)"
-          #termino
-        />
-      </div>
+<div class="animate__animated animate__fadeIn animate__slow">
+  <div class="card">
+    <div class="card-header">
+      <h3 class="card-title">
+        {{ titulo }}
+      </h3>
+    </div>
+    <div class="card-body">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="{{ placeholder }}"
+        (keypress)="$event.keyCode == 13 ? buscarUsuario(termino.value) : null"
+        #termino
+      />
     </div>
   </div>
 </div>

@@ -8,10 +8,23 @@ import { CargandoInformacionComponent } from './cargando-informacion/cargando-in
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { RouterModule } from '@angular/router';
+import { CarnetVacunacionComponent } from './carnet-vacunacion/carnet-vacunacion.component';
 
 @NgModule({
-  declarations: [ModalImagenComponent, CargandoInformacionComponent, BuscadorComponent, DashboardComponent],
-  exports: [ModalImagenComponent, CargandoInformacionComponent, BuscadorComponent, DashboardComponent],
+  declarations: [
+    ModalImagenComponent,
+    CargandoInformacionComponent,
+    BuscadorComponent,
+    DashboardComponent,
+    CarnetVacunacionComponent,
+  ],
+  exports: [
+    ModalImagenComponent,
+    CargandoInformacionComponent,
+    BuscadorComponent,
+    DashboardComponent,
+    CarnetVacunacionComponent,
+  ],
   imports: [CommonModule, FormsModule, RouterModule],
 })
 export class ComponentsModule {}

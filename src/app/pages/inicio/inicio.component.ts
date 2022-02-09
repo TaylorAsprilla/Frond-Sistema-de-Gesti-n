@@ -4,6 +4,7 @@ import { CampoModel } from 'src/app/models/campo.model';
 import { CongregacionModel } from 'src/app/models/congregacion.model';
 import { MinisterioModel } from 'src/app/models/ministerio.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
+import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
 import { CampoService } from 'src/app/services/campo/campo.service';
 import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
 import { MinisterioService } from 'src/app/services/ministerio/ministerio.service';
@@ -29,11 +30,14 @@ export class InicioComponent implements OnInit, OnDestroy {
   titulo: string;
   placeholderBuscador: string;
 
+  existeUsuario: boolean = false;
+
   constructor(
     private usuarioServices: UsuarioService,
     private congregacionServices: CongregacionService,
     private campoServices: CampoService,
-    private ministerioService: MinisterioService
+    private ministerioService: MinisterioService,
+    private busquedasService: BusquedasService
   ) {}
 
   ngOnInit(): void {
@@ -67,5 +71,18 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.congregacionesSubscription?.unsubscribe();
     this.camposSubscription?.unsubscribe();
     this.ministeriosSubscription?.unsubscribe();
+  }
+
+  buscarUsuario(termino: string) {
+    console.log('Termino de busqueda', termino);
+    if (termino.length === 0) {
+      this.existeUsuario = false;
+    } else {
+      this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
+        this.usuarios = usuarios;
+        console.log(this.usuarios);
+        this.existeUsuario = true;
+      });
+    }
   }
 }
