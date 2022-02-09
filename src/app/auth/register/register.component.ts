@@ -22,28 +22,13 @@ import { GeneroService } from 'src/app/services/genero/genero.service';
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   public formSubmitted: boolean = false;
-  public registerForm = this.formBuilder.group(
-    {
-      primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
-      segundo_nombre: ['', [Validators.minLength(3)]],
-      primer_apellido: ['', [Validators.required, Validators.minLength(3)]],
-      segundo_apellido: ['', [Validators.minLength(3)]],
-      id_tipoDocumento: ['', [Validators.required]],
-      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
-      fecha_nacimiento: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      celular: ['', [Validators.minLength(3)]],
-      id_genero: ['', [Validators.required]],
-      id_vacuna: ['', [Validators.required]],
-      imagen: ['', []],
-      id_congregacion: ['', [Validators.required]],
-      campo: ['', [Validators.required]],
-      terminos: [true, [Validators.required]],
-    }
-    // {
-    //   validators: this.passwordsIguales('password', 'password2'),
-    // }
-  );
+  registroUnoFormGroup!: FormGroup;
+  registroDosFormGroup!: FormGroup;
+  registroTresFormGroup!: FormGroup;
+  registroUno_step = false;
+  registroDos_step = false;
+  registroTres_step = false;
+  step = 1;
 
   congregaciones: CongregacionModel[];
   congregacionSeleccionada: number;
@@ -71,6 +56,30 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.registroUnoFormGroup = this.formBuilder.group({
+      primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
+      segundo_nombre: ['', [Validators.minLength(3)]],
+      primer_apellido: ['', [Validators.required, Validators.minLength(3)]],
+      segundo_apellido: ['', [Validators.minLength(3)]],
+      id_tipoDocumento: ['', [Validators.required]],
+      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
+    });
+
+    this.registroDosFormGroup = this.formBuilder.group({
+      fecha_nacimiento: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      celular: ['', [Validators.minLength(3)]],
+      id_genero: ['', [Validators.required]],
+    });
+
+    this.registroTresFormGroup = this.formBuilder.group({
+      id_vacuna: ['', [Validators.required]],
+      imagen: ['', []],
+      id_congregacion: ['', [Validators.required]],
+      campo: ['', []],
+      terminos: ['', [Validators.required]],
+    });
+
     this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregacion) => {
       this.congregaciones = congregacion;
     });
@@ -94,6 +103,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
   }
 
+  get registroUno() {
+    return this.registroUnoFormGroup.controls;
+  }
+  get registroDos() {
+    return this.registroDosFormGroup.controls;
+  }
+  get registroTres() {
+    return this.registroTresFormGroup.controls;
+  }
+
   ngOnDestroy(): void {
     this.congregacionSubscription.unsubscribe();
     this.campoSubscription.unsubscribe();
@@ -102,50 +121,78 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.generoSubscription.unsubscribe();
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (!!changes.itemSeleccionado) {
-      //   this.itemSeleccionado =
-      //     changes.itemSeleccionado.currentValue instanceof PoModel
-      //       ? changes.itemSeleccionado.currentValue.itemParentId
-      //       : changes.itemSeleccionado.currentValue;
-      // }
-    }
-  }
-
-  crearUsuario() {
-    this.formSubmitted = true;
-
-    if (this.registerForm.invalid) {
-      return;
-    }
-
-    // Realizar el posteo
-    this.usuarioService.crearUsuario(this.registerForm.value).subscribe(
-      (respuestaUsuario) => {
-        //Navegar al Dashboard
-        Swal.fire('Usuario', respuestaUsuario.msg, 'success');
-        this.router.navigateByUrl('/');
-      },
-      (err) => {
-        // Si sucede un error
-        Swal.fire('Error', err.error.msg, 'error');
-      }
-    );
-  }
-
-  campoNoValido(campo: string): boolean {
-    if (this.registerForm.get(campo).invalid && this.formSubmitted) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  aceptaTerminos() {
-    return !this.registerForm.get('terminos').value && this.formSubmitted;
-  }
-
   listarCampos(congregacion: string) {
     this.camposFiltrados = this.campos.filter((campoBuscar) => campoBuscar.id_congregacion === parseInt(congregacion));
+  }
+
+  next() {
+    if (this.step == 1) {
+      this.registroUno_step = true;
+      if (this.registroUnoFormGroup.invalid) {
+        return;
+      }
+      this.step++;
+      return;
+    }
+    if (this.step == 2) {
+      this.registroDos_step = true;
+      if (this.registroDosFormGroup.invalid) {
+        return;
+      }
+      this.step++;
+    }
+  }
+
+  previous() {
+    this.step--;
+    if (this.step == 1) {
+      this.registroUno_step = false;
+    }
+    if (this.step == 2) {
+      this.registroDos_step = false;
+    }
+  }
+
+  submit() {
+    if (this.step == 3) {
+      this.registroTres_step = true;
+      this.formSubmitted = true;
+      if (
+        !!this.registroUnoFormGroup.valid &&
+        !!this.registroDosFormGroup.valid &&
+        !!this.registroTresFormGroup.valid &&
+        !!this.registroTresFormGroup.get('terminos').value
+      ) {
+        let informacionFormulario = Object.assign(
+          this.registroUnoFormGroup.value,
+          this.registroDosFormGroup.value,
+          this.registroTresFormGroup.value
+        );
+
+        // Realizar el posteo
+        this.usuarioService.crearUsuario(informacionFormulario).subscribe(
+          (respuestaUsuario) => {
+            //Navegar al Dashboard
+            Swal.fire('Usuario', 'Se registró el usuario en la plataforma', 'success');
+            this.reseteaFormularios();
+          },
+          (err) => {
+            // Si sucede un error
+            Swal.fire('Error', err.error.msg, 'error');
+          }
+        );
+
+        if (this.registroTres.invalid) {
+          return;
+        }
+      }
+    }
+  }
+
+  reseteaFormularios() {
+    this.registroUnoFormGroup.reset();
+    this.registroDosFormGroup.reset();
+    this.registroTresFormGroup.reset();
+    this.step = 1;
   }
 }

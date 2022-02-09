@@ -30,6 +30,12 @@ export class CongregacionService {
       .pipe(map((congregacion: { ok: boolean; congregacion: CongregacionModel[] }) => congregacion.congregacion));
   }
 
+  getCongregacion(id: string) {
+    return this.httpClient
+      .get(`${base_url}/congregacion/${id}`, this.headers)
+      .pipe(map((congregacion: { ok: boolean; congregacion: CongregacionModel }) => congregacion.congregacion));
+  }
+
   crearCongregacion(congregacion: CongregacionModel) {
     return this.httpClient.post(`${base_url}/congregacion`, congregacion, this.headers);
   }

@@ -35,7 +35,7 @@ export class MantenimientoCamposComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.activateRouter.params.subscribe(({ id }) => {
-      this.cargarCampo(id);
+      this.crearCampo(id);
     });
 
     this.campoForm = this.formBuilder.group({
@@ -89,7 +89,7 @@ export class MantenimientoCamposComponent implements OnInit, OnDestroy {
     }
   }
 
-  cargarCampo(id: string) {
+  crearCampo(id: string) {
     if (id !== 'nuevo') {
       this.campoService
         .getCampo(id)
@@ -99,7 +99,6 @@ export class MantenimientoCamposComponent implements OnInit, OnDestroy {
             const { nombre, direccion, telefono, id_congregacion } = campo;
 
             this.campoSeleccionado = campo;
-            // this.existeCongregacion();
 
             this.campoForm.setValue({ nombre, direccion, telefono, id_congregacion });
           },

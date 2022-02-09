@@ -76,4 +76,8 @@ export class BusquedasService {
       .get(`${base_url}/busquedas/ministerios/` + termino, this.headers)
       .pipe(map((respuesta: any) => this.transformarMinisterios(respuesta.busqueda)));
   }
+
+  busquedaGlobal(termino: string) {
+    return this.httpClient.get(`${base_url}/busquedas/${termino}`, this.headers);
+  }
 }

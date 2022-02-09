@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
@@ -10,10 +11,14 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   public usuario: UsuarioModel;
-  constructor(private usuarioService: UsuarioService) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) {}
 
   ngOnInit(): void {
     this.usuario = this.usuarioService.usuario;
+
+    $('.search-box a, .search-box .app-search .srh-btn').on('click', function () {
+      $('.app-search').toggle(200);
+    });
   }
 
   logout() {
@@ -22,5 +27,13 @@ export class HeaderComponent implements OnInit {
 
   changeStatusMenu() {
     $('[data-widget="pushmenu"]').PushMenu('toggle');
+  }
+
+  buscar(termino: string) {
+    if (termino.length === 0) {
+      this.router.navigateByUrl('/dashboard');
+    } else {
+      this.router.navigateByUrl(`/dashboard/buscar/${termino}`);
+    }
   }
 }
