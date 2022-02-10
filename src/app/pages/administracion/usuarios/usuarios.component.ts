@@ -1,8 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { UsuarioModel } from 'src/app/models/usuario.model';
+import { CampoModel } from 'src/app/models/campo.model';
+import { CongregacionModel } from 'src/app/models/congregacion.model';
+import { TipoDocumentoModel } from 'src/app/models/tipo-documento.model';
+import { Nombre, UsuarioModel } from 'src/app/models/usuario.model';
 import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
+import { CampoService } from 'src/app/services/campo/campo.service';
+import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
+import { MinisterioService } from 'src/app/services/ministerio/ministerio.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen/modal-imagen.service';
+import { TipoDocumentoService } from 'src/app/services/tipo-documento/tipo-documento.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import Swal from 'sweetalert2';
 
@@ -12,18 +19,42 @@ import Swal from 'sweetalert2';
   styleUrls: ['./usuarios.component.css'],
 })
 export class UsuariosComponent implements OnInit, OnDestroy {
+  get Nombre() {
+    return Nombre;
+  }
+
   public totalUsuarios: number = 0;
   public usuarios: UsuarioModel[] = [];
+
   public usuariosTemporales: UsuarioModel[] = [];
+  public congregaciones: CongregacionModel[] = [];
+  public campos: CampoModel[] = [];
+  public tipoDocumentos: TipoDocumentoModel[] = [];
+
   public paginaDesde: number = 0;
+
+  public congregacion: any;
+  public campo: string;
+  public documento: string;
+  public ministerio: string;
+
   public cargando: boolean = true;
-  public imagenSusbcription: Subscription;
   public placeholder: string = 'Buscar usuarios';
+
+  public imagenSusbcription: Subscription;
+  public congregacionSubscription: Subscription;
+  public campoSubscription: Subscription;
+  public tipoDocumentoSubscription: Subscription;
+  public usuarioSubscription: Subscription;
 
   constructor(
     private usuarioServices: UsuarioService,
     private busquedasService: BusquedasService,
-    public modalImagenServices: ModalImagenService
+    public modalImagenServices: ModalImagenService,
+    public congregacionServices: CongregacionService,
+    public campoServices: CampoService,
+    public ministerioServices: MinisterioService,
+    public tipoDocumentoService: TipoDocumentoService
   ) {}
 
   ngOnInit(): void {
@@ -31,10 +62,30 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.imagenSusbcription = this.modalImagenServices.nuevaImagen.subscribe((nuevaimagen) => {
       this.cargarUsuarios();
     });
+
+    this.congregacionSubscription = this.congregacionServices
+      .listarCongregaciones()
+      .subscribe((congregaciones: CongregacionModel[]) => {
+        this.congregaciones = congregaciones;
+      });
+
+    this.campoSubscription = this.campoServices.listarCampos().subscribe((campos: CampoModel[]) => {
+      this.campos = campos;
+    });
+
+    this.tipoDocumentoSubscription = this.tipoDocumentoService
+      .listarTipoDocumento()
+      .subscribe((tipoDocumento: TipoDocumentoModel[]) => {
+        this.tipoDocumentos = tipoDocumento;
+      });
   }
 
   ngOnDestroy(): void {
-    this.imagenSusbcription.unsubscribe();
+    this.imagenSusbcription?.unsubscribe();
+    this.tipoDocumentoSubscription?.unsubscribe();
+    this.campoSubscription?.unsubscribe();
+    this.congregacionSubscription?.unsubscribe();
+    this.usuarioSubscription?.unsubscribe();
   }
 
   cargarUsuarios() {
@@ -98,5 +149,15 @@ export class UsuariosComponent implements OnInit, OnDestroy {
 
   cambiarImagen(usuario: UsuarioModel) {
     this.modalImagenServices.abrirModal(usuario.id, 'usuarios', usuario.imagen);
+  }
+
+  buscarNombre(id: string, tipo: string) {
+    if (tipo == Nombre.CONGREGACION) {
+      this.congregacion = this.congregaciones.find((congregacion) => congregacion.id === id);
+      return this.congregacion.nombre;
+    } else if (tipo == Nombre.TIPODOCUMENTO) {
+      const tipoDocumento = this.tipoDocumentos.find((tipoDocumento) => tipoDocumento.id === parseInt(id));
+      return tipoDocumento.nombre;
+    }
   }
 }

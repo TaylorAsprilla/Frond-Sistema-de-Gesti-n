@@ -39,15 +39,11 @@ export class CamposComponent implements OnInit, OnDestroy {
     this.camposSubscription = this.campoServices.listarCampos().subscribe((campos: CampoModel[]) => {
       this.campos = campos;
       this.cargando = false;
-      // console.log('Campos cargados', this.campos);
 
       this.campos.forEach((campo) => {
-        console.log('Campo', campo);
         this.congregaciones.forEach((congregacion) => {
-          console.log('Congregacion 1', congregacion);
           if (campo.id_congregacion.toString() === congregacion.id) {
             this.nombreCongregaciones.push(congregacion.nombre);
-            console.log('Nombre de la congregacion', this.nombreCongregaciones);
           }
         });
       });

@@ -74,9 +74,7 @@ export class MantenimientoUsuariosComponent implements OnInit {
     const usuarioNuevo = this.usuarioForm.value;
 
     if (this.usuarioSeleccionado) {
-      console.log('this.usuarioSeleccionado', this.usuarioSeleccionado);
       this.usuarioServices.actualizarUsuario(usuarioNuevo).subscribe((usuarioActualizado: any) => {
-        console.log('usuario Actualizado', usuarioActualizado);
         Swal.fire(
           'Usaurio Actualizado',
           `${usuarioActualizado.congregacionActualizada.nombre} actualizada correctamente`,
@@ -95,38 +93,37 @@ export class MantenimientoUsuariosComponent implements OnInit {
     if (id !== 'nuevo') {
       this.usuarioServices.getUsuario(id).subscribe(
         (usuario: UsuarioModel) => {
-          console.log('usuario', usuario);
           const {
             primer_nombre,
             segundo_nombre,
             primer_apellido,
             segundo_apellido,
-            tipo_documento,
+            id_tipoDocumento,
             numero_documento,
             fecha_nacimiento,
             email,
             celular,
-            genero,
+            id_genero,
             vacuna,
             imagen,
-            congregacion,
+            id_congregacion,
           } = usuario;
           this.usuarioSeleccionado = usuario;
-          console.log('this.usuarioSeleccionado', this.usuarioSeleccionado);
+
           this.usuarioForm.setValue({
             primer_nombre,
             segundo_nombre,
             primer_apellido,
             segundo_apellido,
-            tipo_documento,
+            id_tipoDocumento,
             numero_documento,
             fecha_nacimiento,
             email,
             celular,
-            genero,
+            id_genero,
             vacuna,
             imagen,
-            congregacion,
+            id_congregacion,
           });
         },
         (error) => {

@@ -129,9 +129,9 @@ export class UsuarioService {
               usuario.primer_apellido,
               usuario.numero_documento,
               usuario.fecha_nacimiento,
-              usuario.congregacion,
-              usuario.tipo_documento,
-              usuario.genero,
+              usuario.id_congregacion,
+              usuario.id_tipoDocumento,
+              usuario.id_genero,
               usuario.estado,
               usuario.login,
               usuario.password,
@@ -140,6 +140,7 @@ export class UsuarioService {
               usuario.celular,
               usuario.email,
               usuario.vacuna,
+              usuario.carnet,
               usuario.imagen
             )
         );

@@ -74,7 +74,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registroTresFormGroup = this.formBuilder.group({
       id_vacuna: ['', [Validators.required]],
-      imagen: ['', []],
+      carnet: ['', []],
       id_congregacion: ['', [Validators.required]],
       campo: ['', []],
       terminos: ['', [Validators.required]],

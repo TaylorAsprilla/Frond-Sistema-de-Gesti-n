@@ -36,7 +36,6 @@
 
     <li class="nav-item dropdown user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        <!-- <img src="../../../assets/imagenes/avatar5.png" class="user-image img-circle elevation-2" /> -->
         <img [src]="usuario.imagenUrl" class="user-image img-circle elevation-2" alt="{{ usuario.primer_nombre }}" />
 
         <span class="d-none d-md-inline">{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</span>
@@ -44,12 +43,12 @@
       <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <!-- User image -->
         <li class="user-header bg-primary">
-          <!-- <img src="../../../assets/imagenes/avatar5.png" class="user-image img-circle elevation-2" /> -->
           <img [src]="usuario.imagenUrl" class="img-circle elevation-2" [alt]="usuario.primer_nombre" />
 
           <p>
             {{ usuario.primer_nombre }} {{ usuario.primer_apellido }}
             <small>{{ usuario.email }}</small>
+            <small>{{ usuario.numero_documento }}</small>
           </p>
         </li>
 
