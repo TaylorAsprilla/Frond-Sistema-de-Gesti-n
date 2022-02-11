@@ -10,7 +10,7 @@ const routes: Routes = [
   // path: '/auth' AuthRouting
   {
     path: '',
-    redirectTo: '/dashboard',
+    redirectTo: '/sistema',
     pathMatch: 'full',
   },
   {

@@ -20,6 +20,7 @@ export class UsuarioModel {
     public id_tipoDocumento: number,
     public id_genero: number,
     public estado: boolean,
+    public id_vacuna?: number,
     public login?: string,
     public password?: string,
     public segundo_nombre?: string,

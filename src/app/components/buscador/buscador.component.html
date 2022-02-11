@@ -6,13 +6,32 @@
       </h3>
     </div>
     <div class="card-body">
+      <!-- Mensajes de Verificación -->
+      <div *ngIf="!!mostrarError" class="alert alert-danger" role="alert">
+        El número de documento no coinciden, vuelve a intentar !
+      </div>
+      <div *ngIf(!mostrarError) class="alert alert-success" role="alert">(Procesando formulario ...)</div>
+
+      <div *ngIf="!!validaInput" class="mb-3">
+        <input type="number" class="form-control" placeholder="{{ placeholder }}" #termino id="busquedaUno" />
+      </div>
       <input
-        type="text"
+        type="number"
         class="form-control"
         placeholder="{{ placeholder }}"
-        (keypress)="$event.keyCode == 13 ? buscarUsuario(termino.value) : null"
+        (keypress)="$event.keyCode == 13 ? validaCampoBusqueda(termino.value) : null"
         #termino
+        id="busquedaDos"
       />
+    </div>
+    <div class="col-md-4 mb-2">
+      <button
+        class="btn btn-primary"
+        (click)="validaCampoBusqueda(termino.value)"
+        [disabled]="!!termino.value ? false : true"
+      >
+        Buscar
+      </button>
     </div>
   </div>
 </div>

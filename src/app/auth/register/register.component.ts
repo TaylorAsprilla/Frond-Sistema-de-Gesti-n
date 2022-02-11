@@ -14,6 +14,8 @@ import { VacunaService } from 'src/app/services/vacuna/vacuna.service';
 import { VacunaModel } from 'src/app/models/vacuna.model';
 import { GeneroModel } from 'src/app/models/genero.model';
 import { GeneroService } from 'src/app/services/genero/genero.service';
+import { UsuarioModel } from 'src/app/models/usuario.model';
+import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
 
 @Component({
   selector: 'app-register',
@@ -34,9 +36,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
   congregacionSeleccionada: number;
   campos: CampoModel[];
   camposFiltrados: CampoModel[] = [];
-  tipoDocumentos: TipoDocumentoModel[];
-  vacunas: VacunaModel[];
-  generos: GeneroModel[];
+  tipoDocumentos: TipoDocumentoModel[] = [];
+  vacunas: VacunaModel[] = [];
+  generos: GeneroModel[] = [];
+  usuarios: UsuarioModel[] = [];
+  usuarioSeleccionado: UsuarioModel;
+
+  titulo: string;
+  placeholder: string;
+  existeUsuario: boolean = false;
 
   congregacionSubscription: Subscription;
   campoSubscription: Subscription;
@@ -52,10 +60,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private campoService: CampoService,
     private tipoDocumentoService: TipoDocumentoService,
     private vacunaService: VacunaService,
-    private generoService: GeneroService
+    private generoService: GeneroService,
+    private busquedasService: BusquedasService
   ) {}
 
   ngOnInit(): void {
+    this.titulo = 'Ingrese su número de documento';
+    this.placeholder = 'Número de documento';
+
+    // Formularios
     this.registroUnoFormGroup = this.formBuilder.group({
       primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
       segundo_nombre: ['', [Validators.minLength(3)]],
@@ -169,23 +182,40 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.registroTresFormGroup.value
         );
 
-        // Realizar el posteo
-        this.usuarioService.crearUsuario(informacionFormulario).subscribe(
-          (respuestaUsuario) => {
-            //Navegar al Dashboard
-            Swal.fire('Usuario', 'Se registró el usuario en la plataforma', 'success');
-            this.reseteaFormularios();
-          },
-          (err) => {
-            // Si sucede un error
-            Swal.fire('Error', err.error.msg, 'error');
-          }
-        );
+        if (this.usuarioSeleccionado) {
+          // Actualiza si existe el usuario
+          this.usuarioService.actualizarUsuario(this.usuarioSeleccionado).subscribe(
+            (usuarioActualizado: any) => {
+              Swal.fire(
+                'Usuario Actualizado',
+                `${usuarioActualizado.usuarioActualizado.primer_nombre} ${usuarioActualizado.usuarioActualizado.primer_apellido} actualizado correctamente`,
+                'success'
+              );
+            },
+            (err) => {
+              // Si sucede un error
+              Swal.fire('Error', err.error.msg, 'error');
+            }
+          );
+        } else {
+          // Crea el Usuario nuevo
+          this.usuarioService.crearUsuario(informacionFormulario).subscribe(
+            (respuestaUsuario) => {
+              Swal.fire('Usuario', 'Se registró el usuario en la plataforma', 'success');
+            },
+            (err) => {
+              // Si sucede un error
+              Swal.fire('Error', err.error.msg, 'error');
+            }
+          );
 
-        if (this.registroTres.invalid) {
-          return;
+          if (this.registroTres.invalid) {
+            return;
+          }
         }
       }
+      this.reseteaFormularios();
+      this.existeUsuario = false;
     }
   }
 
@@ -194,5 +224,91 @@ export class RegisterComponent implements OnInit, OnDestroy {
     this.registroDosFormGroup.reset();
     this.registroTresFormGroup.reset();
     this.step = 1;
+  }
+
+  buscarUsuario(termino: string) {
+    if (termino.length === 0) {
+      // this.existeUsuario = false;
+    } else {
+      this.busquedasService.buscarUsuario(termino).subscribe(
+        (usuarios: any) => {
+          this.usuarios = usuarios;
+
+          if (this.usuarios.length > 0) {
+            Swal.fire({
+              icon: 'info',
+              title: 'Usuario Registrado',
+              html: 'Actualice sus datos',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            this.actualizaUsuario(this.usuarios[0]);
+          } else {
+            // Si el usuario no esta registrado
+            Swal.fire({
+              icon: 'info',
+              html: 'Inicie el proceso de registro',
+              showConfirmButton: false,
+              timer: 2000,
+            });
+            this.existeUsuario = true;
+          }
+        },
+        (err) => {
+          Swal.fire({
+            icon: 'error',
+            html: err.msg,
+            showConfirmButton: false,
+            timer: 2000,
+          });
+        }
+      );
+    }
+  }
+
+  actualizaUsuario(usuario: UsuarioModel) {
+    const {
+      primer_nombre,
+      segundo_nombre,
+      primer_apellido,
+      segundo_apellido,
+      id_tipoDocumento,
+      numero_documento,
+      fecha_nacimiento,
+      email,
+      celular,
+      id_genero,
+      id_vacuna,
+      carnet,
+      imagen,
+      id_congregacion,
+    } = usuario;
+    this.usuarioSeleccionado = usuario;
+
+    this.registroUnoFormGroup.setValue({
+      primer_nombre,
+      segundo_nombre,
+      primer_apellido,
+      segundo_apellido,
+      id_tipoDocumento,
+      numero_documento,
+    });
+
+    this.registroDosFormGroup.setValue({
+      fecha_nacimiento,
+      email,
+      celular,
+      id_genero,
+    });
+
+    this.registroTresFormGroup.setValue({
+      id_vacuna,
+      carnet: '',
+      id_congregacion,
+      campo: '',
+      terminos: false,
+    });
+
+    this.existeUsuario = true;
   }
 }

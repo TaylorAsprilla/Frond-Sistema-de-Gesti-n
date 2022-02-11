@@ -41,6 +41,9 @@
           </thead>
           <tbody>
             <tr *ngFor="let usuario of usuarios">
+              {{
+                usuario.imagenUrl
+              }}
               <td class="text-center">
                 <img
                   [src]="usuario.imagenUrl"
@@ -67,7 +70,6 @@
               </td>
 
               <td>
-                {{ usuario.id_vacuna }}
                 <img [src]="usuario.carnetUrl" alt="{{ usuario.id_vacuna }}" class="img-thumbnail" />
               </td>
 

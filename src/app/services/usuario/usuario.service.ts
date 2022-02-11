@@ -68,6 +68,7 @@ export class UsuarioService {
             id_genero,
             id_vacuna,
             login,
+            carnet,
             imagen = '',
           } = respuesta.usuario;
 
@@ -88,6 +89,7 @@ export class UsuarioService {
             celular,
             email,
             id_vacuna,
+            carnet,
             imagen
           );
           localStorage.setItem('token', respuesta.token);
@@ -133,6 +135,7 @@ export class UsuarioService {
               usuario.id_tipoDocumento,
               usuario.id_genero,
               usuario.estado,
+              usuario.id_vacuna,
               usuario.login,
               usuario.password,
               usuario.segundo_nombre,

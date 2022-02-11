@@ -10,14 +10,40 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 export class BuscadorComponent implements OnInit {
   @Input() titulo: string = '';
   @Input() placeholder: string = '';
+  @Input() validaInput: boolean = false;
 
   @Output() onTerminoBusqueda = new EventEmitter<string>();
+
+  busquedaUno: any;
+  busquedaDos: any;
+
+  mostrarError: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {}
 
+  validaCampoBusqueda(termino: string) {
+    if (!!this.validaInput) {
+      this.busquedaUno = document.getElementById('busquedaUno');
+      this.busquedaDos = document.getElementById('busquedaDos');
+      this.mostrarError = false;
+
+      if (this.busquedaUno.value !== this.busquedaDos.value) {
+        this.mostrarError = true;
+      } else {
+        this.buscarUsuario(termino);
+      }
+    } else {
+      this.buscarUsuario(termino);
+    }
+  }
+
   buscarUsuario(termino: string) {
-    this.onTerminoBusqueda.emit(termino);
+    if (!this.mostrarError) {
+      this.onTerminoBusqueda.emit(termino);
+    } else {
+      return;
+    }
   }
 }

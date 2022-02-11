@@ -268,3 +268,8 @@ fieldset {
     width: 100%;
   }
 }
+
+.login-page,
+.register-page {
+  height: 100vh;
+}

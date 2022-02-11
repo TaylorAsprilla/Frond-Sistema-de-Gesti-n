@@ -32,7 +32,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.router.navigateByUrl('/dasboard');
     this.usuarioService.login(this.loginForm.value).subscribe(
       (loginUsuario) => {
         if (this.loginForm.get('remember').value) {

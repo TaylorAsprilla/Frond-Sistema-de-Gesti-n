@@ -15,6 +15,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = this.usuarioService.usuario;
+    console.log(this.usuario);
 
     $('.search-box a, .search-box .app-search .srh-btn').on('click', function () {
       $('.app-search').toggle(200);
