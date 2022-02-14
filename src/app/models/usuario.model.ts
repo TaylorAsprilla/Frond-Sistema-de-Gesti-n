@@ -2,6 +2,13 @@ import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
 
+export enum Nombre {
+  CONGREGACION = 'congregacion',
+  CAMPO = 'campo',
+  MINISTERIO = 'ministerio',
+  TIPODOCUMENTO = 'tipo documento',
+}
+
 export class UsuarioModel {
   constructor(
     public id: string,
@@ -9,10 +16,11 @@ export class UsuarioModel {
     public primer_apellido: string,
     public numero_documento: string,
     public fecha_nacimiento: Date,
-    public congregacion: number,
-    public tipo_documento: number,
-    public genero: number,
+    public id_congregacion: number,
+    public id_tipoDocumento: number,
+    public id_genero: number,
     public estado: boolean,
+    public id_vacuna?: number,
     public login?: string,
     public password?: string,
     public segundo_nombre?: string,
@@ -31,6 +39,12 @@ export class UsuarioModel {
       return `${base_url}/uploads/usuarios/${this.imagen}`;
     } else {
       return `${base_url}/uploads/usuarios/no-image.jpg`;
+    }
+  }
+
+  get carnetUrl() {
+    if (this.carnet) {
+      return `${base_url}/uploads/carnets/${this.carnet}`;
     }
   }
 }

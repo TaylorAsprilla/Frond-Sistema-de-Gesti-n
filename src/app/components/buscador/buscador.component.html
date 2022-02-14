@@ -2,17 +2,46 @@
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">
-        {{ titulo }}
+        <span *ngIf="!!icono"><i class="{{ icono }}"></i></span> {{ titulo }}
       </h3>
     </div>
     <div class="card-body">
-      <input
-        type="text"
-        class="form-control"
-        placeholder="{{ placeholder }}"
-        (keypress)="$event.keyCode == 13 ? buscarUsuario(termino.value) : null"
-        #termino
-      />
+      <form autocomplete="off" [formGroup]="buscadorForm" (Submit)="validaCampoBusqueda(termino.value)">
+        <!-- Mensajes de Verificación -->
+        <div *ngIf="!!mostrarError" class="alert alert-danger" role="alert">
+          El número de documento no coinciden, vuelve a intentar !
+        </div>
+        <div *ngIf(!mostrarError) class="alert alert-success" role="alert">(Procesando formulario ...)</div>
+
+        <div *ngIf="!!validaInput" class="mb-3">
+          <input
+            type="number"
+            formControlName="busquedaUno"
+            class="form-control"
+            placeholder="{{ placeholder }}"
+            #termino
+            id="busquedaUno"
+          />
+        </div>
+        <input
+          type="number"
+          formControlName="busquedaDos"
+          class="form-control"
+          placeholder="{{ placeholder }}"
+          (keypress)="$event.keyCode == 13 ? validaCampoBusqueda(termino.value) : null"
+          #termino
+          id="busquedaDos"
+        />
+      </form>
+    </div>
+    <div class="col-md-4 mb-2">
+      <button
+        class="btn btn-primary"
+        (click)="validaCampoBusqueda(termino.value)"
+        [disabled]="!!termino.value ? false : true"
+      >
+        Buscar
+      </button>
     </div>
   </div>
 </div>

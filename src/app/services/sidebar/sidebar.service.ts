@@ -18,11 +18,6 @@ export class SidebarService {
       submenu: [{ titulo: 'Dashboard', url: '/' }],
     },
     {
-      titulo: 'Vacunación',
-      icono: 'fas fa-notes-medical',
-      submenu: [{ titulo: 'Validación', url: 'validacion' }],
-    },
-    {
       titulo: 'Administración',
       icono: 'fas fa-users-cog',
       role: [Role.ADMINISTRADOR],
@@ -33,7 +28,6 @@ export class SidebarService {
         { titulo: 'Ministerios', url: 'ministerios' },
         { titulo: 'Congregaciones', url: 'congregaciones' },
         { titulo: 'Campos', url: 'campos' },
-        // { titulo: 'Permisos', url: 'permisos' },
       ],
     },
     {
@@ -42,7 +36,6 @@ export class SidebarService {
       submenu: [
         { titulo: 'Perfil', url: 'perfil' },
         { titulo: 'Usuarios', url: 'usuarios' },
-        // { titulo: 'Permisos', url: 'permisos' },
       ],
     },
   ];

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ModalImagenComponent } from './modal-imagen/modal-imagen.component';
 import { CargandoInformacionComponent } from './cargando-informacion/cargando-informacion.component';
@@ -25,6 +25,6 @@ import { CarnetVacunacionComponent } from './carnet-vacunacion/carnet-vacunacion
     DashboardComponent,
     CarnetVacunacionComponent,
   ],
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
 })
 export class ComponentsModule {}

@@ -5,7 +5,7 @@ import { PagesComponent } from './pages.component';
 
 const routes: Routes = [
   {
-    path: 'dashboard',
+    path: 'sistema',
     component: PagesComponent,
     canActivate: [AuthGuard],
     canLoad: [AuthGuard],

@@ -39,18 +39,18 @@ export class BusquedaComponent implements OnInit {
   }
 
   abrirUsuario(usuario: UsuarioModel) {
-    this.router.navigateByUrl(`/dashboard/usuario/${usuario.id}`);
+    this.router.navigateByUrl(`/sistema/usuario/${usuario.id}`);
   }
 
   abrirCongregacion(congregacion: CongregacionModel) {
-    this.router.navigateByUrl(`/dashboard/congregacion/${congregacion.id}`);
+    this.router.navigateByUrl(`/sistema/congregacion/${congregacion.id}`);
   }
 
   abrirCampo(campo: CampoModel) {
-    this.router.navigateByUrl(`/dashboard/campo/${campo.id}`);
+    this.router.navigateByUrl(`/sistema/campo/${campo.id}`);
   }
 
   abrirMinisterio(ministerio: MinisterioModel) {
-    this.router.navigateByUrl(`/dashboard/ministerio/${ministerio.id}`);
+    this.router.navigateByUrl(`/sistema/ministerio/${ministerio.id}`);
   }
 }

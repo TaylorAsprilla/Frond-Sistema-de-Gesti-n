@@ -74,13 +74,11 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   buscarUsuario(termino: string) {
-    console.log('Termino de busqueda', termino);
     if (termino.length === 0) {
       this.existeUsuario = false;
     } else {
       this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
         this.usuarios = usuarios;
-        console.log(this.usuarios);
         this.existeUsuario = true;
       });
     }

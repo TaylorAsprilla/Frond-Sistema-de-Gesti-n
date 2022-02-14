@@ -30,20 +30,20 @@ export class PerfilComponent implements OnInit {
       segundo_nombre: [this.usuario.segundo_nombre, [Validators.minLength(3)]],
       primer_apellido: [this.usuario.primer_apellido, [Validators.required, Validators.minLength(3)]],
       segundo_apellido: [this.usuario.segundo_apellido, [Validators.minLength(3)]],
-      id_tipoDocumento: [this.usuario.tipo_documento, [Validators.required]],
+      id_tipoDocumento: [this.usuario.id_tipoDocumento, [Validators.required]],
       numero_documento: [this.usuario.numero_documento, [Validators.required, Validators.minLength(3)]],
       fecha_nacimiento: [this.usuario.fecha_nacimiento, [Validators.required]],
       email: [this.usuario.email, [Validators.required, Validators.email]],
       celular: [this.usuario.celular, [Validators.minLength(3)]],
-      id_genero: [this.usuario.genero, [Validators.required]],
+      id_genero: [this.usuario.id_genero, [Validators.required]],
       id_vacuna: [this.usuario.vacuna, [Validators.required]],
       imagen: [this.usuario.imagenUrl, []],
-      id_congregacion: [this.usuario.congregacion, [Validators.required]],
+      id_congregacion: [this.usuario.id_congregacion, [Validators.required]],
     });
   }
 
   actualizarPerfil() {
-    this.usuarioService.actualizarUsuario(this.perfilForm.value).subscribe(
+    this.usuarioService.actualizarUsuario(this.perfilForm.value, this.usuario.id).subscribe(
       (usuarioActualizado) => {
         const { primer_nombre, primer_apellido, email } = this.perfilForm.value;
         this.usuario.primer_nombre = primer_nombre;

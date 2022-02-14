@@ -36,10 +36,11 @@ export class BusquedasService {
           usuario.primer_apellido,
           usuario.numero_documento,
           usuario.fecha_nacimiento,
-          usuario.congregacion,
-          usuario.tipo_documento,
-          usuario.genero,
+          usuario.id_congregacion,
+          usuario.id_tipoDocumento,
+          usuario.id_genero,
           usuario.estado,
+          usuario.id_vacuna,
           usuario.login,
           usuario.password,
           usuario.segundo_nombre,
@@ -47,6 +48,7 @@ export class BusquedasService {
           usuario.celular,
           usuario.email,
           usuario.vacuna,
+          usuario.carnet,
           usuario.imagen
         )
     );
@@ -67,7 +69,7 @@ export class BusquedasService {
 
   buscarUsuario(termino: string) {
     return this.httpClient
-      .get(`${base_url}/busquedas/usuarios/` + termino, this.headers)
+      .get(`${base_url}/busquedas/usuarios/` + termino)
       .pipe(map((respuesta: any) => this.transformarUsuarios(respuesta.busqueda)));
   }
 

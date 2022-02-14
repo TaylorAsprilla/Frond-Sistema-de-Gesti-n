@@ -1,20 +1,28 @@
 <div>
   <div class="card">
     <div class="card-body">
-      <div *ngFor="let usuario of busquedaUsuario">
-        <div class="titulo">
-          {{ usuario.primer_nombre }} {{ usuario.segundo_nombre }} {{ usuario.primer_apellido }}
-          {{ usuario.segundo_apellido }}
-        </div>
+      <div *ngIf="busquedaUsuario.length > 0; else noHayRegistro">
+        <div *ngFor="let usuario of busquedaUsuario">
+          <div class="titulo">
+            {{ usuario.primer_nombre }} {{ usuario.segundo_nombre }} {{ usuario.primer_apellido }}
+            {{ usuario.segundo_apellido }}
+          </div>
 
-        <div class="titulo">
-          {{ usuario.vacuna }}
-        </div>
+          <div class="titulo">
+            <p>{{ usuario.vacuna }}</p>
+            <p>{{ usuario.numero_documento }}</p>
+          </div>
 
-        <div class="mt-4 text-center">
-          <img [src]="usuario.imagenUrl" class="img-thumbnail" />
+          <div class="mt-4 text-center">
+            <img [src]="usuario.carnetUrl" class="img-thumbnail" />
+          </div>
         </div>
       </div>
+      <ng-template #noHayRegistro>
+        <h5 class="text-center">
+          <i class="fas fa-times"></i> No existe un registro con el número de documento digitado
+        </h5>
+      </ng-template>
     </div>
   </div>
 </div>

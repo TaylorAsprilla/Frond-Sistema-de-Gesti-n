@@ -11,11 +11,11 @@ declare var $: any;
 })
 export class HeaderComponent implements OnInit {
   public usuario: UsuarioModel;
-  constructor(private usuarioService: UsuarioService, private router: Router) {}
+  constructor(private usuarioService: UsuarioService, private router: Router) {
+    this.usuario = this.usuarioService.usuario;
+  }
 
   ngOnInit(): void {
-    this.usuario = this.usuarioService.usuario;
-
     $('.search-box a, .search-box .app-search .srh-btn').on('click', function () {
       $('.app-search').toggle(200);
     });

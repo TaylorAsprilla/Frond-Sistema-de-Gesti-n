@@ -68,6 +68,7 @@ export class UsuarioService {
             id_genero,
             id_vacuna,
             login,
+            carnet,
             imagen = '',
           } = respuesta.usuario;
 
@@ -81,13 +82,15 @@ export class UsuarioService {
             id_tipoDocumento,
             id_genero,
             estado,
+            id_vacuna,
             login,
             '',
             segundo_nombre,
             segundo_apellido,
             celular,
             email,
-            id_vacuna,
+            1,
+            carnet,
             imagen
           );
           localStorage.setItem('token', respuesta.token);
@@ -129,10 +132,11 @@ export class UsuarioService {
               usuario.primer_apellido,
               usuario.numero_documento,
               usuario.fecha_nacimiento,
-              usuario.congregacion,
-              usuario.tipo_documento,
-              usuario.genero,
+              usuario.id_congregacion,
+              usuario.id_tipoDocumento,
+              usuario.id_genero,
               usuario.estado,
+              usuario.id_vacuna,
               usuario.login,
               usuario.password,
               usuario.segundo_nombre,
@@ -140,6 +144,7 @@ export class UsuarioService {
               usuario.celular,
               usuario.email,
               usuario.vacuna,
+              usuario.carnet,
               usuario.imagen
             )
         );
@@ -158,7 +163,7 @@ export class UsuarioService {
     return this.httpClient.delete(`${base_url}/usuarios/${usuario.id}`, this.headers);
   }
 
-  actualizarUsuario(usuario: UsuarioModel) {
-    return this.httpClient.put(`${base_url}/usuarios/${usuario.id}`, usuario, this.headers);
+  actualizarUsuario(usuario: UsuarioModel, id: string) {
+    return this.httpClient.put(`${base_url}/usuarios/${id}`, usuario, this.headers);
   }
 }

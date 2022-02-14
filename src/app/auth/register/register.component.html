@@ -11,194 +11,211 @@
 
     <div class="card">
       <div class="card-body register-card-body">
-        <p class="login-box-msg">Registrar un nuevo miembro</p>
+        <app-buscador
+          *ngIf="!existeUsuario"
+          [titulo]="titulo"
+          [placeholder]="placeholder"
+          [validaInput]="true"
+          (onTerminoBusqueda)="buscarUsuario($event)"
+        ></app-buscador>
 
-        <div class="row">
-          <div class="col-md-12 col-md-offset-3">
-            <form [formGroup]="registroUnoFormGroup" id="msform">
-              <!-- progressbar -->
-              <ul id="progressbar">
-                <li [ngClass]="step >= 1 ? 'active ' : 'inactive'">Paso 1</li>
-                <li [ngClass]="step >= 2 ? 'active' : 'inactive'">Paso 2</li>
-                <li [ngClass]="step == 3 ? 'active' : 'inactive'">Paso 3</li>
-              </ul>
-              <!-- fieldsets -->
-              <fieldset *ngIf="step == 1">
-                <h2 class="fs-title">Información Personal</h2>
-                <input
-                  type="text"
-                  formControlName="primer_nombre"
-                  [ngClass]="{ 'is-invalid': registroUno_step && registroUno.primer_nombre.errors }"
-                  placeholder="Primer Nombre"
-                />
-                <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_nombre.errors">
-                  <div class="txtObligatorio" *ngIf="registroUno.primer_nombre.errors?.required">
-                    El primer nombre es obligatorio
+        <div *ngIf="!!existeUsuario">
+          <p class="login-box-msg">Registrar un nuevo miembro</p>
+
+          <div class="row">
+            <div class="col-md-12 col-md-offset-3">
+              <form [formGroup]="registroUnoFormGroup" id="msform">
+                <!-- progressbar -->
+                <ul id="progressbar">
+                  <li [ngClass]="step >= 1 ? 'active ' : 'inactive'">Paso 1</li>
+                  <li [ngClass]="step >= 2 ? 'active' : 'inactive'">Paso 2</li>
+                  <li [ngClass]="step == 3 ? 'active' : 'inactive'">Paso 3</li>
+                </ul>
+                <!-- fieldsets -->
+                <fieldset *ngIf="step == 1">
+                  <h2 class="fs-title">Información Personal</h2>
+                  <input
+                    type="text"
+                    formControlName="primer_nombre"
+                    [ngClass]="{ 'is-invalid': registroUno_step && registroUno.primer_nombre.errors }"
+                    placeholder="Primer Nombre"
+                  />
+                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_nombre.errors">
+                    <div class="txtObligatorio" *ngIf="registroUno.primer_nombre.errors?.required">
+                      El primer nombre es obligatorio
+                    </div>
                   </div>
-                </div>
-                <input
-                  type="text"
-                  formControlName="segundo_nombre"
-                  [ngClass]="{ 'is-invalid': registroUno_step && registroUno.segundo_nombre.errors }"
-                  placeholder="Segundo Nombre"
-                />
-                <input
-                  type="text"
-                  formControlName="primer_apellido"
-                  [ngClass]="{ 'is-invalid': registroUno_step && registroUno.primer_apellido.errors }"
-                  placeholder="Primer Apellido"
-                />
-                <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_apellido.errors">
-                  <div class="txtObligatorio" *ngIf="registroUno.primer_apellido.errors?.required">
-                    El primer apellido es obligatorio
+                  <input
+                    type="text"
+                    formControlName="segundo_nombre"
+                    [ngClass]="{ 'is-invalid': registroUno_step && registroUno.segundo_nombre.errors }"
+                    placeholder="Segundo Nombre"
+                  />
+                  <input
+                    type="text"
+                    formControlName="primer_apellido"
+                    [ngClass]="{ 'is-invalid': registroUno_step && registroUno.primer_apellido.errors }"
+                    placeholder="Primer Apellido"
+                  />
+                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_apellido.errors">
+                    <div class="txtObligatorio" *ngIf="registroUno.primer_apellido.errors?.required">
+                      El primer apellido es obligatorio
+                    </div>
                   </div>
-                </div>
-                <input
-                  type="text"
-                  formControlName="segundo_apellido"
-                  [ngClass]="{ 'is-invalid': registroUno_step && registroUno.segundo_apellido.errors }"
-                  placeholder="Segundo Apellido"
-                />
-                <select class="form-control" formControlName="id_tipoDocumento">
-                  <option value="" disabled>Seleccione un tipo de documento</option>
-                  <option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.id">
-                    {{ tipoDocumento.nombre }}
-                  </option>
-                </select>
-                <div *ngIf="registroUno_step && registroUnoFormGroup.controls.id_tipoDocumento.errors">
-                  <div class="txtObligatorio" *ngIf="registroUno.id_tipoDocumento.errors?.required">
-                    El tipo de socumento es obligatorio
+                  <input
+                    type="text"
+                    formControlName="segundo_apellido"
+                    [ngClass]="{ 'is-invalid': registroUno_step && registroUno.segundo_apellido.errors }"
+                    placeholder="Segundo Apellido"
+                  />
+                  <select class="form-control" formControlName="id_tipoDocumento">
+                    <option value="" disabled>Seleccione un tipo de documento</option>
+                    <option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.id">
+                      {{ tipoDocumento.nombre }}
+                    </option>
+                  </select>
+                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.id_tipoDocumento.errors">
+                    <div class="txtObligatorio" *ngIf="registroUno.id_tipoDocumento.errors?.required">
+                      El tipo de socumento es obligatorio
+                    </div>
                   </div>
-                </div>
-                <input
-                  type="number"
-                  formControlName="numero_documento"
-                  [ngClass]="{ 'is-invalid': registroUno_step && registroUno.numero_documento.errors }"
-                  placeholder="Número de Documento"
-                />
-                <div *ngIf="registroUno_step && registroUnoFormGroup.controls.numero_documento.errors">
-                  <div class="txtObligatorio" *ngIf="registroUno.numero_documento.errors?.required">
-                    El número de documento es obligatorio
+                  <input
+                    type="number"
+                    formControlName="numero_documento"
+                    [ngClass]="{ 'is-invalid': registroUno_step && registroUno.numero_documento.errors }"
+                    placeholder="Número de Documento"
+                  />
+                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.numero_documento.errors">
+                    <div class="txtObligatorio" *ngIf="registroUno.numero_documento.errors?.required">
+                      El número de documento es obligatorio
+                    </div>
                   </div>
-                </div>
 
-                <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
-              </fieldset>
-            </form>
+                  <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
+                </fieldset>
+              </form>
 
-            <form [formGroup]="registroDosFormGroup" id="msform">
-              <fieldset *ngIf="step == 2">
-                <h2 class="fs-title">Información Personal</h2>
-                <input type="date" formControlName="fecha_nacimiento" placeholder="Fecha de Nacimiento" />
-                <div *ngIf="registroDos_step && registroDosFormGroup.controls.fecha_nacimiento.errors">
-                  <div class="txtObligatorio" *ngIf="registroDos.fecha_nacimiento.errors?.required">
-                    La Fecha de Nacimiento es obligarotia
+              <form [formGroup]="registroDosFormGroup" id="msform">
+                <fieldset *ngIf="step == 2">
+                  <h2 class="fs-title">Información Personal</h2>
+                  <input type="date" formControlName="fecha_nacimiento" placeholder="Fecha de Nacimiento" />
+                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.fecha_nacimiento.errors">
+                    <div class="txtObligatorio" *ngIf="registroDos.fecha_nacimiento.errors?.required">
+                      La Fecha de Nacimiento es obligarotia
+                    </div>
                   </div>
-                </div>
-                <input type="email" formControlName="email" name="email" placeholder="Correo Electrónico" />
-                <div *ngIf="registroDos_step && registroDosFormGroup.controls.email.errors">
-                  <div class="txtObligatorio" *ngIf="registroDos.email.errors?.required">
-                    El Correo Electrónico es obligatorio
+                  <input type="email" formControlName="email" name="email" placeholder="Correo Electrónico" />
+                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.email.errors">
+                    <div class="txtObligatorio" *ngIf="registroDos.email.errors?.required">
+                      El Correo Electrónico es obligatorio
+                    </div>
                   </div>
-                </div>
-                <input type="number" formControlName="celular" placeholder="Celular" />
+                  <input type="number" formControlName="celular" placeholder="Celular" />
 
-                <select class="form-control" formControlName="id_genero">
-                  <option value="" disabled>Seleccione el género</option>
-                  <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
-                </select>
+                  <select class="form-control" formControlName="id_genero">
+                    <option value="" disabled>Seleccione el género</option>
+                    <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
+                  </select>
 
-                <div *ngIf="registroDos_step && registroDosFormGroup.controls.id_genero.errors">
-                  <div class="txtObligatorio" *ngIf="registroDos.id_genero.errors?.required">Seleccione el género</div>
-                </div>
-
-                <input
-                  (click)="previous()"
-                  type="button"
-                  name="previous"
-                  class="previous action-button-previous"
-                  value="Anterior"
-                />
-                <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
-              </fieldset>
-            </form>
-            <form [formGroup]="registroTresFormGroup" id="msform">
-              <fieldset *ngIf="step == 3">
-                <h2 class="fs-title">Información Personal</h2>
-                <select class="form-control" formControlName="id_vacuna">
-                  <option value="" disabled>Seleccione la vacuna</option>
-                  <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">{{ vacuna.nombre }}</option>
-                </select>
-                <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_vacuna.errors">
-                  <div class="txtObligatorio" *ngIf="registroTres.id_vacuna.errors?.required">
-                    Seleccione una vacuna
+                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.id_genero.errors">
+                    <div class="txtObligatorio" *ngIf="registroDos.id_genero.errors?.required">
+                      Seleccione el género
+                    </div>
                   </div>
-                </div>
-                <input type="file" formControlName="imagen" />
 
-                <select
-                  class="form-control"
-                  formControlName="id_congregacion"
-                  (change)="listarCampos(txtCongregacion.value)"
-                  #txtCongregacion
-                >
-                  <option value="" disabled>Seleccione la Congregación</option>
-                  <option *ngFor="let congregacion of congregaciones" [value]="congregacion.id">
-                    {{ congregacion.nombre }}
-                  </option>
-                </select>
-                <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_congregacion.errors">
-                  <div class="txtObligatorio" *ngIf="registroTres.id_congregacion.errors?.required">
-                    Seleccione la congregación
+                  <input
+                    (click)="previous()"
+                    type="button"
+                    name="previous"
+                    class="previous action-button-previous"
+                    value="Anterior"
+                  />
+                  <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
+                </fieldset>
+              </form>
+              <form [formGroup]="registroTresFormGroup" id="msform">
+                <fieldset *ngIf="step == 3">
+                  <h2 class="fs-title">Información Personal</h2>
+                  <select class="form-control" formControlName="id_vacuna">
+                    <option value="" disabled>Seleccione la vacuna</option>
+                    <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">{{ vacuna.nombre }}</option>
+                  </select>
+                  <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_vacuna.errors">
+                    <div class="txtObligatorio" *ngIf="registroTres.id_vacuna.errors?.required">
+                      Seleccione una vacuna
+                    </div>
                   </div>
-                </div>
+                  <input
+                    type="file"
+                    formControlName="carnet"
+                    accept="image/png, image/jpeg"
+                    placeholder="Subir el carnet de vacunación"
+                  />
 
-                <select class="form-control" formControlName="campo" *ngIf="camposFiltrados.length > 0">
-                  <option value="" disabled>Seleccione el campo al que pertenece</option>
-                  <option *ngFor="let campo of camposFiltrados" [value]="campo.id">{{ campo.nombre }}</option>
-                </select>
-
-                <div *ngIf="registroTres_step && registroTresFormGroup.controls.campo.errors">
-                  <div class="txtObligatorio" *ngIf="registroTres.campo.errors?.required">Seleccione el campo</div>
-                </div>
-
-                <div class="icheck-primary">
-                  <p class="terminos">
-                    Para la atención de requerimientos relacionados con el tratamiento de tus datos personales y el
-                    ejercicio de los derechos mencionados en esta autorización puedes escribir al correo:
-                    protecciondedatos@congregacionmitacol.org y/o comunicarte con nuestra Oficina Central ubicada en la
-                    Calle 16 No. 18A – 59 de la ciudad de Santiago de Cali, de lunes a viernes de 9 am a 4 pm;
-                    atendiendo los requisitos para el trámite de consultas y reclamos establecidos en la política de
-                    protección de datos de la Congregación a la cual podrá tener acceso en la página web:
-                  </p>
-                  <input type="checkbox" id="agreeTerms" name="terms" formControlName="terminos" />
-
-                  <label for="agreeTerms">
-                    <a
-                      href=" https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
-                      target="_blank"
-                    >
-                      Acepto los términos y condiciones</a
-                    >
-                  </label>
-                </div>
-
-                <div *ngIf="registroTres_step && registroTresFormGroup.controls.terminos.errors">
-                  <div class="txtObligatorio" *ngIf="registroTres.terminos.errors?.required">
-                    Debe aceptar términos y condiciones
+                  <select
+                    class="form-control"
+                    formControlName="id_congregacion"
+                    (change)="listarCampos(txtCongregacion.value)"
+                    #txtCongregacion
+                  >
+                    <option value="" disabled>Seleccione la Congregación</option>
+                    <option *ngFor="let congregacion of congregaciones" [value]="congregacion.id">
+                      {{ congregacion.nombre }}
+                    </option>
+                  </select>
+                  <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_congregacion.errors">
+                    <div class="txtObligatorio" *ngIf="registroTres.id_congregacion.errors?.required">
+                      Seleccione la congregación
+                    </div>
                   </div>
-                </div>
 
-                <input
-                  (click)="previous()"
-                  type="button"
-                  name="previous"
-                  class="previous action-button-previous"
-                  value="Anterior"
-                />
-                <input (click)="submit()" type="submit" name="submit" class="submit action-button" value="Enviar" />
-              </fieldset>
-            </form>
+                  <select class="form-control" formControlName="campo" *ngIf="camposFiltrados.length > 0">
+                    <option value="" disabled>Seleccione el campo al que pertenece</option>
+                    <option *ngFor="let campo of camposFiltrados" [value]="campo.id">{{ campo.nombre }}</option>
+                  </select>
+
+                  <div *ngIf="registroTres_step && registroTresFormGroup.controls.campo.errors">
+                    <div class="txtObligatorio" *ngIf="registroTres.campo.errors?.required">Seleccione el campo</div>
+                  </div>
+
+                  <div class="icheck-primary">
+                    <p class="terminos">
+                      Para la atención de requerimientos relacionados con el tratamiento de tus datos personales y el
+                      ejercicio de los derechos mencionados en esta autorización puedes escribir al correo:
+                      protecciondedatos@congregacionmitacol.org y/o comunicarte con nuestra Oficina Central ubicada en
+                      la Calle 16 No. 18A – 59 de la ciudad de Santiago de Cali, de lunes a viernes de 9 am a 4 pm;
+                      atendiendo los requisitos para el trámite de consultas y reclamos establecidos en la política de
+                      protección de datos de la Congregación a la cual podrá tener acceso en la página web:
+                    </p>
+                    <input type="checkbox" id="agreeTerms" name="terms" formControlName="terminos" />
+
+                    <label for="agreeTerms">
+                      <a
+                        href=" https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
+                        target="_blank"
+                      >
+                        Acepto los términos y condiciones</a
+                      >
+                    </label>
+                  </div>
+
+                  <div *ngIf="registroTres_step && registroTresFormGroup.controls.terminos.errors">
+                    <div class="txtObligatorio" *ngIf="registroTres.terminos.errors?.required">
+                      Debe aceptar términos y condiciones
+                    </div>
+                  </div>
+
+                  <input
+                    (click)="previous()"
+                    type="button"
+                    name="previous"
+                    class="previous action-button-previous"
+                    value="Anterior"
+                  />
+                  <input (click)="submit()" type="submit" name="submit" class="submit action-button" value="Enviar" />
+                </fieldset>
+              </form>
+            </div>
           </div>
         </div>
         <span>¿Ya tienes una cuenta? <a routerLink="/login" class="text-center">Iniciar Sesión</a></span>

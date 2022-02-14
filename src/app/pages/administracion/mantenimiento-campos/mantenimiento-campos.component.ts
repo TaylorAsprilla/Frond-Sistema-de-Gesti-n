@@ -84,7 +84,7 @@ export class MantenimientoCamposComponent implements OnInit, OnDestroy {
     } else {
       this.campoService.crearCampo(campoNuevo).subscribe((campoCreado: any) => {
         Swal.fire('Campo Creado', `${campoCreado.campo.nombre} creado correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/campo/${campoCreado.campo.id}`);
+        this.router.navigateByUrl(`/sistema/campo/${campoCreado.campo.id}`);
       });
     }
   }
