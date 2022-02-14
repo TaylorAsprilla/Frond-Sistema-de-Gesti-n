@@ -7,7 +7,7 @@ const base_url = environment.base_url;
   name: 'imagen',
 })
 export class ImagenPipe implements PipeTransform {
-  transform(imagen: string, tipo: 'usuarios' | 'ministerios'): string {
+  transform(imagen: string, tipo: 'usuarios' | 'ministerios' | 'carnets'): string {
     if (!imagen) {
       return `${base_url}/uploads/usuarios/no-image.jpg`;
     } else if (imagen.includes('https')) {

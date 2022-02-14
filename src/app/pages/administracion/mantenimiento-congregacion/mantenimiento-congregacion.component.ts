@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
@@ -11,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './mantenimiento-congregacion.component.html',
   styleUrls: ['./mantenimiento-congregacion.component.css'],
 })
-export class MantenimientoCongregacionComponent implements OnInit {
+export class MantenimientoCongregacionComponent implements OnInit, OnDestroy {
   public congregacionForm: FormGroup;
 
   public congregaciones: CongregacionModel[] = [];
@@ -76,7 +76,7 @@ export class MantenimientoCongregacionComponent implements OnInit {
           this.congregacionForm.setValue({ nombre, direccion, telefono });
         },
         (error) => {
-          return this.router.navigateByUrl(`/dashboard/congregaciones`);
+          return this.router.navigateByUrl(`/sistema/congregaciones`);
         }
       );
     } else {

@@ -4,7 +4,7 @@
     <div class="card">
       <div class="card-body">
         <input
-          type="text"
+          type="number"
           class="form-control"
           placeholder="{{ placeholder }}"
           (keyup)="buscarUsuario(termino.value)"
@@ -20,6 +20,10 @@
   <div class="card animate__animated animate__fadeIn animate__slow" *ngIf="!cargando">
     <div class="card-header">
       <h3 class="card-title">Total de usuarios registrados: {{ totalUsuarios }}</h3>
+      <div class="float-right">
+        <span class="font-weight-bold">Página:</span> {{ pagina }} de {{ totalPaginas }} -
+        <span class="font-weight-bold">Cantidad: </span>{{ paginaDesde + 5 }}
+      </div>
     </div>
     <!-- /.card-header -->
     <div class="card-body">
@@ -41,9 +45,6 @@
           </thead>
           <tbody>
             <tr *ngFor="let usuario of usuarios">
-              {{
-                usuario.imagenUrl
-              }}
               <td class="text-center">
                 <img
                   [src]="usuario.imagenUrl"
@@ -59,7 +60,7 @@
               <td>{{ usuario.email }}</td>
               <td>{{ usuario.fecha_nacimiento }}</td>
               <td>
-                <!-- {{ buscarNombre(usuario.id_tipoDocumento, Nombre.TIPODOCUMENTO) }} -->
+                {{ buscarNombre(usuario.id_tipoDocumento, Nombre.TIPODOCUMENTO) }}
               </td>
               <td>{{ usuario.numero_documento }}</td>
 
@@ -79,7 +80,7 @@
               </td>
               <td class="text-center">
                 <a
-                  [routerLink]="['/dashboard/usuario', usuario.id]"
+                  [routerLink]="['/sistema/usuario', usuario.id]"
                   data-toggle="tooltip"
                   data-original-title="Editar"
                   class="btn bg-info"
@@ -114,8 +115,18 @@
       </div>
     </div>
     <div class="col-md-4 mb-4 ml-2">
-      <button class="btn btn-secondary" (click)="cambiarPagina(-5)">Anterior</button> &nbsp;
-      <button class="btn btn-secondary" (click)="cambiarPagina(5)">Siguiente</button>
+      <button class="btn btn-secondary" (click)="cambiarPagina(-5, -1)" [disabled]="pagina == 1 ? true : false">
+        {{ pagina }}
+        Anterior
+      </button>
+      &nbsp;
+      <button
+        class="btn btn-secondary"
+        (click)="cambiarPagina(5, 1)"
+        [disabled]="pagina === totalPaginas ? true : false"
+      >
+        Siguiente
+      </button>
     </div>
   </div>
 </section>

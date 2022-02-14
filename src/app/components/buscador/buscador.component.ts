@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-
-import { UsuarioModel } from 'src/app/models/usuario.model';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-buscador',
@@ -11,6 +10,7 @@ export class BuscadorComponent implements OnInit {
   @Input() titulo: string = '';
   @Input() placeholder: string = '';
   @Input() validaInput: boolean = false;
+  @Input() icono: string = '';
 
   @Output() onTerminoBusqueda = new EventEmitter<string>();
 
@@ -18,18 +18,25 @@ export class BuscadorComponent implements OnInit {
   busquedaDos: any;
 
   mostrarError: boolean = false;
+  buscadorForm: FormGroup;
 
-  constructor() {}
+  constructor(private formBuilder: FormBuilder) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.buscadorForm = this.formBuilder.group({
+      busquedaUno: ['', [Validators.required, Validators.minLength(4)], Validators.pattern('/^[0-9]+$/')],
+      busquedaDos: ['', [Validators.required, Validators.minLength(4)], Validators.pattern('/^[0-9]+$/')],
+    });
+  }
 
-  validaCampoBusqueda(termino: string) {
+  validaCampoBusqueda(termino: string = '') {
     if (!!this.validaInput) {
-      this.busquedaUno = document.getElementById('busquedaUno');
-      this.busquedaDos = document.getElementById('busquedaDos');
+      let busquedaUno = this.buscadorForm.get('busquedaUno').value;
+      let busquedaDos = this.buscadorForm.get('busquedaDos').value;
+
       this.mostrarError = false;
 
-      if (this.busquedaUno.value !== this.busquedaDos.value) {
+      if (busquedaUno !== busquedaDos) {
         this.mostrarError = true;
       } else {
         this.buscarUsuario(termino);

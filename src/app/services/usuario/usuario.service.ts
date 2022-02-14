@@ -82,13 +82,14 @@ export class UsuarioService {
             id_tipoDocumento,
             id_genero,
             estado,
+            id_vacuna,
             login,
             '',
             segundo_nombre,
             segundo_apellido,
             celular,
             email,
-            id_vacuna,
+            1,
             carnet,
             imagen
           );
@@ -162,7 +163,7 @@ export class UsuarioService {
     return this.httpClient.delete(`${base_url}/usuarios/${usuario.id}`, this.headers);
   }
 
-  actualizarUsuario(usuario: UsuarioModel) {
-    return this.httpClient.put(`${base_url}/usuarios/${usuario.id}`, usuario, this.headers);
+  actualizarUsuario(usuario: UsuarioModel, id: string) {
+    return this.httpClient.put(`${base_url}/usuarios/${id}`, usuario, this.headers);
   }
 }

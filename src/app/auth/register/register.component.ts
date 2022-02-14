@@ -184,7 +184,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
         if (this.usuarioSeleccionado) {
           // Actualiza si existe el usuario
-          this.usuarioService.actualizarUsuario(this.usuarioSeleccionado).subscribe(
+          this.usuarioService.actualizarUsuario(this.usuarioSeleccionado, this.usuarioSeleccionado.id).subscribe(
             (usuarioActualizado: any) => {
               Swal.fire(
                 'Usuario Actualizado',

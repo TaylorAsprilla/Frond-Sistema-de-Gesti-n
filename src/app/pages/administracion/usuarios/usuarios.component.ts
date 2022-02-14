@@ -32,12 +32,11 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public tipoDocumentos: TipoDocumentoModel[] = [];
 
   public paginaDesde: number = 0;
+  public pagina: number = 1;
+  public totalPaginas: number = 0;
 
-  public congregacion: any;
-  public campo: string;
-  public documento: string;
-  public ministerio: string;
-
+  public encontroDocumento: boolean = false;
+  public encontroCongregacion: boolean = false;
   public cargando: boolean = true;
   public placeholder: string = 'Buscar usuarios';
 
@@ -95,17 +94,22 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.usuarios = usuarios;
       this.usuariosTemporales = usuarios;
       this.cargando = false;
+      this.totalPaginas = Math.ceil(totalUsuarios / 5);
     });
   }
 
-  cambiarPagina(valor: number) {
+  cambiarPagina(valor: number, numeroPagina: number) {
     this.paginaDesde += valor;
+    this.pagina += numeroPagina;
 
     if (this.paginaDesde < 0) {
+      this.pagina = 1;
       this.paginaDesde = 0;
     } else if (this.paginaDesde >= this.totalUsuarios) {
+      this.pagina += numeroPagina;
       this.paginaDesde -= valor;
     }
+
     this.cargarUsuarios();
   }
 
@@ -151,13 +155,16 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.modalImagenServices.abrirModal(usuario.id, 'usuarios', usuario.imagen);
   }
 
-  buscarNombre(id: string, tipo: string) {
-    if (tipo == Nombre.CONGREGACION) {
-      this.congregacion = this.congregaciones.find((congregacion) => congregacion.id === id);
-      return this.congregacion.nombre;
-    } else if (tipo == Nombre.TIPODOCUMENTO) {
-      const tipoDocumento = this.tipoDocumentos.find((tipoDocumento) => tipoDocumento.id === parseInt(id));
-      return tipoDocumento.nombre;
+  buscarNombre(id: string, tipo: string): string {
+    let nombre = '';
+    if (tipo == Nombre.CONGREGACION && !this.cargando) {
+      nombre = this.congregaciones.find((congregacion) => congregacion.id === id).nombre;
+      return nombre;
+    } else if (tipo == Nombre.TIPODOCUMENTO && !this.cargando) {
+      nombre = this.tipoDocumentos.find((tipoDocumento) => tipoDocumento.id === parseInt(id)).nombre;
+      return nombre;
+    } else {
+      return null;
     }
   }
 }
