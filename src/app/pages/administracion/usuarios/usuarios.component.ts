@@ -156,15 +156,25 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   }
 
   buscarNombre(id: string, tipo: string): string {
-    let nombre = '';
+    let nombre;
     if (tipo == Nombre.CONGREGACION && !this.cargando) {
-      nombre = this.congregaciones.find((congregacion) => congregacion.id === id).nombre;
-      return nombre;
+      nombre = this.congregaciones.find((congregacion) => congregacion.id === id);
+
+      if (nombre !== undefined) {
+        return nombre.nombre;
+      } else {
+        return;
+      }
     } else if (tipo == Nombre.TIPODOCUMENTO && !this.cargando) {
-      nombre = this.tipoDocumentos.find((tipoDocumento) => tipoDocumento.id === parseInt(id)).nombre;
-      return nombre;
+      nombre = this.tipoDocumentos.find((tipoDocumento) => tipoDocumento.id === parseInt(id));
+
+      if (nombre !== undefined) {
+        return nombre.nombre;
+      } else {
+        return;
+      }
     } else {
-      return null;
+      return;
     }
   }
 }
