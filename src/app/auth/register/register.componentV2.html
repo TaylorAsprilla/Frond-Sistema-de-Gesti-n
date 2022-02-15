@@ -2,7 +2,7 @@
   <div class="register-box pt-5">
     <div class="register-logo">
       <img
-        src="./../../../assets/imagenes/logo.png"
+        src="./assets/imagenes/logo.png"
         width="30%"
         class="img-fluid"
         alt="Sistema de gestión de la Congregación Mita"
@@ -149,9 +149,7 @@
           <div class="input-group mb-3" *ngIf="camposFiltrados.length > 0">
             <select class="form-control" formControlName="campo">
               <option value="" disabled>Seleccione el campo al que pertenece</option>
-              <option *ngFor="let campo of camposFiltrados" [value]="campo.id">
-                {{ campo.nombre }}
-              </option>
+              <option *ngFor="let campo of camposFiltrados" [value]="campo.id">{{ campo.nombre }}</option>
             </select>
             <div class="input-group-append">
               <div class="input-group-text">
@@ -163,9 +161,7 @@
           <div class="input-group mb-3">
             <select class="form-control" formControlName="id_genero">
               <option value="" disabled>Seleccione el género</option>
-              <option *ngFor="let genero of generos" [value]="genero.id">
-                {{ genero.nombre }}
-              </option>
+              <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
             </select>
 
             <div class="input-group-append">
@@ -178,9 +174,7 @@
           <div class="input-group mb-3">
             <select class="form-control" formControlName="id_vacuna">
               <option value="" disabled>Seleccione la vacuna</option>
-              <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">
-                {{ vacuna.nombre }}
-              </option>
+              <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">{{ vacuna.nombre }}</option>
             </select>
 
             <div class="input-group-append">
