@@ -62,7 +62,7 @@ export class MantenimientoCongregacionComponent implements OnInit, OnDestroy {
     } else {
       this.congregacionServices.crearCongregacion(congregacionNueva).subscribe((congregacionCreada: any) => {
         Swal.fire('Congregacion Creada', `${congregacionCreada.congregacion.nombre} creada correctamente`, 'success');
-        this.router.navigateByUrl(`/dashboard/congregacion/${congregacionCreada.congregacion.id}`);
+        this.router.navigateByUrl(`/sistema/congregacion/${congregacionCreada.congregacion.id}`);
       });
     }
   }

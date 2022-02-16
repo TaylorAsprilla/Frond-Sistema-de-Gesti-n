@@ -103,7 +103,7 @@ export class MantenimientoCamposComponent implements OnInit, OnDestroy {
             this.campoForm.setValue({ nombre, direccion, telefono, id_congregacion });
           },
           (error) => {
-            return this.router.navigateByUrl(`/dashboard/campos`);
+            return this.router.navigateByUrl(`/sistema/campos`);
           }
         );
     } else {
