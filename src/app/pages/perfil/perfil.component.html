@@ -51,13 +51,11 @@
           <div class="form-group">
             <label for="id_tipoDocumento">Tipo de Documento</label>
             <div class="input-group mb-3">
-              <select class="form-control" formControlName="id_tipoDocumento" placeholder="Tipo Documento">
+              <select class="form-control" formControlName="id_tipoDocumento">
                 <option value="" disabled>Seleccione un tipo de documento</option>
-                <option value="1">Cédula de Ciudadanía</option>
-                <option value="2">Cédula de Extranjería</option>
-                <option value="3">Pasaporte</option>
-                <option value="4">Tarjeta de Identidad</option>
-                <option value="5">Registro Civil</option>
+                <option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.id">
+                  {{ tipoDocumento.nombre }}
+                </option>
               </select>
             </div>
           </div>
@@ -110,14 +108,26 @@
           <div class="form-group">
             <label for="id_congregacion">Congregación</label>
             <div class="input-group mb-3">
-              <select class="form-control" formControlName="id_congregacion" placeholder="Congregación">
+              <select
+                class="form-control"
+                formControlName="id_congregacion"
+                (change)="listarCampos(txtCongregacion.value)"
+                #txtCongregacion
+              >
                 <option value="" disabled>Seleccione la Congregación</option>
-                <option value="1">Bogotá</option>
-                <option value="2">Buenaventura</option>
-                <option value="3">Buga</option>
-                <option value="4">Bugalagrande</option>
-                <option value="5">Cabuyal</option>
-                <option value="6">Cali</option>
+                <option *ngFor="let congregacion of congregaciones" [value]="congregacion.id">
+                  {{ congregacion.nombre }}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" *ngIf="camposFiltrados.length > 0">
+            <label for="id_congregacion">Campo</label>
+            <div class="input-group mb-3">
+              <select class="form-control" formControlName="campo">
+                <option value="" disabled>Seleccione el campo al que pertenece</option>
+                <option *ngFor="let campo of camposFiltrados" [value]="campo.id">{{ campo.nombre }}</option>
               </select>
             </div>
           </div>
@@ -125,10 +135,9 @@
           <div class="form-group">
             <label for="id_genero">Género</label>
             <div class="input-group mb-3">
-              <select class="form-control" formControlName="id_genero" placeholder="Género">
+              <select class="form-control" formControlName="id_genero">
                 <option value="" disabled>Seleccione el género</option>
-                <option value="1">Femenino</option>
-                <option value="2">Masculino</option>
+                <option *ngFor="let genero of generos" [value]="genero.id">{{ genero.nombre }}</option>
               </select>
             </div>
           </div>
@@ -136,14 +145,9 @@
           <div class="form-group">
             <label for="id_vacuna">Vacuna</label>
             <div class="input-group mb-3">
-              <select class="form-control" formControlName="id_vacuna" placeholder="Vacuna">
-                <option value="" disabled>Seleccione la Vacuna</option>
-                <option value="1">Moderna</option>
-                <option value="2">Sinovac</option>
-                <option value="3">Pfizer</option>
-                <option value="4">Johnson & Johnson</option>
-                <option value="5">AstraZeneca</option>
-                <option value="6">Sin Vacuna</option>
+              <select class="form-control" formControlName="id_vacuna">
+                <option value="" disabled>Seleccione la vacuna</option>
+                <option *ngFor="let vacuna of vacunas" [value]="vacuna.id">{{ vacuna.nombre }}</option>
               </select>
             </div>
           </div>
