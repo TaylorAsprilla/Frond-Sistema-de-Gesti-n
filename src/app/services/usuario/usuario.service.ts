@@ -153,6 +153,38 @@ export class UsuarioService {
     );
   }
 
+  listarTodosLosUsuarios() {
+    return this.httpClient.get<ListarUsuario>(`${base_url}/usuarios/todos`, this.headers).pipe(
+      map((usuariosRespuesta) => {
+        const usuarios = usuariosRespuesta.usuarios.map(
+          (usuario) =>
+            new UsuarioModel(
+              usuario.id,
+              usuario.primer_nombre,
+              usuario.primer_apellido,
+              usuario.numero_documento,
+              usuario.fecha_nacimiento,
+              usuario.id_congregacion,
+              usuario.id_tipoDocumento,
+              usuario.id_genero,
+              usuario.estado,
+              usuario.id_vacuna,
+              usuario.login,
+              usuario.password,
+              usuario.segundo_nombre,
+              usuario.segundo_apellido,
+              usuario.celular,
+              usuario.email,
+              usuario.vacuna,
+              usuario.carnet,
+              usuario.imagen
+            )
+        );
+        return { totalUsuarios: usuariosRespuesta.totalUsuarios, usuarios };
+      })
+    );
+  }
+
   getUsuario(id: string) {
     return this.httpClient
       .get(`${base_url}/usuarios/${id}`, this.headers)

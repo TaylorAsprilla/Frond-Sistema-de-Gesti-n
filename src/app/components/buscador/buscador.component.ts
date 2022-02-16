@@ -24,8 +24,8 @@ export class BuscadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscadorForm = this.formBuilder.group({
-      busquedaUno: ['', [Validators.required, Validators.minLength(4)], Validators.pattern('/^[0-9]+$/')],
-      busquedaDos: ['', [Validators.required, Validators.minLength(4)], Validators.pattern('/^[0-9]+$/')],
+      busquedaUno: ['', [Validators.required, Validators.minLength(4), Validators.pattern('/^[0-9]+$/')]],
+      busquedaDos: ['', [Validators.required, Validators.minLength(4), Validators.pattern('/^[0-9]+$/')]],
     });
   }
 

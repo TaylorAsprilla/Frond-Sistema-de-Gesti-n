@@ -87,10 +87,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registroTresFormGroup = this.formBuilder.group({
       id_vacuna: ['', [Validators.required]],
-      carnet: ['', []],
+      carnet: ['', [Validators.required]],
       id_congregacion: ['', [Validators.required]],
       campo: ['', []],
-      terminos: ['', [Validators.required]],
+      terminos: [true, [Validators.required]],
     });
 
     this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregacion) => {
@@ -169,13 +169,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
   submit() {
     if (this.step == 3) {
       this.registroTres_step = true;
-      this.formSubmitted = true;
+
       if (
+        this.registroUnoFormGroup.invalid ||
+        this.registroDosFormGroup.invalid ||
+        this.registroTresFormGroup.invalid
+      ) {
+        return;
+      } else if (
         !!this.registroUnoFormGroup.valid &&
         !!this.registroDosFormGroup.valid &&
         !!this.registroTresFormGroup.valid &&
         !!this.registroTresFormGroup.get('terminos').value
       ) {
+        this.formSubmitted = true;
         let informacionFormulario = Object.assign(
           this.registroUnoFormGroup.value,
           this.registroDosFormGroup.value,
@@ -214,6 +221,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           }
         }
       }
+
       this.reseteaFormularios();
       this.existeUsuario = false;
     }
@@ -253,6 +261,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             });
             this.existeUsuario = true;
           }
+          this.registroUnoFormGroup.get('numero_documento').setValue(termino);
         },
         (err) => {
           Swal.fire({
@@ -306,7 +315,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       carnet: '',
       id_congregacion,
       campo: '',
-      terminos: false,
+      terminos: true,
     });
 
     this.existeUsuario = true;

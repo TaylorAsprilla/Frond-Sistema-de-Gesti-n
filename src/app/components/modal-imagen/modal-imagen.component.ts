@@ -27,7 +27,7 @@ export class ModalImagenComponent implements OnInit {
   cambiarImagen(file: File) {
     this.imagenSubir = file;
 
-    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'];
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'pdf', 'PDF', 'PNG', 'JPEG', 'JPG'];
     if (!extensionesValidas.includes(file.name.split('.').pop())) {
       Swal.fire('Error', `El fichero no contiene una extension válida ( ${extensionesValidas} )`, 'error');
       return (this.imagenTemporal = null);

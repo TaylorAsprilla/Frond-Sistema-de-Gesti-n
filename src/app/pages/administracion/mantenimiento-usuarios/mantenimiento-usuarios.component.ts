@@ -71,7 +71,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.usuarioSubscription = this.usuarioService.listarUsuarios().subscribe(({ totalUsuarios, usuarios }) => {
+    this.usuarioSubscription = this.usuarioService.listarTodosLosUsuarios().subscribe(({ totalUsuarios, usuarios }) => {
       this.usuarios = usuarios;
 
       if (this.usuarios.length > 0) {
@@ -123,9 +123,6 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
       this.campos = campos;
     });
 
-    // if (!!this.congregacionesSubscription) {
-    //   this.cargarCampos();
-    // }
     this.informacionSelec();
   }
   ngOnDestroy(): void {
@@ -174,7 +171,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   cambiarImagen(file: File) {
     this.imagenSubir = file;
 
-    const extensionesValidas = ['png', 'jpg', 'jpeg', 'gif'];
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'pdf', 'PDF', 'PNG', 'JPEG', 'JPG'];
     if (!extensionesValidas.includes(file.name.split('.').pop())) {
       Swal.fire('Error', `El fichero no contiene una extension válida ( ${extensionesValidas} )`, 'error');
       return (this.imagenTemporal = null);
@@ -224,8 +221,8 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
 
   crearUsuario(id: string) {
     if (id !== 'nuevo') {
-      this.imagenUsuario = this.usuarios.find((usuario) => usuario.id.toString() === id.toString()).carnetUrl;
-      console.log('Imagen', this.imagenUsuario);
+      this.imagenUsuario = this.usuarios.find((usuario) => usuario.id.toString() === id.toString())?.carnetUrl;
+
       this.usuarioService.getUsuario(id).subscribe(
         (usuario: UsuarioModel) => {
           const {
