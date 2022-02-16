@@ -41,7 +41,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   public generoSeleccionado: GeneroModel;
   public campoSeleccionado: CampoModel;
 
-  public imagenUsuario: string;
+  public imagenUsuario: any;
   public idUsuario: string;
 
   public imagenSubir: File;
@@ -225,7 +225,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   crearUsuario(id: string) {
     if (id !== 'nuevo') {
       this.imagenUsuario = this.usuarios.find((usuario) => usuario.id.toString() === id.toString()).carnetUrl;
-
+      console.log('Imagen', this.imagenUsuario);
       this.usuarioService.getUsuario(id).subscribe(
         (usuario: UsuarioModel) => {
           const {

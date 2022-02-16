@@ -43,8 +43,12 @@ export class UsuarioModel {
   }
 
   get carnetUrl() {
-    if (this.carnet) {
+    if (!this.carnet) {
+      return `${base_url}/uploads/usuarios/no-image.jpg`;
+    } else if (this.carnet) {
       return `${base_url}/uploads/carnets/${this.carnet}`;
+    } else {
+      return `${base_url}/uploads/usuarios/no-image.jpg`;
     }
   }
 }
