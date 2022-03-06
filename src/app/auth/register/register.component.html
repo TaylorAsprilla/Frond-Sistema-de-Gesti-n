@@ -10,7 +10,7 @@
     </div>
 
     <div class="card">
-      <div class="card-body register-card-body">
+      <div class="card-body register-card-body" *ngIf="!subirCarnet">
         <app-buscador
           *ngIf="!existeUsuario && !usuarioRegistrado"
           [titulo]="titulo"
@@ -228,11 +228,13 @@
   </div>
 
   <!-- Subir Carnet de Vacunación -->
-  <app-subir-carnet
-    *ngIf="!!usuarioRegistrado"
-    [idUsuario]="idUsuario"
-    [imagenCarnet]="imagenCarnet"
-    [usuario]="usuario"
-  ></app-subir-carnet>
+  <div class="col-md-4 justify-content-center">
+    <app-subir-carnet
+      *ngIf="!!usuarioRegistrado && !!subirCarnet"
+      [idUsuario]="idUsuario"
+      [imagenCarnet]="mostrarElCarnet(idUsuario)"
+      [usuario]="usuario"
+    ></app-subir-carnet>
+  </div>
   <!-- /.register-box -->
 </div>

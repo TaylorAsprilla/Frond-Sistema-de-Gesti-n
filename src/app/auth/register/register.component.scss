@@ -195,24 +195,6 @@
   color: #000;
 }
 
-fieldset {
-  /* for chrome and safari*/
-  -webkit-animation-duration: 0.25ms;
-  -webkit-animation-name: slidein;
-
-  /*for firefox*/
-  -moz-animation-duration: 1s;
-  -moz-animation-name: slidein;
-
-  /* for opera*/
-  -o-animation-duration: 1s;
-  -o-animation-name: slidein;
-
-  /* Standard syntax*/
-  animation-duration: 1s;
-  animation-name: slidein;
-}
-
 @-webkit-keyframes slidein {
   from {
     margin-right: 100%;

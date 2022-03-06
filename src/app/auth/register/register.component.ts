@@ -51,6 +51,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   placeholder: string;
   existeUsuario: boolean = false;
   usuarioRegistrado: boolean = false;
+  subirCarnet: boolean = false;
 
   congregacionSubscription: Subscription;
   campoSubscription: Subscription;
@@ -194,7 +195,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.registroDosFormGroup.value,
           this.registroTresFormGroup.value
         );
-        debugger;
+
         if (this.usuarioSeleccionado) {
           // Actualiza si existe el usuario
           this.usuarioService.actualizarUsuario(this.usuarioSeleccionado, this.usuarioSeleccionado.id).subscribe(
@@ -220,6 +221,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               this.usuario = respuestaUsuario.usuario;
               this.idUsuario = respuestaUsuario.usuario.id;
               this.usuarioRegistrado = true;
+              this.subirCarnet = true;
               this.mostrarElCarnet(this.idUsuario);
             },
             (err) => {
@@ -240,7 +242,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   mostrarElCarnet(id: string) {
-    this.imagenCarnet = this.usuarios.find((usuario) => usuario.id.toString() === id.toString())?.carnetUrl;
+    return this.usuarios.find((usuario) => usuario.id.toString() === id.toString())?.carnetUrl;
   }
 
   reseteaFormularios() {
