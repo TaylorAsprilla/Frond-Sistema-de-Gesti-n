@@ -10,9 +10,9 @@
     </div>
 
     <div class="card">
-      <div class="card-body register-card-body">
+      <div class="card-body register-card-body" *ngIf="!subirCarnet">
         <app-buscador
-          *ngIf="!existeUsuario"
+          *ngIf="!existeUsuario && !usuarioRegistrado"
           [titulo]="titulo"
           [placeholder]="placeholder"
           [validaInput]="true"
@@ -145,12 +145,6 @@
                       Seleccione una vacuna
                     </div>
                   </div>
-                  <input type="file" formControlName="carnet" placeholder="Subir el carnet de vacunación" />
-                  <div *ngIf="registroTres_step && registroTresFormGroup.controls.carnet.errors">
-                    <div class="txtObligatorio" *ngIf="registroTres.carnet.errors?.required">
-                      Debe subir el carnet de vacunación
-                    </div>
-                  </div>
 
                   <select
                     class="form-control"
@@ -187,7 +181,7 @@
                       atendiendo los requisitos para el trámite de consultas y reclamos establecidos en la política de
                       protección de datos de la Congregación a la cual podrá tener acceso en el siguiente enlace:
                       <a
-                        href=" https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
+                        href="https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
                         target="_blank"
                       >
                         Política y tratamiento de datos
@@ -197,7 +191,7 @@
 
                     <label for="agreeTerms">
                       <a
-                        href=" https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
+                        href="https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
                         target="_blank"
                       >
                         Acepto los términos y condiciones</a
@@ -224,11 +218,23 @@
             </div>
           </div>
         </div>
-        <span>¿Ya tienes una cuenta? <a routerLink="/login" class="text-center">Iniciar Sesión</a></span>
+        <div *ngIf="!!existeUsuario">
+          <span>¿Ya tienes una cuenta? <a routerLink="/login" class="text-center">Iniciar Sesión</a></span>
+        </div>
       </div>
       <!-- /.form-box -->
     </div>
     <!-- /.card -->
+  </div>
+
+  <!-- Subir Carnet de Vacunación -->
+  <div class="col-md-4 justify-content-center">
+    <app-subir-carnet
+      *ngIf="!!usuarioRegistrado && !!subirCarnet"
+      [idUsuario]="idUsuario"
+      [imagenCarnet]="mostrarElCarnet(idUsuario)"
+      [usuario]="usuario"
+    ></app-subir-carnet>
   </div>
   <!-- /.register-box -->
 </div>

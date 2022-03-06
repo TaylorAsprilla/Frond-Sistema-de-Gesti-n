@@ -7,10 +7,21 @@ import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ComponentsModule } from '../components/components.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
   exports: [LoginComponent, RegisterComponent],
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule, HttpClientModule, ComponentsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    ComponentsModule,
+    FontAwesomeModule,
+    SharedModule,
+  ],
 })
 export class AuthModule {}

@@ -1,0 +1,38 @@
+@import 'congregacion_variables';
+
+a {
+  color: $white;
+}
+
+.main-sidebar {
+  background-color: $blue;
+  color: $white;
+}
+
+.tituloMenu {
+  border-bottom: 0.1em solid;
+  border-color: rgb(255 255 255 / 35%);
+}
+
+.perfilMenu {
+  border-bottom: 0.1em solid;
+  border-color: rgb(255 255 255 / 35%);
+}
+
+.nav-pills .nav-link {
+  color: #ffffff;
+  font-weight: 300;
+}
+
+.title {
+  font-size: 14px;
+}
+
+.badge-info {
+  background-color: $white;
+  color: $secundary;
+}
+
+button.btn.btn-sidebar {
+  color: $white;
+}

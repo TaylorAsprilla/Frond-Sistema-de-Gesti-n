@@ -16,11 +16,12 @@ import { GeneroModel } from 'src/app/models/genero.model';
 import { GeneroService } from 'src/app/services/genero/genero.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
+import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
+  styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   public formSubmitted: boolean = false;
@@ -42,9 +43,15 @@ export class RegisterComponent implements OnInit, OnDestroy {
   usuarios: UsuarioModel[] = [];
   usuarioSeleccionado: UsuarioModel;
 
+  idUsuario: string = null;
+  public imagenCarnet: any;
+  usuario: UsuarioModel;
+
   titulo: string;
   placeholder: string;
   existeUsuario: boolean = false;
+  usuarioRegistrado: boolean = false;
+  subirCarnet: boolean = false;
 
   congregacionSubscription: Subscription;
   campoSubscription: Subscription;
@@ -61,7 +68,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private tipoDocumentoService: TipoDocumentoService,
     private vacunaService: VacunaService,
     private generoService: GeneroService,
-    private busquedasService: BusquedasService
+    private busquedasService: BusquedasService,
+    private fileUploadService: FileUploadService
   ) {}
 
   ngOnInit(): void {
@@ -87,7 +95,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registroTresFormGroup = this.formBuilder.group({
       id_vacuna: ['', [Validators.required]],
-      carnet: ['', [Validators.required]],
       id_congregacion: ['', [Validators.required]],
       campo: ['', []],
       terminos: [true, [Validators.required]],
@@ -206,9 +213,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
           );
         } else {
           // Crea el Usuario nuevo
+
           this.usuarioService.crearUsuario(informacionFormulario).subscribe(
             (respuestaUsuario) => {
               Swal.fire('Usuario', 'Se registró el usuario en la plataforma', 'success');
+
+              this.usuario = respuestaUsuario.usuario;
+              this.idUsuario = respuestaUsuario.usuario.id;
+              this.usuarioRegistrado = true;
+              this.subirCarnet = true;
+              this.mostrarElCarnet(this.idUsuario);
             },
             (err) => {
               // Si sucede un error
@@ -225,6 +239,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.reseteaFormularios();
       this.existeUsuario = false;
     }
+  }
+
+  mostrarElCarnet(id: string) {
+    return this.usuarios.find((usuario) => usuario.id.toString() === id.toString())?.carnetUrl;
   }
 
   reseteaFormularios() {
@@ -248,7 +266,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               title: 'Usuario Registrado',
               html: 'Actualice sus datos',
               showConfirmButton: false,
-              timer: 2000,
+              timer: 1000,
             });
             this.actualizaUsuario(this.usuarios[0]);
           } else {
@@ -257,7 +275,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
               icon: 'info',
               html: 'Inicie el proceso de registro',
               showConfirmButton: false,
-              timer: 2000,
+              timer: 1000,
             });
             this.existeUsuario = true;
           }
@@ -288,7 +306,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
       celular,
       id_genero,
       id_vacuna,
-      carnet,
       imagen,
       id_congregacion,
     } = usuario;
@@ -312,7 +329,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registroTresFormGroup.setValue({
       id_vacuna,
-      carnet: '',
       id_congregacion,
       campo: '',
       terminos: true,
