@@ -1,6 +1,8 @@
 <div class="hold-transition login-page">
-  Bienvenidos Control de Ingreso
-
+  <div class="py-3 text-center">
+    <div class="title">Bienvenidos</div>
+    <div class="subTittle">Control de Ingreso</div>
+  </div>
   <div class="login-box">
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
@@ -20,7 +22,7 @@
             <input type="text" class="form-control" placeholder="Usuario" formControlName="login" />
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-envelope"></span>
+                <fa-icon [icon]="faUser"></fa-icon>
               </div>
             </div>
           </div>
@@ -28,7 +30,7 @@
             <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
             <div class="input-group-append">
               <div class="input-group-text">
-                <span class="fas fa-lock"></span>
+                <fa-icon [icon]="faLock"></fa-icon>
               </div>
             </div>
           </div>
@@ -41,14 +43,16 @@
             </div>
             <!-- /.col -->
             <div class="col-6">
-              <button type="submit" class="btn btn-primary btn-block">Iniciar sesión</button>
+              <button type="submit" class="btn btn-primary botonPrincipal">Ingresar</button>
             </div>
             <!-- /.col -->
           </div>
         </form>
 
         <p class="mt-2">
-          <span>¿No tienes una cuenta? <a routerLink="/registro" class="text-center">Registrarse</a></span>
+          <span
+            >¿No tienes una cuenta? <a routerLink="/registro" class="text-center font-weight-bold">Registrarse</a></span
+          >
         </p>
       </div>
       <!-- /.card-body -->
@@ -56,3 +60,4 @@
     <!-- /.card -->
   </div>
 </div>
+<app-footer></app-footer>

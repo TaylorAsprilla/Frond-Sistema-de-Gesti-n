@@ -1,1 +1,17 @@
+@import 'congregacion_variables';
 
+.title {
+  color: $primary;
+  font-weight: bold;
+  font-size: 40px;
+}
+
+.subTittle {
+  color: $secundary;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.card-primary.card-outline {
+  border-top: 3px solid $blue;
+}

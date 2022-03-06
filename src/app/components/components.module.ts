@@ -9,6 +9,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { BuscadorComponent } from './buscador/buscador.component';
 import { RouterModule } from '@angular/router';
 import { CarnetVacunacionComponent } from './carnet-vacunacion/carnet-vacunacion.component';
+import { SubirCarnetComponent } from './subir-carnet/subir-carnet.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { CarnetVacunacionComponent } from './carnet-vacunacion/carnet-vacunacion
     BuscadorComponent,
     DashboardComponent,
     CarnetVacunacionComponent,
+    SubirCarnetComponent,
   ],
   exports: [
     ModalImagenComponent,
@@ -24,6 +26,7 @@ import { CarnetVacunacionComponent } from './carnet-vacunacion/carnet-vacunacion
     BuscadorComponent,
     DashboardComponent,
     CarnetVacunacionComponent,
+    SubirCarnetComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
 })

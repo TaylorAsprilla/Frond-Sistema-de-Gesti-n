@@ -1,11 +1,25 @@
 @import 'congregacion_variables';
-@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.1.0-10/css/all.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0-rc/css/adminlte.min.css');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
 
 * {
   font-family: 'Montserrat';
+}
+
+a {
+  color: $primary;
+}
+
+a hover {
+  color: $secundary;
+}
+
+.login-page,
+.register-page {
+  background-color: $white;
+  height: 90vh;
 }
 
 .w100 {
@@ -34,4 +48,14 @@
   font-size: 1.5rem;
   font-weight: 400;
   margin: 0;
+}
+
+.botonPrincipal {
+  background-color: $blue;
+  border-color: $blue;
+}
+
+.botonprincipal hover {
+  background-color: $blueTwo;
+  border-color: $white;
 }

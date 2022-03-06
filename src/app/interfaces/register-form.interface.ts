@@ -6,6 +6,7 @@ export interface RegisterForm {
   email: string;
   celular: string;
   numero_documento: string;
+  carnet: string;
   imagen: string;
   id_congregacion: number;
   id_genero: number;
