@@ -228,13 +228,13 @@
   </div>
 
   <!-- Subir Carnet de Vacunación -->
-  <div class="col-md-4 justify-content-center">
+  <div class="col-md-4 justify-content-center" *ngIf="!!usuarioRegistrado && !!subirCarnet">
     <app-subir-carnet
-      *ngIf="!!usuarioRegistrado && !!subirCarnet"
       [idUsuario]="idUsuario"
       [imagenCarnet]="mostrarElCarnet(idUsuario)"
       [usuario]="usuario"
     ></app-subir-carnet>
+    <button class="btn btn-primary" (click)="reiniciarRegistro()">Volver al registro</button>
   </div>
   <!-- /.register-box -->
 </div>

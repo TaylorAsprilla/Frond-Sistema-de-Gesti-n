@@ -97,6 +97,8 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
       imagen: ['', []],
       id_congregacion: ['', [Validators.required]],
       id_campo: ['', []],
+      login: ['', []],
+      password: ['', []],
     });
 
     this.congregacionSubscription = this.congregacionServices
@@ -239,6 +241,8 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
             id_vacuna,
             imagen,
             id_congregacion,
+            login,
+            password,
           } = usuario;
 
           this.usuarioSeleccionado = usuario;
@@ -258,6 +262,8 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
             id_congregacion,
             id_vacuna,
             id_campo: 1,
+            login,
+            password,
           });
         },
         (error) => {
