@@ -205,6 +205,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 `${usuarioActualizado.usuarioActualizado.primer_nombre} ${usuarioActualizado.usuarioActualizado.primer_apellido} actualizado correctamente`,
                 'success'
               );
+              this.usuarioRegistrado = true;
+              this.subirCarnet = true;
             },
             (err) => {
               // Si sucede un error
@@ -242,7 +244,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   mostrarElCarnet(id: string) {
-    return this.usuarios.find((usuario) => usuario.id.toString() === id.toString())?.carnetUrl;
+    return this.usuarios.find((usuario) => usuario.id.toString() === id)?.carnetUrl;
   }
 
   reseteaFormularios() {
@@ -335,5 +337,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
 
     this.existeUsuario = true;
+  }
+
+  reiniciarRegistro() {
+    this.reseteaFormularios();
+    this.usuarioRegistrado = false;
+    this.subirCarnet = false;
   }
 }

@@ -70,6 +70,7 @@ export class UsuarioService {
             id_genero,
             id_vacuna,
             login,
+            password,
             carnet,
             imagen = '',
           } = respuesta.usuario;
@@ -86,7 +87,7 @@ export class UsuarioService {
             estado,
             id_vacuna,
             login,
-            '',
+            password,
             segundo_nombre,
             segundo_apellido,
             celular,
