@@ -15,7 +15,7 @@ export class BreadcrumbsComponent implements OnDestroy {
   constructor(private router: Router) {
     this.tituloSubscription = this.getArgumentoRuta().subscribe((data) => {
       this.titulo = data.titulo;
-      document.title = `Sistema de gestión - ${this.titulo} `;
+      document.title = `Sistema de gestión`;
     });
   }
 

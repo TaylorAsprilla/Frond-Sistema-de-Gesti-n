@@ -15,12 +15,10 @@ const childRoutes: Routes = [
   {
     path: '',
     component: InicioComponent,
-    data: { titulo: 'Inicio' },
   },
   {
     path: 'perfil',
     component: PerfilComponent,
-    data: { titulo: 'Perfil de usuario' },
   },
   {
     path: 'buscar/:termino',
@@ -32,12 +30,10 @@ const childRoutes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
-    data: { titulo: 'Usuarios Registrados' },
   },
   {
     path: 'usuario/:id',
     component: MantenimientoUsuariosComponent,
-    data: { titulo: 'Editar Usuario' },
   },
   {
     path: 'ministerios',

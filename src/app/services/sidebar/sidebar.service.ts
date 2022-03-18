@@ -15,7 +15,10 @@ export class SidebarService {
       titulo: 'Inicio',
       icono: 'fas fa-home',
       role: [Role.ADMINISTRADOR],
-      submenu: [{ titulo: 'Dashboard', url: '/' }],
+      submenu: [
+        { titulo: 'Dashboard', url: '/' },
+        { titulo: 'Registro', url: '../registro' },
+      ],
     },
     {
       titulo: 'Administración',

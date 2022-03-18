@@ -191,5 +191,16 @@
 
   <div class="col-md-6">
     <app-subir-carnet [idUsuario]="idUsuario" [imagenCarnet]="imagenUsuario" [usuario]="usuario"></app-subir-carnet>
+
+    <!-- Botón para subir el carnet -->
+    <div class="card card-primary">
+      <div class="card-body">
+        <div class="d-flex justify-content-center">
+          <button (click)="volverAlRegistro()" class="btn btn-danger btn-lg" type="button">
+            <i class="fa fa-users"></i> Nuevo Registro
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

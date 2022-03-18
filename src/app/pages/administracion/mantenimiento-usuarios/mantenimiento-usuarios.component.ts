@@ -89,8 +89,8 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
       segundo_apellido: ['', [Validators.minLength(3)]],
       id_tipoDocumento: ['', [Validators.required]],
       numero_documento: ['', [Validators.required, Validators.minLength(3)]],
-      fecha_nacimiento: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      fecha_nacimiento: ['', []],
+      email: ['', [Validators.email]],
       celular: ['', [Validators.minLength(3)]],
       id_genero: ['', [Validators.required]],
       id_vacuna: ['', [Validators.required]],
@@ -104,7 +104,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
     this.congregacionSubscription = this.congregacionServices
       .listarCongregaciones()
       .subscribe((congregaciones: CongregacionModel[]) => {
-        this.congregaciones = congregaciones;
+        this.congregaciones = congregaciones.filter((congregacion) => congregacion.estado === true);
       });
 
     this.tipoDocumentoSubscription = this.tipoDocumentoService
@@ -263,7 +263,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
             id_vacuna,
             id_campo: 1,
             login,
-            password,
+            password: '',
           });
         },
         (error) => {
@@ -273,5 +273,9 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
     } else {
       return;
     }
+  }
+
+  volverAlRegistro() {
+    this.router.navigateByUrl(`/registro`);
   }
 }

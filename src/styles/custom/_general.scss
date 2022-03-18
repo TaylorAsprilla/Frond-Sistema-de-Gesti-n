@@ -7,6 +7,10 @@
 * {
   font-family: 'Montserrat';
 }
+input.form-control.ng-untouched.ng-pristine.ng-invalid {
+  border-top-left-radius: 0.8em;
+  border-bottom-left-radius: 0.8em;
+}
 
 a {
   color: $primary;
@@ -53,9 +57,31 @@ a hover {
 .botonPrincipal {
   background-color: $blue;
   border-color: $blue;
+  font-weight: bold;
 }
 
 .botonprincipal hover {
   background-color: $blueTwo;
   border-color: $white;
+  font-weight: bold;
+}
+
+button.next.btn.btn-primary {
+  border-radius: 0.8em;
+}
+
+button.btn.btn-primary.botonPrincipal {
+  border-radius: 0.8em;
+}
+
+.tituloPrincipal {
+  font-size: 25px;
+  font-weight: bold;
+  color: $blue;
+}
+
+.subtitulo {
+  font-size: 20px;
+  font-weight: 400;
+  color: $gray;
 }

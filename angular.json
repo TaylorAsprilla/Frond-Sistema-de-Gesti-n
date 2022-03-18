@@ -25,11 +25,11 @@
             "aot": true,
             "assets": ["src/favicon.ico", "src/assets"],
             "stylePreprocessorOptions": {
-              "includePaths": ["node_modules/boostrap/scss", "src/styles/custom"]
+              "includePaths": ["./node_modules/boostrap/css", "src/styles/custom"]
             },
             "styles": [
               "node_modules/animate.css/animate.css",
-              "src/styles/styles.scss",
+              "./src/styles/styles.scss",
               "node_modules/@fortawesome/fontawesome-free/css/all.css"
             ],
             "scripts": [

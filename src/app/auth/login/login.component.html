@@ -5,17 +5,12 @@
   </div>
   <div class="login-box">
     <!-- /.login-logo -->
-    <div class="card card-outline card-primary">
-      <div class="card-header text-center">
-        <img
-          src="./assets/imagenes/logo.png"
-          width="50%"
-          class="img-fluid"
-          alt="Sistema de gestión de la Congregación Mita"
-        />
-      </div>
+    <div class="card card-outline card-primary pb-4">
+      <span class="mt-5">
+        <hr />
+      </span>
       <div class="card-body">
-        <p class="login-box-msg">Iniciar Sesión</p>
+        <p class="login-box-msg font-weight-bold">Iniciar Sesión</p>
 
         <form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="login()">
           <div class="input-group mb-3">
@@ -48,12 +43,6 @@
             <!-- /.col -->
           </div>
         </form>
-
-        <p class="mt-2">
-          <span
-            >¿No tienes una cuenta? <a routerLink="/registro" class="text-center font-weight-bold">Registrarse</a></span
-          >
-        </p>
       </div>
       <!-- /.card-body -->
     </div>

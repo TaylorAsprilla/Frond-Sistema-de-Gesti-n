@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-header">
       <h3 class="card-title">
-        <span *ngIf="!!icono"><i class="{{ icono }}"></i></span> {{ titulo }}
+        <span *ngIf="!!icono"><i class="{{ icono }}"></i></span> <span class="subtitulo ml-2">{{ titulo }}</span>
       </h3>
     </div>
     <div class="card-body">
@@ -17,7 +17,7 @@
           <input
             type="number"
             formControlName="busquedaUno"
-            class="form-control"
+            class="form-control inputRedondo"
             placeholder="{{ placeholder }}"
             #termino
             id="busquedaUno"
@@ -26,7 +26,7 @@
         <input
           type="number"
           formControlName="busquedaDos"
-          class="form-control"
+          class="form-control inputRedondo"
           placeholder="{{ placeholder }}"
           (keypress)="$event.keyCode == 13 ? validaCampoBusqueda(termino.value) : null"
           #termino
