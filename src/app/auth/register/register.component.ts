@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.titulo = 'Ingrese su número de documento';
+    this.titulo = 'Por favor, ingrese su número de documento';
     this.placeholder = 'Número de documento';
 
     // Formularios
@@ -198,7 +198,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
         if (this.usuarioSeleccionado) {
           // Actualiza si existe el usuario
-          this.usuarioService.actualizarUsuario(this.usuarioSeleccionado, this.usuarioSeleccionado.id).subscribe(
+          this.usuarioService.actualizarUsuario(informacionFormulario, this.usuarioSeleccionado.id).subscribe(
             (usuarioActualizado: any) => {
               Swal.fire(
                 'Usuario Actualizado',
@@ -312,6 +312,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       id_congregacion,
     } = usuario;
     this.usuarioSeleccionado = usuario;
+
+    console.log(this.usuarioSeleccionado, usuario);
 
     this.registroUnoFormGroup.setValue({
       primer_nombre,

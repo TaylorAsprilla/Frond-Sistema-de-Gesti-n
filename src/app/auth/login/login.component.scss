@@ -15,3 +15,9 @@
 .card-primary.card-outline {
   border-top: 3px solid $blue;
 }
+
+.card-body {
+  flex: 1 1 auto;
+  min-height: 1px;
+  padding: 10px 19px;
+}

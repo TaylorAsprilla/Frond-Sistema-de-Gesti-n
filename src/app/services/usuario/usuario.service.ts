@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
 import { ListarUsuario } from 'src/app/interfaces/listar-usuario.interface';
@@ -199,6 +200,7 @@ export class UsuarioService {
   }
 
   actualizarUsuario(usuario: UsuarioModel, id: string) {
+    console.log('email', usuario);
     return this.httpClient.put(`${base_url}/usuarios/${id}`, usuario, this.headers);
   }
 }

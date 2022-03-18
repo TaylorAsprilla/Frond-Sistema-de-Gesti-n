@@ -1,0 +1,11 @@
+@import 'congregacion_variables';
+
+.cuadroAzul {
+  background-color: $primary;
+  color: $white;
+}
+
+.cuadroAzulClaro {
+  background-color: $secundary;
+  color: $primary;
+}

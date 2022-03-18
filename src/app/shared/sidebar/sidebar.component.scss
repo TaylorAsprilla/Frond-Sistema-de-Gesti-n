@@ -4,6 +4,15 @@ a {
   color: $white;
 }
 
+.nav-icon {
+  color: $blueTwo;
+}
+
+.opcionMenu {
+  color: $white;
+  font-weight: bold;
+}
+
 .main-sidebar {
   background-color: $blue;
   color: $white;
@@ -29,8 +38,9 @@ a {
 }
 
 .badge-info {
-  background-color: $white;
-  color: $secundary;
+  background-color: $blueTwo;
+  color: $primary;
+  font-weight: 900;
 }
 
 button.btn.btn-sidebar {

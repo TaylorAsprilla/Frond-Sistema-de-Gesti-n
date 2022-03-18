@@ -1,13 +1,13 @@
 <div class="hold-transition register-page">
   <div class="register-box pt-5">
-    <div class="register-logo">
+    <!-- <div class="register-logo">
       <img
         src="./assets/imagenes/logo.png"
         width="20%"
         class="img-fluid"
         alt="Sistema de gestión de la Congregación Mita"
       />
-    </div>
+    </div> -->
 
     <div class="card">
       <div class="card-body register-card-body" *ngIf="!subirCarnet">
@@ -19,8 +19,26 @@
           (onTerminoBusqueda)="buscarUsuario($event)"
         ></app-buscador>
 
+        <p class="politicas p-3" *ngIf="!existeUsuario && !usuarioRegistrado">
+          El presente formulario tiene como objetivo registrar mi ingreso a las instalaciones de la IGLESIA CONGREGACIÓN
+          MITA asegurando el cumplimiento de los protocolos de Bio Seguridad definidos por el Ministerio de Salud y
+          Protección Social. Al registrar datos en este formulario, autorizo a IGLESIA CONGREGACIÓN MITA para que
+          realice el tratamiento de mis datos personales, declaro que entiendo el objetivo del mismo y acepto
+          participar, otorgando mi consentimiento. La autorización e información contenida la he suministrado de forma
+          voluntaria, es verídica y reconozco que los datos suministrados son ciertos y que no ha sido omitida ni
+          modificada ninguna información. Los datos personales serán utilizados por IGLESIA CONGREGACIÓN MITA sólo para
+          los propósitos aquí señalados; por lo tanto, IGLESIA CONGREGACIÓN MITA no venderá, licenciará, transmitirá o
+          divulgará los datos personales, salvo que: (i) El Titular autorice expresamente a hacerlo (ii) Sea permitido
+          por la ley. En aplicación de lo establecido por el Artículo 7º de la Ley 1581 de 2012 y el artículo 12 del
+          Decreto 1377 de 2013. AUTORIZACIÓN DATOS MENORES DE EDAD En aplicación de lo establecido por el Artículo 7º de
+          la Ley 1581 de 2012 y el artículo 12 del Decreto 1377 de 2013, la IGLESIA CONGREGACIÓN MITA procederá a
+          efectuar el tratamiento de la información personal, de niños, niñas y adolescentes, respetando el interés
+          superior de los mismos y asegurando, en todos los casos, el respeto de sus derechos fundamentales y garantías
+          mínimas.
+        </p>
+
         <div *ngIf="!!existeUsuario">
-          <p class="login-box-msg">Registrar un nuevo miembro</p>
+          <p class="login-box-msg tituloPrincipal">Registrar un nuevo miembro</p>
 
           <div class="row">
             <div class="col-md-12 col-md-offset-3">
@@ -33,7 +51,7 @@
                 </ul>
                 <!-- fieldsets -->
                 <fieldset *ngIf="step == 1">
-                  <h2 class="fs-title">Información Personal</h2>
+                  <div class="subtitulo mb-2">Información Personal</div>
                   <input
                     type="text"
                     formControlName="primer_nombre"
@@ -90,8 +108,9 @@
                       El número de documento es obligatorio
                     </div>
                   </div>
-
-                  <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
+                  <button (click)="next()" type="button" name="next" class="next btn btn-primary botonPrincipal">
+                    Siguiente
+                  </button>
                 </fieldset>
               </form>
 
@@ -122,15 +141,18 @@
                       Seleccione el género
                     </div>
                   </div>
-
-                  <input
+                  <button
                     (click)="previous()"
                     type="button"
-                    name="previous"
-                    class="previous action-button-previous"
-                    value="Anterior"
-                  />
-                  <input (click)="next()" type="button" name="next" class="next action-button" value="Siguiente" />
+                    name="next"
+                    class="next btn btn-primary botonPrincipal mr-3"
+                  >
+                    Anterior
+                  </button>
+
+                  <button (click)="next()" type="button" name="next" class="next btn btn-primary botonPrincipal">
+                    Siguiente
+                  </button>
                 </fieldset>
               </form>
               <form [formGroup]="registroTresFormGroup" id="msform">
@@ -187,7 +209,13 @@
                         Política y tratamiento de datos
                       </a>
                     </p>
-                    <input type="checkbox" id="agreeTerms" name="terms" formControlName="terminos" />
+                    <input
+                      type="checkbox"
+                      id="agreeTerms"
+                      name="terms"
+                      formControlName="terminos"
+                      class="terminosCheck"
+                    />
 
                     <label for="agreeTerms">
                       <a
@@ -205,21 +233,27 @@
                     </div>
                   </div>
 
-                  <input
+                  <button
                     (click)="previous()"
                     type="button"
                     name="previous"
-                    class="previous action-button-previous"
-                    value="Anterior"
-                  />
-                  <input (click)="submit()" type="submit" name="submit" class="submit action-button" value="Enviar" />
+                    class="next btn btn-primary botonPrincipal mr-3"
+                  >
+                    Anterior
+                  </button>
+
+                  <button (click)="submit()" type="submit" name="submit" class="btn btn-primary botonPrincipal mr-3">
+                    Enviar
+                  </button>
                 </fieldset>
               </form>
             </div>
           </div>
         </div>
         <div *ngIf="!!existeUsuario">
-          <span>¿Ya tienes una cuenta? <a routerLink="/login" class="text-center">Iniciar Sesión</a></span>
+          <span
+            >¿Ya tienes una cuenta? <a routerLink="/login" class="text-center font-weight-bold">Iniciar Sesión</a></span
+          >
         </div>
       </div>
       <!-- /.form-box -->
@@ -238,3 +272,4 @@
   </div>
   <!-- /.register-box -->
 </div>
+<!-- <app-footer></app-footer> -->
