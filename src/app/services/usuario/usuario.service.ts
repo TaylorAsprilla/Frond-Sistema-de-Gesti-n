@@ -200,7 +200,6 @@ export class UsuarioService {
   }
 
   actualizarUsuario(usuario: UsuarioModel, id: string) {
-    console.log('email', usuario);
     return this.httpClient.put(`${base_url}/usuarios/${id}`, usuario, this.headers);
   }
 }

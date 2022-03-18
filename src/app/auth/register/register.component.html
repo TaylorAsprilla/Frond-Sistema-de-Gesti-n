@@ -1,13 +1,13 @@
-<div class="hold-transition register-page">
+<div class="hold-transition register-page" *ngIf="!subirCarnet">
   <div class="register-box pt-5">
-    <!-- <div class="register-logo">
+    <div class="register-logo">
       <img
         src="./assets/imagenes/logo.png"
         width="20%"
         class="img-fluid"
         alt="Sistema de gestión de la Congregación Mita"
       />
-    </div> -->
+    </div>
 
     <div class="card">
       <div class="card-body register-card-body" *ngIf="!subirCarnet">
@@ -260,16 +260,6 @@
     </div>
     <!-- /.card -->
   </div>
-
-  <!-- Subir Carnet de Vacunación -->
-  <div class="col-md-4 justify-content-center" *ngIf="!!usuarioRegistrado && !!subirCarnet">
-    <app-subir-carnet
-      [idUsuario]="idUsuario"
-      [imagenCarnet]="mostrarElCarnet(idUsuario)"
-      [usuario]="usuario"
-    ></app-subir-carnet>
-    <button class="btn btn-primary" (click)="reiniciarRegistro()">Volver al registro</button>
-  </div>
-  <!-- /.register-box -->
 </div>
-<!-- <app-footer></app-footer> -->
+
+<app-footer *ngIf="!subirCarnet"></app-footer>

@@ -43,9 +43,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   usuarios: UsuarioModel[] = [];
   usuarioSeleccionado: UsuarioModel;
 
-  idUsuario: string = null;
-  public imagenCarnet: any;
-  usuario: UsuarioModel;
+  idUsuario: number;
 
   titulo: string;
   placeholder: string;
@@ -87,8 +85,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
 
     this.registroDosFormGroup = this.formBuilder.group({
-      fecha_nacimiento: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
+      fecha_nacimiento: ['', []],
+      email: ['', [Validators.email]],
       celular: ['', [Validators.minLength(3)]],
       id_genero: ['', [Validators.required]],
     });
@@ -100,8 +98,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
       terminos: [true, [Validators.required]],
     });
 
-    this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregacion) => {
-      this.congregaciones = congregacion;
+    this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregaciones) => {
+      this.congregaciones = congregaciones.filter((congregacion) => congregacion.estado === true);
     });
 
     this.campoSubscription = this.campoService.listarCampos().subscribe((campos: CampoModel[]) => {
@@ -200,13 +198,28 @@ export class RegisterComponent implements OnInit, OnDestroy {
           // Actualiza si existe el usuario
           this.usuarioService.actualizarUsuario(informacionFormulario, this.usuarioSeleccionado.id).subscribe(
             (usuarioActualizado: any) => {
-              Swal.fire(
-                'Usuario Actualizado',
-                `${usuarioActualizado.usuarioActualizado.primer_nombre} ${usuarioActualizado.usuarioActualizado.primer_apellido} actualizado correctamente`,
-                'success'
-              );
               this.usuarioRegistrado = true;
-              this.subirCarnet = true;
+              this.idUsuario = usuarioActualizado.usuarioActualizado.id;
+
+              Swal.fire({
+                title: 'Usuario Actualizado',
+                text: `${usuarioActualizado.usuarioActualizado.primer_nombre} ${usuarioActualizado.usuarioActualizado.primer_apellido} actualizado correctamente`,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Subir Carnet',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigateByUrl(`/sistema/usuario/${this.idUsuario}`);
+                } else {
+                  this.subirCarnet = false;
+                  // this.existeUsuario = false;
+                  this.usuarioRegistrado = false;
+                  this.reseteaFormularios();
+                  this.router.navigateByUrl(`/registro`);
+                }
+              });
             },
             (err) => {
               // Si sucede un error
@@ -218,13 +231,25 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
           this.usuarioService.crearUsuario(informacionFormulario).subscribe(
             (respuestaUsuario) => {
-              Swal.fire('Usuario', 'Se registró el usuario en la plataforma', 'success');
-
-              this.usuario = respuestaUsuario.usuario;
               this.idUsuario = respuestaUsuario.usuario.id;
-              this.usuarioRegistrado = true;
-              this.subirCarnet = true;
-              this.mostrarElCarnet(this.idUsuario);
+              Swal.fire({
+                title: 'Usuario Registrado',
+                text: `Se registró el usuario ${respuestaUsuario.usuario.primer_nombre}  ${respuestaUsuario.usuario.segundo_nombre}  ${respuestaUsuario.usuario.primer_apellido} en la plataforma'`,
+                icon: 'success',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Subir Carnet',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  this.router.navigateByUrl(`/sistema/usuario/${this.idUsuario}`);
+                } else {
+                  this.subirCarnet = false;
+                  this.existeUsuario = true;
+                  this.reseteaFormularios();
+                  this.router.navigateByUrl(`/registro`);
+                }
+              });
             },
             (err) => {
               // Si sucede un error
@@ -237,14 +262,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
           }
         }
       }
-
+      this.subirCarnet = true;
       this.reseteaFormularios();
       this.existeUsuario = false;
     }
-  }
-
-  mostrarElCarnet(id: string) {
-    return this.usuarios.find((usuario) => usuario.id.toString() === id)?.carnetUrl;
   }
 
   reseteaFormularios() {
@@ -313,8 +334,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
     } = usuario;
     this.usuarioSeleccionado = usuario;
 
-    console.log(this.usuarioSeleccionado, usuario);
-
     this.registroUnoFormGroup.setValue({
       primer_nombre,
       segundo_nombre,
@@ -339,11 +358,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
     });
 
     this.existeUsuario = true;
-  }
-
-  reiniciarRegistro() {
-    this.reseteaFormularios();
-    this.usuarioRegistrado = false;
-    this.subirCarnet = false;
   }
 }
