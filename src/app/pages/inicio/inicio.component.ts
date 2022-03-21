@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CampoModel } from 'src/app/models/campo.model';
 import { CongregacionModel } from 'src/app/models/congregacion.model';
@@ -37,7 +38,8 @@ export class InicioComponent implements OnInit, OnDestroy {
     private congregacionServices: CongregacionService,
     private campoServices: CampoService,
     private ministerioService: MinisterioService,
-    private busquedasService: BusquedasService
+    private busquedasService: BusquedasService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -82,5 +84,9 @@ export class InicioComponent implements OnInit, OnDestroy {
         this.existeUsuario = true;
       });
     }
+  }
+
+  volverAlRegistro() {
+    this.router.navigateByUrl(`/registro`);
   }
 }

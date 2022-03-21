@@ -21,19 +21,33 @@
               </div>
             </div>
           </div>
+
           <div class="input-group mb-3">
-            <input type="password" class="form-control" placeholder="Contraseña" formControlName="password" />
+            <input
+              [type]="fieldTextType ? 'text' : 'password'"
+              class="form-control"
+              placeholder="Contraseña"
+              formControlName="password"
+            />
             <div class="input-group-append">
-              <div class="input-group-text">
-                <fa-icon [icon]="faLock"></fa-icon>
-              </div>
+              <span class="input-group-text">
+                <i
+                  class="fa"
+                  [ngClass]="{
+                    'fa-eye-slash': !fieldTextType,
+                    'fa-eye': fieldTextType
+                  }"
+                  (click)="toggleFieldTextType()"
+                ></i>
+              </span>
             </div>
           </div>
+
           <div class="row">
             <div class="col-6">
               <div class="icheck-primary">
                 <input type="checkbox" id="remember" formControlName="remember" />
-                <label for="remember"> Recordar </label>
+                <label for="remember" class="ml-2"> Recordar </label>
               </div>
             </div>
             <!-- /.col -->

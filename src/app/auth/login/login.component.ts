@@ -16,6 +16,7 @@ import Swal from 'sweetalert2';
 export class LoginComponent implements OnInit, OnDestroy {
   faLock = faLock;
   faUser = faUser;
+  fieldTextType: boolean;
 
   usuariosSubscription: Subscription;
 
@@ -58,5 +59,9 @@ export class LoginComponent implements OnInit, OnDestroy {
         Swal.fire({ icon: 'error', html: err.error.msg });
       }
     );
+  }
+
+  toggleFieldTextType() {
+    this.fieldTextType = !this.fieldTextType;
   }
 }

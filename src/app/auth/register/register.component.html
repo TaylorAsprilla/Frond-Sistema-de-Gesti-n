@@ -19,23 +19,50 @@
           (onTerminoBusqueda)="buscarUsuario($event)"
         ></app-buscador>
 
-        <p class="politicas p-3" *ngIf="!existeUsuario && !usuarioRegistrado">
-          El presente formulario tiene como objetivo registrar mi ingreso a las instalaciones de la IGLESIA CONGREGACIÓN
-          MITA asegurando el cumplimiento de los protocolos de Bio Seguridad definidos por el Ministerio de Salud y
-          Protección Social. Al registrar datos en este formulario, autorizo a IGLESIA CONGREGACIÓN MITA para que
-          realice el tratamiento de mis datos personales, declaro que entiendo el objetivo del mismo y acepto
-          participar, otorgando mi consentimiento. La autorización e información contenida la he suministrado de forma
-          voluntaria, es verídica y reconozco que los datos suministrados son ciertos y que no ha sido omitida ni
-          modificada ninguna información. Los datos personales serán utilizados por IGLESIA CONGREGACIÓN MITA sólo para
-          los propósitos aquí señalados; por lo tanto, IGLESIA CONGREGACIÓN MITA no venderá, licenciará, transmitirá o
-          divulgará los datos personales, salvo que: (i) El Titular autorice expresamente a hacerlo (ii) Sea permitido
-          por la ley. En aplicación de lo establecido por el Artículo 7º de la Ley 1581 de 2012 y el artículo 12 del
-          Decreto 1377 de 2013. AUTORIZACIÓN DATOS MENORES DE EDAD En aplicación de lo establecido por el Artículo 7º de
-          la Ley 1581 de 2012 y el artículo 12 del Decreto 1377 de 2013, la IGLESIA CONGREGACIÓN MITA procederá a
-          efectuar el tratamiento de la información personal, de niños, niñas y adolescentes, respetando el interés
-          superior de los mismos y asegurando, en todos los casos, el respeto de sus derechos fundamentales y garantías
-          mínimas.
-        </p>
+        <div class="politicas p-3" *ngIf="!existeUsuario && !usuarioRegistrado">
+          <p>
+            El presente formulario tiene como objetivo registrar mi ingreso a las instalaciones de la
+            <strong>IGLESIA CONGREGACIÓN MITA </strong>
+            asegurando el cumplimiento de los protocolos de Bioseguridad definidos por el Ministerio de Salud y
+            Protección Social. Al registrar datos en este formulario, autorizo a
+            <strong>IGLESIA CONGREGACIÓN MITA </strong> para que realice el tratamiento de mis datos personales, declaro
+            que entiendo el objetivo del mismo y acepto participar, otorgando mi consentimiento. La autorización e
+            información contenida la he suministrado de forma voluntaria, es verídica y reconozco que los datos
+            suministrados son ciertos y que no ha sido omitida ni modificada ninguna información. Los datos personales
+            serán utilizados por <strong>IGLESIA CONGREGACIÓN MITA </strong> sólo para los propósitos aquí señalados;
+            por lo tanto, <strong>IGLESIA CONGREGACIÓN MITA </strong> no venderá, licenciará, transmitirá o divulgará
+            los datos personales, salvo que:
+          </p>
+          <p>(i) El Titular autorice expresamente a hacerlo</p>
+          <p>
+            (ii) Sea permitido por la ley. En aplicación de lo establecido por el Artículo 7º de la Ley 1581 de 2012 y
+            el artículo 12 del Decreto 1377 de 2013.
+          </p>
+          <p>
+            <strong> AUTORIZACIÓN DATOS MENORES DE EDAD:</strong> En aplicación de lo establecido por el Artículo 7º de
+            la Ley 1581 de 2012 y el artículo 12 del Decreto 1377 de 2013, la IGLESIA CONGREGACIÓN MITA procederá a
+            efectuar el tratamiento de la información personal, de niños, niñas y adolescentes, respetando el interés
+            superior de los mismos y asegurando, en todos los casos, el respeto de sus derechos fundamentales y
+            garantías mínimas.
+          </p>
+          <p>
+            Para la atención de requerimientos relacionados con el tratamiento de tus datos personales y el ejercicio de
+            los derechos mencionados en esta autorización puedes escribir al correo:
+            <a href="mailto:protecciondedatos@congregacionmitacol.org" target="_blank">
+              protecciondedatos@congregacionmitacol.org</a
+            >
+            y/o comunicarte con nuestra Oficina Central ubicada en la Calle 16 No. 18A – 59 de la ciudad de Santiago de
+            Cali, de lunes a viernes de 9 am a 4 pm; atendiendo los requisitos para el trámite de consultas y reclamos
+            establecidos en la política de protección de datos de la Congregación a la cual podrá tener acceso en el
+            siguiente enlace:
+            <a
+              href="https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
+              target="_blank"
+            >
+              Política y tratamiento de datos
+            </a>
+          </p>
+        </div>
 
         <div *ngIf="!!existeUsuario">
           <p class="login-box-msg tituloPrincipal">Registrar un nuevo miembro</p>
@@ -53,11 +80,50 @@
                 <fieldset *ngIf="step == 1">
                   <div class="subtitulo mb-2">Información Personal</div>
                   <input
+                    type="date"
+                    formControlName="fecha_nacimiento"
+                    placeholder="Fecha de Nacimiento"
+                    [max]="currentDate.format('YYYY-MM-DD')"
+                    #termino
+                  />
+                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.fecha_nacimiento.errors">
+                    <div class="txtObligatorio" *ngIf="registroUno.fecha_nacimiento.errors?.required">
+                      La Fecha de Nacimiento es requeridad
+                    </div>
+                  </div>
+                  <div *ngIf="validarFecha(termino.value)" class="border border-secondary rounded pt-4 mb-2">
+                    <input
+                      type="number"
+                      formControlName="documentoTutor"
+                      [ngClass]="{ 'is-invalid': registroUno_step && registroUno.documentoTutor.errors }"
+                      class="col-md-8"
+                      placeholder="Número de Documento del Tutor"
+                      #documentoDelTutor
+                      (keypress)="$event.keyCode == 13 ? buscarTutorRegistrado(documentoDelTutor.value) : null"
+                    />
+                    <button
+                      class="btn btn-primary col-md-3 ml-1"
+                      (click)="buscarTutorRegistrado(registroUnoFormGroup.controls.documentoTutor.value)"
+                    >
+                      Buscar Tutor
+                    </button>
+
+                    <p>Si es menor de edad, debe ser registrado por un tutor mayor de 18 años</p>
+
+                    <div *ngIf="registroUno_step && registroUnoFormGroup.controls.documentoTutor.errors">
+                      <div class="txtObligatorio" *ngIf="registroUno.documentoTutor.errors?.required">
+                        El número de documento del Tutor es requerido
+                      </div>
+                    </div>
+                  </div>
+
+                  <input
                     type="text"
                     formControlName="primer_nombre"
                     [ngClass]="{ 'is-invalid': registroUno_step && registroUno.primer_nombre.errors }"
                     placeholder="Primer Nombre"
                   />
+
                   <div *ngIf="registroUno_step && registroUnoFormGroup.controls.primer_nombre.errors">
                     <div class="txtObligatorio" *ngIf="registroUno.primer_nombre.errors?.required">
                       El primer nombre es obligatorio
@@ -86,28 +152,7 @@
                     [ngClass]="{ 'is-invalid': registroUno_step && registroUno.segundo_apellido.errors }"
                     placeholder="Segundo Apellido"
                   />
-                  <select class="form-control" formControlName="id_tipoDocumento">
-                    <option value="" disabled>Seleccione un tipo de documento</option>
-                    <option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.id">
-                      {{ tipoDocumento.nombre }}
-                    </option>
-                  </select>
-                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.id_tipoDocumento.errors">
-                    <div class="txtObligatorio" *ngIf="registroUno.id_tipoDocumento.errors?.required">
-                      El tipo de socumento es obligatorio
-                    </div>
-                  </div>
-                  <input
-                    type="number"
-                    formControlName="numero_documento"
-                    [ngClass]="{ 'is-invalid': registroUno_step && registroUno.numero_documento.errors }"
-                    placeholder="Número de Documento"
-                  />
-                  <div *ngIf="registroUno_step && registroUnoFormGroup.controls.numero_documento.errors">
-                    <div class="txtObligatorio" *ngIf="registroUno.numero_documento.errors?.required">
-                      El número de documento es obligatorio
-                    </div>
-                  </div>
+
                   <button (click)="next()" type="button" name="next" class="next btn btn-primary botonPrincipal">
                     Siguiente
                   </button>
@@ -117,12 +162,30 @@
               <form [formGroup]="registroDosFormGroup" id="msform">
                 <fieldset *ngIf="step == 2">
                   <h2 class="fs-title">Información Personal</h2>
-                  <input type="date" formControlName="fecha_nacimiento" placeholder="Fecha de Nacimiento" />
-                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.fecha_nacimiento.errors">
-                    <div class="txtObligatorio" *ngIf="registroDos.fecha_nacimiento.errors?.required">
-                      La Fecha de Nacimiento es obligarotia
+
+                  <select class="form-control" formControlName="id_tipoDocumento">
+                    <option value="" disabled>Seleccione un tipo de documento</option>
+                    <option *ngFor="let tipoDocumento of tipoDocumentos" [value]="tipoDocumento.id">
+                      {{ tipoDocumento.nombre }}
+                    </option>
+                  </select>
+                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.id_tipoDocumento.errors">
+                    <div class="txtObligatorio" *ngIf="registroDos.id_tipoDocumento.errors?.required">
+                      El tipo de socumento es obligatorio
                     </div>
                   </div>
+                  <input
+                    type="number"
+                    formControlName="numero_documento"
+                    [ngClass]="{ 'is-invalid': registroDos_step && registroDos.numero_documento.errors }"
+                    placeholder="Número de Documento"
+                  />
+                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.numero_documento.errors">
+                    <div class="txtObligatorio" *ngIf="registroDos.numero_documento.errors?.required">
+                      El número de documento es obligatorio
+                    </div>
+                  </div>
+
                   <input type="email" formControlName="email" name="email" placeholder="Correo Electrónico" />
                   <div *ngIf="registroDos_step && registroDosFormGroup.controls.email.errors">
                     <div class="txtObligatorio" *ngIf="registroDos.email.errors?.required">
@@ -130,6 +193,15 @@
                     </div>
                   </div>
                   <input type="number" formControlName="celular" placeholder="Celular" />
+
+                  <div *ngIf="registroDos_step && registroDosFormGroup.controls.celular.errors">
+                    <div class="txtObligatorio" *ngIf="registroDos.celular.errors?.required">
+                      El número de célular es requerido
+                    </div>
+                    <div class="txtObligatorio" *ngIf="registroDos.celular.errors?.minlength">
+                      El número de celular no tiene la longitud mínima permitida.
+                    </div>
+                  </div>
 
                   <select class="form-control" formControlName="id_genero">
                     <option value="" disabled>Seleccione el género</option>
@@ -198,10 +270,13 @@
                     <p class="terminos">
                       Para la atención de requerimientos relacionados con el tratamiento de tus datos personales y el
                       ejercicio de los derechos mencionados en esta autorización puedes escribir al correo:
-                      protecciondedatos@congregacionmitacol.org y/o comunicarte con nuestra Oficina Central ubicada en
-                      la Calle 16 No. 18A – 59 de la ciudad de Santiago de Cali, de lunes a viernes de 9 am a 4 pm;
-                      atendiendo los requisitos para el trámite de consultas y reclamos establecidos en la política de
-                      protección de datos de la Congregación a la cual podrá tener acceso en el siguiente enlace:
+                      <a href="mailto:protecciondedatos@congregacionmitacol.org" target="_blank">
+                        protecciondedatos@congregacionmitacol.org</a
+                      >
+                      y/o comunicarte con nuestra Oficina Central ubicada en la Calle 16 No. 18A – 59 de la ciudad de
+                      Santiago de Cali, de lunes a viernes de 9 am a 4 pm; atendiendo los requisitos para el trámite de
+                      consultas y reclamos establecidos en la política de protección de datos de la Congregación a la
+                      cual podrá tener acceso en el siguiente enlace:
                       <a
                         href="https://congregacionmitacol.org/Documentos/PoliticadeTratamientodeDatosPersonales.pdf"
                         target="_blank"

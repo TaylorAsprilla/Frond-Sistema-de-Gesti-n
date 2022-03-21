@@ -18,3 +18,13 @@
     <app-carnet-vacunacion *ngIf="existeUsuario" [busquedaUsuario]="usuarios"></app-carnet-vacunacion>
   </div>
 </div>
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="d-flex justify-content-center">
+      <button (click)="volverAlRegistro()" class="btn btn-danger btn-lg" type="button">
+        <i class="fa fa-users"></i> Nuevo Registro
+      </button>
+    </div>
+  </div>
+</div>
