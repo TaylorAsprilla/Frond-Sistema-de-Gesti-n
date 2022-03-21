@@ -1,10 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { ListarUsuario } from 'src/app/interfaces/listar-usuario.interface';
 import { MinisterioModel } from 'src/app/models/ministerio.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
-import { MinisteriosComponent } from 'src/app/pages/administracion/ministerios/ministerios.component';
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
@@ -40,6 +38,7 @@ export class BusquedasService {
           usuario.id_tipoDocumento,
           usuario.id_genero,
           usuario.estado,
+          usuario.documentoTutor,
           usuario.id_vacuna,
           usuario.login,
           usuario.password,

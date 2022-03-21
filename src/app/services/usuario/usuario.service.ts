@@ -8,11 +8,8 @@ import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
 import { ListarUsuario } from 'src/app/interfaces/listar-usuario.interface';
 import { LoginForm } from 'src/app/interfaces/login-form.interface';
 import { RegisterForm } from 'src/app/interfaces/register-form.interface';
-import { UsuarioInterface } from 'src/app/interfaces/usuario.interface';
 import { UsuarioModel } from 'src/app/models/usuario.model';
-
 import { environment } from 'src/environments/environment';
-import { FileUploadService } from '../file-upload/file-upload.service';
 
 const base_url = environment.base_url;
 
@@ -66,6 +63,7 @@ export class UsuarioService {
             celular,
             fecha_nacimiento,
             estado,
+            documentoTutor,
             id_congregacion,
             id_tipoDocumento,
             id_genero,
@@ -86,6 +84,7 @@ export class UsuarioService {
             id_tipoDocumento,
             id_genero,
             estado,
+            documentoTutor,
             id_vacuna,
             login,
             password,
@@ -140,6 +139,7 @@ export class UsuarioService {
               usuario.id_tipoDocumento,
               usuario.id_genero,
               usuario.estado,
+              usuario.documentoTutor,
               usuario.id_vacuna,
               usuario.login,
               usuario.password,
@@ -172,6 +172,7 @@ export class UsuarioService {
               usuario.id_tipoDocumento,
               usuario.id_genero,
               usuario.estado,
+              usuario.documentoTutor,
               usuario.id_vacuna,
               usuario.login,
               usuario.password,

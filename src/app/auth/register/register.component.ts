@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { Router } from '@angular/router';
@@ -17,6 +17,8 @@ import { GeneroService } from 'src/app/services/genero/genero.service';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
 import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
+import * as moment from 'moment';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-register',
@@ -24,6 +26,9 @@ import { FileUploadService } from 'src/app/services/file-upload/file-upload.serv
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent implements OnInit, OnDestroy {
+  currentDate = moment();
+  habilitarCampos: boolean = false;
+
   public formSubmitted: boolean = false;
   registroUnoFormGroup!: FormGroup;
   registroDosFormGroup!: FormGroup;
@@ -76,18 +81,19 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     // Formularios
     this.registroUnoFormGroup = this.formBuilder.group({
+      fecha_nacimiento: ['', [Validators.required]],
+      documentoTutor: ['', [Validators.minLength(3)]],
       primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
       segundo_nombre: ['', [Validators.minLength(3)]],
       primer_apellido: ['', [Validators.required, Validators.minLength(3)]],
       segundo_apellido: ['', [Validators.minLength(3)]],
-      id_tipoDocumento: ['', [Validators.required]],
-      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
     });
 
     this.registroDosFormGroup = this.formBuilder.group({
-      fecha_nacimiento: ['', []],
+      id_tipoDocumento: ['', [Validators.required]],
+      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
       email: ['', [Validators.email]],
-      celular: ['', [Validators.minLength(3)]],
+      celular: ['', [Validators.required, Validators.minLength(10)]],
       id_genero: ['', [Validators.required]],
     });
 
@@ -141,6 +147,16 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   listarCampos(congregacion: string) {
     this.camposFiltrados = this.campos.filter((campoBuscar) => campoBuscar.id_congregacion === parseInt(congregacion));
+  }
+
+  validarFecha(fecha: Date) {
+    const years = Math.floor(moment().diff(moment(fecha), 'years', true));
+
+    if (years < 18) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   next() {
@@ -232,6 +248,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
           this.usuarioService.crearUsuario(informacionFormulario).subscribe(
             (respuestaUsuario) => {
               this.idUsuario = respuestaUsuario.usuario.id;
+
               Swal.fire({
                 title: 'Usuario Registrado',
                 text: `Se registró el usuario ${respuestaUsuario.usuario.primer_nombre}  ${respuestaUsuario.usuario.segundo_nombre}  ${respuestaUsuario.usuario.primer_apellido} en la plataforma'`,
@@ -302,7 +319,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
             });
             this.existeUsuario = true;
           }
-          this.registroUnoFormGroup.get('numero_documento').setValue(termino);
+          this.registroDosFormGroup.get('numero_documento').setValue(termino);
         },
         (err) => {
           Swal.fire({
@@ -313,6 +330,39 @@ export class RegisterComponent implements OnInit, OnDestroy {
           });
         }
       );
+    }
+  }
+
+  buscarTutorRegistrado(termino: string) {
+    if (termino.toString() === this.registroDosFormGroup.get('numero_documento').value.toString()) {
+      Swal.fire({
+        text: `El número de documento del tutor debe ser diferente al número de documento del nuevo usuario`,
+        confirmButtonColor: '#3085d6',
+        icon: 'error',
+      });
+    } else {
+      this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
+        this.usuarios = usuarios;
+        if (this.usuarios.length > 0) {
+          Swal.fire({
+            title: 'Tutor Registrado',
+            text: `El usuario ${this.usuarios[0].primer_nombre} ${this.usuarios[0].segundo_nombre} ${this.usuarios[0].primer_apellido} se encuentra registrado'`,
+            icon: 'success',
+          });
+        } else {
+          Swal.fire({
+            title: 'Tutor no se encuentra resgistrado, por favor registrelo',
+            confirmButtonColor: '#3085d6',
+            confirmButtonText: 'Registrar Tutor',
+            icon: 'error',
+          }).then((result) => {
+            if (result.isConfirmed) {
+              this.reseteaFormularios();
+              this.existeUsuario = false;
+            }
+          });
+        }
+      });
     }
   }
 
@@ -331,20 +381,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
       id_vacuna,
       imagen,
       id_congregacion,
+      documentoTutor,
     } = usuario;
     this.usuarioSeleccionado = usuario;
 
     this.registroUnoFormGroup.setValue({
+      fecha_nacimiento,
+      documentoTutor,
       primer_nombre,
       segundo_nombre,
       primer_apellido,
       segundo_apellido,
-      id_tipoDocumento,
-      numero_documento,
     });
 
     this.registroDosFormGroup.setValue({
-      fecha_nacimiento,
+      id_tipoDocumento,
+      numero_documento,
       email,
       celular,
       id_genero,
