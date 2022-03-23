@@ -9,6 +9,7 @@ import { CampoService } from 'src/app/services/campo/campo.service';
 import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
 import { MinisterioService } from 'src/app/services/ministerio/ministerio.service';
 import { ModalImagenService } from 'src/app/services/modal-imagen/modal-imagen.service';
+import { MostrarImagenService } from 'src/app/services/mostrar-imagen/mostrar-imagen.service';
 import { TipoDocumentoService } from 'src/app/services/tipo-documento/tipo-documento.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import Swal from 'sweetalert2';
@@ -31,6 +32,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public campos: CampoModel[] = [];
   public tipoDocumentos: TipoDocumentoModel[] = [];
 
+  carnet: any;
+
   public paginaDesde: number = 0;
   public pagina: number = 1;
   public totalPaginas: number = 0;
@@ -45,6 +48,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   public campoSubscription: Subscription;
   public tipoDocumentoSubscription: Subscription;
   public usuarioSubscription: Subscription;
+  public mostrarImagenSubcription: Subscription;
 
   constructor(
     private usuarioServices: UsuarioService,
@@ -53,7 +57,8 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     public congregacionServices: CongregacionService,
     public campoServices: CampoService,
     public ministerioServices: MinisterioService,
-    public tipoDocumentoService: TipoDocumentoService
+    public tipoDocumentoService: TipoDocumentoService,
+    public mostrarImagenService: MostrarImagenService
   ) {}
 
   ngOnInit(): void {
@@ -95,6 +100,10 @@ export class UsuariosComponent implements OnInit, OnDestroy {
       this.usuariosTemporales = usuarios;
       this.cargando = false;
       this.totalPaginas = Math.ceil(totalUsuarios / 5);
+
+      this.mostrarImagenService.getImagen('carnets', usuarios[0].carnet).subscribe((fotoCarnet) => {
+        console.log(fotoCarnet);
+      });
     });
   }
 

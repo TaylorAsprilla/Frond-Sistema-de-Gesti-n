@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { ThrowStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable, of } from 'rxjs';
-import { catchError, map, switchMap, switchMapTo, tap } from 'rxjs/operators';
+import { catchError, map, tap } from 'rxjs/operators';
 import { ListarUsuario } from 'src/app/interfaces/listar-usuario.interface';
 import { LoginForm } from 'src/app/interfaces/login-form.interface';
 import { RegisterForm } from 'src/app/interfaces/register-form.interface';
@@ -119,7 +118,7 @@ export class UsuarioService {
     return this.httpClient.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
-        this.idUsuario = resp.usuario.id;
+        sessionStorage.setItem('idUsuario', resp.usuario.id);
       })
     );
   }

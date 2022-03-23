@@ -75,7 +75,7 @@ export class PerfilComponent implements OnInit, OnDestroy {
       imagen: [this.usuario.imagenUrl, []],
       id_congregacion: [this.usuario.id_congregacion, [Validators.required]],
       login: [this.usuario.login, []],
-      password: [this.usuario.password, []],
+      password: ['', []],
     });
 
     this.congregacionSubscription = this.congregacionService

@@ -48,7 +48,8 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
         Swal.fire({
           icon: 'success',
-          title: 'Bienvenido ' + this.loginForm.get('login').value,
+          title: 'Usuario: ' + this.loginForm.get('login').value,
+          html: 'Bienvenido',
           showConfirmButton: false,
           timer: 1500,
         });

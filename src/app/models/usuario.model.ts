@@ -1,6 +1,7 @@
 import { environment } from 'src/environments/environment';
 
 const base_url = environment.base_url;
+const imagenes_url = environment.imagenes_url;
 
 export enum Nombre {
   CONGREGACION = 'congregacion',
@@ -35,21 +36,21 @@ export class UsuarioModel {
 
   get imagenUrl() {
     if (!this.imagen) {
-      return `${base_url}/uploads/usuarios/no-image.jpg`;
+      return `${imagenes_url}/uploads/no-image.jpg`;
     } else if (this.imagen) {
-      return `${base_url}/uploads/usuarios/${this.imagen}`;
+      return `${imagenes_url}/uploads/usuarios/${this.imagen}`;
     } else {
-      return `${base_url}/uploads/usuarios/no-image.jpg`;
+      return `${imagenes_url}/uploads/no-image.jpg`;
     }
   }
 
   get carnetUrl() {
     if (!this.carnet) {
-      return `${base_url}/uploads/usuarios/no-image.jpg`;
+      return `${imagenes_url}/uploads/no-image.jpg`;
     } else if (this.carnet) {
-      return `${base_url}/uploads/carnets/${this.carnet}`;
+      return `${imagenes_url}/uploads/carnets/${this.carnet}`;
     } else {
-      return `${base_url}/uploads/usuarios/no-image.jpg`;
+      return `${imagenes_url}/uploads/no-image.jpg`;
     }
   }
 }
