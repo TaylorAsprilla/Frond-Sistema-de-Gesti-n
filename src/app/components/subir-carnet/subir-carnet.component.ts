@@ -43,7 +43,7 @@ export class SubirCarnetComponent implements OnInit {
     this.fileUploadService.actualizarFoto(this.imagenSubir, 'carnets', this.idUsuario).then((imagenNueva) => {
       if (imagenNueva) {
         this.usuario.carnet = imagenNueva;
-        Swal.fire('Imagen Actualizada', 'Imagen de usuario actualizada', 'success');
+        Swal.fire('Carnet Actualizado', 'El carnet ha sido actualizado, registro exitoso', 'success');
       } else {
         Swal.fire('Imagen', 'No se pudo subir la imagen', 'error');
       }

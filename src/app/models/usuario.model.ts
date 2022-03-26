@@ -46,11 +46,11 @@ export class UsuarioModel {
 
   get carnetUrl() {
     if (!this.carnet) {
-      return `${imagenes_url}/uploads/no-image.jpg`;
+      return `${imagenes_url}/uploads/no-carnet.jpg`;
     } else if (this.carnet) {
       return `${imagenes_url}/uploads/carnets/${this.carnet}`;
     } else {
-      return `${imagenes_url}/uploads/no-image.jpg`;
+      return `${imagenes_url}/uploads/no-carnet.jpg`;
     }
   }
 }
