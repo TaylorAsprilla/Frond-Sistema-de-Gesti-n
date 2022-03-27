@@ -20,6 +20,7 @@ import { CamposComponent } from './administracion/campos/campos.component';
 import { MantenimientoCamposComponent } from './administracion/mantenimiento-campos/mantenimiento-campos.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { MantenimientoUsuariosComponent } from './administracion/mantenimiento-usuarios/mantenimiento-usuarios.component';
+import { MantenimientoUsuariosAdminComponent } from './administracion/mantenimiento-usuarios-admin/mantenimiento-usuarios-admin.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { MantenimientoUsuariosComponent } from './administracion/mantenimiento-u
     MantenimientoCamposComponent,
     BusquedaComponent,
     MantenimientoUsuariosComponent,
+    MantenimientoUsuariosAdminComponent,
   ],
   exports: [InicioComponent, PagesComponent, NopagefoundComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, ComponentsModule, PipesModule],

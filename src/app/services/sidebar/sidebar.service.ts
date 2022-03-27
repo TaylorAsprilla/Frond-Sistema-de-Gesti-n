@@ -20,27 +20,27 @@ export class SidebarService {
         { titulo: 'Registro', url: '../registro' },
       ],
     },
-    {
-      titulo: 'Administración',
-      icono: 'fas fa-users-cog',
-      role: [Role.ADMINISTRADOR],
-      submenu: [
-        { titulo: 'Perfil', url: 'perfil' },
-        { titulo: 'Usuarios', url: 'usuarios' },
-        { titulo: 'Registro', url: '../registro' },
-        { titulo: 'Ministerios', url: 'ministerios' },
-        { titulo: 'Congregaciones', url: 'congregaciones' },
-        { titulo: 'Campos', url: 'campos' },
-      ],
-    },
-    {
-      titulo: 'Usuarios',
-      icono: 'fas fa-users',
-      submenu: [
-        { titulo: 'Perfil', url: 'perfil' },
-        { titulo: 'Usuarios', url: 'usuarios' },
-      ],
-    },
+    // {
+    //   titulo: 'Administración',
+    //   icono: 'fas fa-users-cog',
+    //   role: [Role.ADMINISTRADOR],
+    //   submenu: [
+    //     { titulo: 'Perfil', url: 'perfil' },
+    //     { titulo: 'Usuarios', url: 'usuarios' },
+    //     { titulo: 'Registro', url: '../registro' },
+    //     { titulo: 'Ministerios', url: 'ministerios' },
+    //     { titulo: 'Congregaciones', url: 'congregaciones' },
+    //     { titulo: 'Campos', url: 'campos' },
+    //   ],
+    // },
+    // {
+    //   titulo: 'Usuarios',
+    //   icono: 'fas fa-users',
+    //   submenu: [
+    //     { titulo: 'Perfil', url: 'perfil' },
+    //     { titulo: 'Usuarios', url: 'usuarios' },
+    //   ],
+    // },
   ];
   constructor() {}
 }

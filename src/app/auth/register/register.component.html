@@ -325,10 +325,8 @@
             </div>
           </div>
         </div>
-        <div *ngIf="!!existeUsuario">
-          <span
-            >¿Ya tienes una cuenta? <a routerLink="/login" class="text-center font-weight-bold">Iniciar Sesión</a></span
-          >
+        <div>
+          <button class="btn btn-danger" (click)="volverAlHome()"><i class="fas fa-ban"></i> Cancelar Registro</button>
         </div>
       </div>
       <!-- /.form-box -->

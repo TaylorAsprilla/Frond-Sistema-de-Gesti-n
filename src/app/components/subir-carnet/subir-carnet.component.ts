@@ -22,9 +22,9 @@ export class SubirCarnetComponent implements OnInit {
   cambiarImagen(file: File) {
     this.imagenSubir = file;
 
-    const extensionesValidas = ['png', 'jpg', 'jpeg', 'pdf', 'PDF', 'PNG', 'JPEG', 'JPG'];
+    const extensionesValidas = ['png', 'jpg', 'jpeg', 'PNG', 'JPEG', 'JPG'];
     if (!extensionesValidas.includes(file.name.split('.').pop())) {
-      Swal.fire('Error', `El fichero no contiene una extension válida ( ${extensionesValidas} )`, 'error');
+      Swal.fire('Error', `El documento no contiene una extensión válida ( ${extensionesValidas} )`, 'error');
       return (this.imagenTemporal = null);
     }
 
@@ -43,7 +43,7 @@ export class SubirCarnetComponent implements OnInit {
     this.fileUploadService.actualizarFoto(this.imagenSubir, 'carnets', this.idUsuario).then((imagenNueva) => {
       if (imagenNueva) {
         this.usuario.carnet = imagenNueva;
-        Swal.fire('Imagen Actualizada', 'Imagen de usuario actualizada', 'success');
+        Swal.fire('Carnet Actualizado', 'El carnet ha sido actualizado, registro exitoso', 'success');
       } else {
         Swal.fire('Imagen', 'No se pudo subir la imagen', 'error');
       }

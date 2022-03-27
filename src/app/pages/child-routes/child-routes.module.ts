@@ -10,6 +10,7 @@ import { MantenimientoCongregacionComponent } from '../administracion/mantenimie
 import { CamposComponent } from '../administracion/campos/campos.component';
 import { MantenimientoCamposComponent } from '../administracion/mantenimiento-campos/mantenimiento-campos.component';
 import { MantenimientoUsuariosComponent } from '../administracion/mantenimiento-usuarios/mantenimiento-usuarios.component';
+import { MantenimientoUsuariosAdminComponent } from '../administracion/mantenimiento-usuarios-admin/mantenimiento-usuarios-admin.component';
 
 const childRoutes: Routes = [
   {
@@ -60,6 +61,11 @@ const childRoutes: Routes = [
     path: 'campo/:id',
     component: MantenimientoCamposComponent,
     data: { titulo: 'Editar Campos' },
+  },
+  {
+    path: 'usuarioadmin/:id',
+    component: MantenimientoUsuariosAdminComponent,
+    data: { titulo: 'Editar Usuarios - Administrador' },
   },
 ];
 

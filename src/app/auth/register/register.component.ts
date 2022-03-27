@@ -411,4 +411,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.existeUsuario = true;
   }
+
+  volverAlHome() {
+    this.router.navigateByUrl(`/sistema`);
+  }
 }

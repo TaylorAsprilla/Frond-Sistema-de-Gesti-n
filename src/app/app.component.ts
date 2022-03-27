@@ -1,14 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import * as $ from 'jquery';
-import * as AdminLte from 'admin-lte';
-import { faCoffee } from '@fortawesome/free-solid-svg-icons';
+import { Component } from '@angular/core';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'sistemaGestion';
 
-  ngOnInit(): void {}
+  constructor() {}
 }
