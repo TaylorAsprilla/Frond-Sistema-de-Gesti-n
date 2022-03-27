@@ -21,12 +21,15 @@ export class InicioComponent implements OnInit, OnDestroy {
   camposSubscription: Subscription;
   congregacionesSubscription: Subscription;
   ministeriosSubscription: Subscription;
+  todosLosusuariosSubscription: Subscription;
 
   congregaciones: CongregacionModel[] = [];
   campos: CampoModel[] = [];
   ministerios: MinisterioModel[] = [];
   usuarios: UsuarioModel[] = [];
+  todosLosUsuarios: UsuarioModel[] = [];
 
+  totalTodosLosUsuarios: number;
   totalUsuarios: number;
   titulo: string;
   placeholderBuscador: string;
@@ -46,10 +49,19 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.titulo = 'Buscar usuarios vacunados';
     this.placeholderBuscador = 'Ingrese el número de documento';
 
+    // Los usuarios paginados
     this.usuariosSubscription = this.usuarioServices.listarUsuarios().subscribe(({ totalUsuarios, usuarios }) => {
       this.totalUsuarios = totalUsuarios;
       this.usuarios = usuarios;
     });
+
+    // Todos los usuarios
+    this.todosLosusuariosSubscription = this.usuarioServices
+      .listarTodosLosUsuarios()
+      .subscribe(({ totalUsuarios, usuarios }) => {
+        this.todosLosUsuarios = usuarios.filter((usuario) => usuario.estado === true);
+        this.totalTodosLosUsuarios = this.todosLosUsuarios.length;
+      });
 
     this.congregacionesSubscription = this.congregacionServices
       .listarCongregaciones()
@@ -73,6 +85,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.congregacionesSubscription?.unsubscribe();
     this.camposSubscription?.unsubscribe();
     this.ministeriosSubscription?.unsubscribe();
+    this.todosLosusuariosSubscription?.unsubscribe();
   }
 
   buscarUsuario(termino: string) {
