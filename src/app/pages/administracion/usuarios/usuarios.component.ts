@@ -96,7 +96,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
     this.cargando = true;
     this.usuarioServices.listarUsuarios(this.paginaDesde).subscribe(({ totalUsuarios, usuarios }) => {
       this.totalUsuarios = totalUsuarios;
-      this.usuarios = usuarios;
+      this.usuarios = usuarios.filter((usuario) => usuario.estado === true);
       this.usuariosTemporales = usuarios;
       this.cargando = false;
       this.totalPaginas = Math.ceil(totalUsuarios / 5);
