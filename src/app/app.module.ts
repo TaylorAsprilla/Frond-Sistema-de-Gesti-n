@@ -6,10 +6,20 @@ import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
 import { PagesModule } from './pages/pages.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxGoogleAnalyticsModule, NgxGoogleAnalyticsRouterModule } from 'ngx-google-analytics';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, PagesModule, AuthModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    PagesModule,
+    AuthModule,
+    BrowserAnimationsModule,
+    NgxGoogleAnalyticsModule.forRoot(environment.googleAnalyticsId),
+    NgxGoogleAnalyticsRouterModule,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

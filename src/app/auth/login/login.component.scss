@@ -1,5 +1,13 @@
 @import 'congregacion_variables';
 
+.hold-transition.login-page {
+  background-image: url(./../../../assets/imagenes/fondo.jpg);
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
 .title {
   color: $primary;
   font-weight: bold;
