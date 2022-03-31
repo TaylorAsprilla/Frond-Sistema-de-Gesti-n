@@ -4,12 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CampoModel } from 'src/app/models/campo.model';
 import { CongregacionModel } from 'src/app/models/congregacion.model';
+import { DosisModel } from 'src/app/models/dosis.model';
 import { GeneroModel } from 'src/app/models/genero.model';
 import { TipoDocumentoModel } from 'src/app/models/tipo-documento.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { VacunaModel } from 'src/app/models/vacuna.model';
 import { CampoService } from 'src/app/services/campo/campo.service';
 import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
+import { DosisService } from 'src/app/services/dosis/dosis.service';
 import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 import { GeneroService } from 'src/app/services/genero/genero.service';
 import { TipoDocumentoService } from 'src/app/services/tipo-documento/tipo-documento.service';
@@ -30,6 +32,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   public congregaciones: CongregacionModel[] = [];
   public tipoDocumentos: TipoDocumentoModel[] = [];
   public vacunas: VacunaModel[] = [];
+  public dosis: DosisModel[] = [];
   public generos: GeneroModel[] = [];
   public campos: CampoModel[] = [];
   public camposFiltrados: CampoModel[] = [];
@@ -38,6 +41,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   public congregacionSeleccionada: CongregacionModel;
   public tipoDocumentoSeleccionado: TipoDocumentoModel;
   public vacunaSeleccionada: VacunaModel;
+  public dosisSeleccionada: DosisModel;
   public generoSeleccionado: GeneroModel;
   public campoSeleccionado: CampoModel;
 
@@ -51,6 +55,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
   public congregacionSubscription: Subscription;
   public tipoDocumentoSubscription: Subscription;
   public vacunaSubscription: Subscription;
+  public dosisSubscription: Subscription;
   public generoSubscription: Subscription;
   public campoSubscription: Subscription;
 
@@ -63,6 +68,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
     private congregacionServices: CongregacionService,
     private tipoDocumentoService: TipoDocumentoService,
     private vacunaService: VacunaService,
+    private dosisService: DosisService,
     private generoService: GeneroService,
     private campoService: CampoService,
     private fileUploadService: FileUploadService
@@ -83,22 +89,23 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
     });
 
     this.usuarioForm = this.formBuilder.group({
-      primer_nombre: ['', [Validators.required, Validators.minLength(3)]],
-      segundo_nombre: ['', [Validators.minLength(3)]],
-      primer_apellido: ['', [Validators.required, Validators.minLength(3)]],
-      segundo_apellido: ['', [Validators.minLength(3)]],
-      id_tipoDocumento: ['', [Validators.required]],
-      numero_documento: ['', [Validators.required, Validators.minLength(3)]],
-      fecha_nacimiento: ['', []],
-      email: ['', [Validators.email]],
-      celular: ['', [Validators.minLength(3)]],
-      id_genero: ['', [Validators.required]],
-      id_vacuna: ['', [Validators.required]],
-      imagen: ['', []],
-      id_congregacion: ['', [Validators.required]],
-      id_campo: ['', []],
-      login: ['', []],
-      password: ['', []],
+      primer_nombre: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+      segundo_nombre: [{ value: '', disabled: true }, [Validators.minLength(3)]],
+      primer_apellido: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+      segundo_apellido: [{ value: '', disabled: true }, [Validators.minLength(3)]],
+      id_tipoDocumento: [{ value: '', disabled: true }, [Validators.required]],
+      numero_documento: [{ value: '', disabled: true }, [Validators.required, Validators.minLength(3)]],
+      fecha_nacimiento: [{ value: '', disabled: true }, []],
+      email: [{ value: '', disabled: true }, [Validators.email]],
+      celular: [{ value: '', disabled: true }, [Validators.minLength(3)]],
+      id_genero: [{ value: '', disabled: true }, [Validators.required]],
+      id_vacuna: [{ value: '', disabled: true }, [Validators.required]],
+      id_dosis: [{ value: '', disabled: true }, [Validators.required]],
+      imagen: [{ value: '', disabled: true }, []],
+      id_congregacion: [{ value: '', disabled: true }, [Validators.required]],
+      id_campo: [{ value: '', disabled: true }, []],
+      login: [{ value: '', disabled: true }, []],
+      password: [{ value: '', disabled: true }, []],
     });
 
     this.congregacionSubscription = this.congregacionServices
@@ -117,6 +124,10 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
       this.vacunas = vacuna;
     });
 
+    this.dosisSubscription = this.dosisService.listarDosis().subscribe((dosis: DosisModel[]) => {
+      this.dosis = dosis.filter((dosis) => dosis.estado === true);
+    });
+
     this.generoSubscription = this.generoService.listarGenero().subscribe((genero: GeneroModel[]) => {
       this.generos = genero;
     });
@@ -132,6 +143,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
     this.vacunaSubscription?.unsubscribe();
     this.tipoDocumentoSubscription?.unsubscribe();
     this.generoSubscription?.unsubscribe();
+    this.dosisSubscription?.unsubscribe();
   }
 
   informacionSelec() {
@@ -159,6 +171,10 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
 
     this.usuarioForm.get('id_vacuna').valueChanges.subscribe((idVacuna) => {
       this.vacunaSeleccionada = this.vacunas.find((vacuna) => vacuna.id.toString() === idVacuna.toString());
+    });
+
+    this.usuarioForm.get('id_dosis').valueChanges.subscribe((idDosis) => {
+      this.dosisSeleccionada = this.dosis.find((dosis) => dosis.id.toString() === idDosis.toString());
     });
 
     this.usuarioForm.get('id_campo').valueChanges.subscribe((idCampo) => {
@@ -239,6 +255,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
             celular,
             id_genero,
             id_vacuna,
+            id_dosis,
             imagen,
             id_congregacion,
             login,
@@ -261,6 +278,7 @@ export class MantenimientoUsuariosComponent implements OnInit, OnDestroy {
             imagen,
             id_congregacion,
             id_vacuna,
+            id_dosis,
             id_campo: 1,
             login,
             password: '',

@@ -29,15 +29,15 @@ export class VacunaService {
       .pipe(map((vacuna: { ok: boolean; vacuna: VacunaModel[] }) => vacuna.vacuna));
   }
 
-  crearCampo(vacuna: VacunaModel) {
+  crearVacuna(vacuna: VacunaModel) {
     return this.httpClient.post(`${base_url}/vacunas`, vacuna, this.headers);
   }
 
-  actualizarCampo(vacuna: VacunaModel) {
+  actualizarVacuna(vacuna: VacunaModel) {
     return this.httpClient.put(`${base_url}/vacunas/${vacuna.id}`, vacuna, this.headers);
   }
 
-  elimiminarMinisterio(vacuna: VacunaModel) {
+  elimiminarVacuna(vacuna: VacunaModel) {
     return this.httpClient.delete(`${base_url}/vacunas/${vacuna.id}`, this.headers);
   }
 }

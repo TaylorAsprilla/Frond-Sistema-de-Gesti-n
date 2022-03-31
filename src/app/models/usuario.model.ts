@@ -23,6 +23,7 @@ export class UsuarioModel {
     public estado: boolean,
     public documentoTutor?: number,
     public id_vacuna?: number,
+    public id_dosis?: number,
     public login?: string,
     public password?: string,
     public segundo_nombre?: string,
@@ -30,6 +31,7 @@ export class UsuarioModel {
     public celular?: string,
     public email?: string,
     public vacuna?: number,
+
     public carnet?: string,
     public imagen?: string
   ) {}
