@@ -18,7 +18,9 @@ import { UsuarioModel } from 'src/app/models/usuario.model';
 import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
 import { FileUploadService } from 'src/app/services/file-upload/file-upload.service';
 import * as moment from 'moment';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+
+import { DosisService } from 'src/app/services/dosis/dosis.service';
+import { DosisModel } from 'src/app/models/dosis.model';
 
 @Component({
   selector: 'app-register',
@@ -44,6 +46,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   camposFiltrados: CampoModel[] = [];
   tipoDocumentos: TipoDocumentoModel[] = [];
   vacunas: VacunaModel[] = [];
+  dosis: DosisModel[] = [];
   generos: GeneroModel[] = [];
   usuarios: UsuarioModel[] = [];
   usuarioSeleccionado: UsuarioModel;
@@ -60,6 +63,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   campoSubscription: Subscription;
   tipoDocumentoSubscription: Subscription;
   vacunaSubscription: Subscription;
+  dosisSubscription: Subscription;
   generoSubscription: Subscription;
 
   constructor(
@@ -70,6 +74,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
     private campoService: CampoService,
     private tipoDocumentoService: TipoDocumentoService,
     private vacunaService: VacunaService,
+    private dosisService: DosisService,
     private generoService: GeneroService,
     private busquedasService: BusquedasService,
     private fileUploadService: FileUploadService
@@ -99,6 +104,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registroTresFormGroup = this.formBuilder.group({
       id_vacuna: ['', [Validators.required]],
+      id_dosis: ['', [Validators.required]],
       id_congregacion: ['', [Validators.required]],
       campo: ['', []],
       terminos: [true, [Validators.required]],
@@ -122,6 +128,10 @@ export class RegisterComponent implements OnInit, OnDestroy {
       this.vacunas = vacuna;
     });
 
+    this.dosisSubscription = this.dosisService.listarDosis().subscribe((dosis: DosisModel[]) => {
+      this.dosis = dosis.filter((dosis) => dosis.estado === true);
+    });
+
     this.generoSubscription = this.generoService.listarGenero().subscribe((genero: GeneroModel[]) => {
       this.generos = genero;
     });
@@ -138,11 +148,12 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.congregacionSubscription.unsubscribe();
-    this.campoSubscription.unsubscribe();
-    this.tipoDocumentoSubscription.unsubscribe();
-    this.vacunaSubscription.unsubscribe();
-    this.generoSubscription.unsubscribe();
+    this.congregacionSubscription?.unsubscribe();
+    this.campoSubscription?.unsubscribe();
+    this.tipoDocumentoSubscription?.unsubscribe();
+    this.vacunaSubscription?.unsubscribe();
+    this.generoSubscription?.unsubscribe();
+    this.dosisSubscription?.unsubscribe();
   }
 
   listarCampos(congregacion: string) {
@@ -367,6 +378,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   actualizaUsuario(usuario: UsuarioModel) {
+    console.log(usuario);
     const {
       primer_nombre,
       segundo_nombre,
@@ -379,6 +391,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
       celular,
       id_genero,
       id_vacuna,
+      id_dosis,
       imagen,
       id_congregacion,
       documentoTutor,
@@ -404,6 +417,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
     this.registroTresFormGroup.setValue({
       id_vacuna,
+      id_dosis,
       id_congregacion,
       campo: '',
       terminos: true,

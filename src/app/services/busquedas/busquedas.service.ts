@@ -40,6 +40,7 @@ export class BusquedasService {
           usuario.estado,
           usuario.documentoTutor,
           usuario.id_vacuna,
+          usuario.id_dosis,
           usuario.login,
           usuario.password,
           usuario.segundo_nombre,

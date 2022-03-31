@@ -239,6 +239,16 @@
                     </div>
                   </div>
 
+                  <select class="form-control" formControlName="id_dosis">
+                    <option value="" disabled>Seleccione una dosis</option>
+                    <option *ngFor="let dosi of dosis" [value]="dosi.id">{{ dosi.dosis }}</option>
+                  </select>
+                  <div *ngIf="registroTres_step && registroTresFormGroup.controls.id_dosis.errors">
+                    <div class="txtObligatorio" *ngIf="registroTres.id_dosis.errors?.required">
+                      Seleccione una dosis
+                    </div>
+                  </div>
+
                   <select
                     class="form-control"
                     formControlName="id_congregacion"
