@@ -27,3 +27,21 @@ span.info-box-icon {
   background-color: $primary;
   color: $white;
 }
+
+.no-ingreso{
+  border-radius: 0.25rem;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 1.875rem;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 70px;
+}
+
+span.no-ingreso{
+  background-color: $red;
+  color: $white;
+}
