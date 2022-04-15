@@ -378,7 +378,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   actualizaUsuario(usuario: UsuarioModel) {
-    console.log(usuario);
     const {
       primer_nombre,
       segundo_nombre,

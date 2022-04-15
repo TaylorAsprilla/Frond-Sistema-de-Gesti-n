@@ -121,6 +121,13 @@ export class UsuarioService {
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
         sessionStorage.setItem('idUsuario', resp.usuario.id);
+        sessionStorage.setItem('primer_nombre', resp.usuario.primer_nombre);
+        sessionStorage.setItem('segundo_nombre', resp.usuario.segundo_nombre);
+        sessionStorage.setItem('primer_apellido', resp.usuario.primer_apellido);
+        sessionStorage.setItem('segundo_apellido', resp.usuario.segundo_apellido);
+        sessionStorage.setItem('email', resp.usuario.email);
+        sessionStorage.setItem('Número de documento', resp.usuario.numero_documento);
+        sessionStorage.setItem('imagen', resp.usuario.imagen);
       })
     );
   }

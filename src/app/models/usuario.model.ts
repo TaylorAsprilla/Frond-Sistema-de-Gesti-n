@@ -55,4 +55,14 @@ export class UsuarioModel {
       return `${imagenes_url}/uploads/no-carnet.jpg`;
     }
   }
+
+  get imagenSession() {
+    if (!this.imagen) {
+      return `${imagenes_url}/uploads/no-image.jpg`;
+    } else if (this.imagen) {
+      return `${imagenes_url}/uploads/usuarios/${sessionStorage.getItem('imagen')}`;
+    } else {
+      return `${imagenes_url}/uploads/no-image.jpg`;
+    }
+  }
 }

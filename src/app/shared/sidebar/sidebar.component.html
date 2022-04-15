@@ -18,10 +18,10 @@
     <!-- Sidebar user (optional) -->
     <div class="user-panel mt-3 pb-3 mb-3 d-flex perfilMenu">
       <div class="image">
-        <img [src]="usuario.imagenUrl" class="img-circle elevation-2" [alt]="usuario.primer_nombre" />
+        <img [src]="imagenSession" class="img-circle elevation-2" [alt]="primerNombre" />
       </div>
       <div class="info">
-        <a routerLink="./perfil" class="d-block">{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</a>
+        <a routerLink="./perfil" class="d-block">{{ primerNombre }} {{ primerApellido }}</a>
       </div>
     </div>
 

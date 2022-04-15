@@ -31,18 +31,17 @@
 
     <li class="nav-item dropdown user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
-        <img [src]="usuario.imagenUrl" class="user-image img-circle elevation-2" alt="{{ usuario.primer_nombre }}" />
-        <span class="d-none d-md-inline">{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</span>
+        <img [src]="imagenSession" class="user-image img-circle elevation-2" alt="{{ primerNombre }}" />
+        <span class="d-none d-md-inline">{{ primerNombre }} {{ primerApellido }}</span>
       </a>
       <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
         <!-- User image -->
         <li class="user-header bg-primary">
-          <img [src]="usuario.imagenUrl" class="img-circle elevation-2" [alt]="usuario.primer_nombre" />
+          <img [src]="imagenSession" class="img-circle elevation-2" [alt]="primerNombre" />
 
           <p>
-            {{ usuario.primer_nombre }} {{ usuario.primer_apellido }}
-            <small>{{ usuario.email }}</small>
-            <small>{{ usuario.numero_documento }}</small>
+            {{ primerNombre }} {{ primerApellido }}
+            <small>{{ email }}</small>
           </p>
         </li>
 
