@@ -102,4 +102,8 @@ export class InicioComponent implements OnInit, OnDestroy {
   volverAlRegistro() {
     this.router.navigateByUrl(`/registro`);
   }
+
+  ingresoUsuario(event) {
+    this.existeUsuario = false;
+  }
 }

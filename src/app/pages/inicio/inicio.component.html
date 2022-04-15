@@ -15,7 +15,11 @@
     ></app-buscador>
   </div>
   <div class="col-md-6">
-    <app-carnet-vacunacion *ngIf="existeUsuario" [busquedaUsuario]="usuarios"></app-carnet-vacunacion>
+    <app-carnet-vacunacion
+      *ngIf="existeUsuario"
+      [busquedaUsuario]="usuarios"
+      (onIngresoUsuario)="ingresoUsuario($event)"
+    ></app-carnet-vacunacion>
   </div>
 </div>
 

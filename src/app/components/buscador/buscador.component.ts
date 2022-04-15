@@ -51,6 +51,7 @@ export class BuscadorComponent implements OnInit {
   buscarUsuario(termino: string) {
     if (!this.mostrarError) {
       this.onTerminoBusqueda.emit(termino);
+      this.buscadorForm.reset();
     } else {
       return;
     }
