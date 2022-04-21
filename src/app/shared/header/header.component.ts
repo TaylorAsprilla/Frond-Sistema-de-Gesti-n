@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
@@ -24,6 +25,10 @@ export class HeaderComponent implements OnInit {
   public numeroDocumento: string;
   public email: string;
   public imagen: string;
+  public idUsuario: string;
+  public usuarioLogueado: string;
+
+  public usuarioSubscription: Subscription;
 
   constructor(private usuarioService: UsuarioService, private router: Router) {
     this.usuario = this.usuarioService.usuario;
@@ -36,6 +41,7 @@ export class HeaderComponent implements OnInit {
     this.segundoApellido = sessionStorage.getItem('segundo_apellido');
     this.email = sessionStorage.getItem('email');
     this.imagen = sessionStorage.getItem('imagen');
+    this.idUsuario = sessionStorage.getItem('idUsuario');
 
     $('.search-box a, .search-box .app-search .srh-btn').on('click', function () {
       $('.app-search').toggle(200);

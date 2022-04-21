@@ -17,16 +17,11 @@ const base_url = environment.base_url;
 })
 export class UsuarioService {
   public usuario: UsuarioModel;
-  public idUsuario: number;
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
-  }
-
-  get usuarioId(): string {
-    return this.usuario.id || '';
   }
 
   get headers() {
@@ -37,9 +32,8 @@ export class UsuarioService {
     };
   }
 
-  logout() {
-    localStorage.removeItem('token');
-    this.router.navigateByUrl('/login');
+  get usuarioLogin() {
+    return sessionStorage.getItem('idUsuario') || '';
   }
 
   validarToken(): Observable<boolean> {
@@ -108,14 +102,6 @@ export class UsuarioService {
       );
   }
 
-  crearUsuario(formData: RegisterForm) {
-    return this.httpClient.post(`${base_url}/usuarios`, formData).pipe(
-      tap((resp: any) => {
-        localStorage.setItem('token', resp.token);
-      })
-    );
-  }
-
   login(formData: LoginForm) {
     return this.httpClient.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
@@ -128,6 +114,20 @@ export class UsuarioService {
         sessionStorage.setItem('email', resp.usuario.email);
         sessionStorage.setItem('Número de documento', resp.usuario.numero_documento);
         sessionStorage.setItem('imagen', resp.usuario.imagen);
+      })
+    );
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    sessionStorage.clear();
+    this.router.navigateByUrl('/login');
+  }
+
+  crearUsuario(formData: RegisterForm) {
+    return this.httpClient.post(`${base_url}/usuarios`, formData).pipe(
+      tap((resp: any) => {
+        resp;
       })
     );
   }
