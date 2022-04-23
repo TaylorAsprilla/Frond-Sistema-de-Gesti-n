@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { IngresoModel } from 'src/app/models/ingreso.model';
 import { environment } from 'src/environments/environment';
 
@@ -29,5 +30,11 @@ export class IngresoService {
       { id_daIngreso: idVulunatrio, id_usuario: idUsuario },
       this.headers
     );
+  }
+
+  getIngresos() {
+    return this.httpClient
+      .get(`${base_url}/ingreso`, this.headers)
+      .pipe(map((ingreso: { ok: boolean; ingresos: IngresoModel[] }) => ingreso.ingresos));
   }
 }

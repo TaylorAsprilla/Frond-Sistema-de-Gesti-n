@@ -10,6 +10,8 @@ import { BuscadorComponent } from './buscador/buscador.component';
 import { RouterModule } from '@angular/router';
 import { CarnetVacunacionComponent } from './carnet-vacunacion/carnet-vacunacion.component';
 import { SubirCarnetComponent } from './subir-carnet/subir-carnet.component';
+import { ContadorComponent } from './contador/contador/contador.component';
+import { SeleccionarCongregacionIngresoComponent } from './seleccionar-congregacion-ingreso/seleccionar-congregacion-ingreso.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +21,8 @@ import { SubirCarnetComponent } from './subir-carnet/subir-carnet.component';
     DashboardComponent,
     CarnetVacunacionComponent,
     SubirCarnetComponent,
+    ContadorComponent,
+    SeleccionarCongregacionIngresoComponent,
   ],
   exports: [
     ModalImagenComponent,
@@ -27,6 +31,7 @@ import { SubirCarnetComponent } from './subir-carnet/subir-carnet.component';
     DashboardComponent,
     CarnetVacunacionComponent,
     SubirCarnetComponent,
+    SeleccionarCongregacionIngresoComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
 })

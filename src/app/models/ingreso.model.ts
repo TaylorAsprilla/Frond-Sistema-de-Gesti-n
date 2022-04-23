@@ -1,3 +1,3 @@
 export class IngresoModel {
-  constructor(public id_daIngreso: number, public id_usuario: number) {}
+  constructor(public id_daIngreso: number, public id_usuario: number, public id_congregacion: number) {}
 }
