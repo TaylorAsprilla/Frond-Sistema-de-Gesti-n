@@ -1,9 +1,13 @@
 <div>
   <div class="card">
     <div class="card-header">
-      <h3 class="card-title">
-        <span class="ml-2">Para iniciar el registro, seleccione la Congregación donde se encuentra</span>
-      </h3>
+      <div>
+        <span
+          >Hola
+          <strong> {{ primerNombre }} {{ segundoNombre }} {{ primerApellido }} {{ segundoApellido }}, </strong>
+          para dar inicio al proceso de ingreso, seleccione la Congregación donde se encuentra.
+        </span>
+      </div>
     </div>
     <div class="card-body">
       <form
@@ -17,16 +21,15 @@
             {{ congregacion.nombre }}
           </option>
         </select>
-        <!-- <div *ngIf="seleccionarCongregacionFormGroup.controls.id_congregacion.errors">
-          <div
-            class="txtObligatorio"
-            *ngIf="seleccionarCongregacionFormGroup.controls.id_congregacion.errors?.required"
-          >
-            Seleccione la congregación
-          </div>
-        </div> -->
 
-        <button type="submit" name="submit" class="btn btn-primary botonPrincipal mr-3 mt-4">Iniciar Ingresos</button>
+        <button
+          type="submit"
+          name="submit"
+          class="btn btn-primary botonPrincipal mr-3 mt-4"
+          [disabled]="seleccionarCongregacionFormGroup.invalid"
+        >
+          Iniciar Ingresos
+        </button>
       </form>
     </div>
   </div>

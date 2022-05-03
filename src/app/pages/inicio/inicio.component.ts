@@ -1,4 +1,4 @@
-import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CampoModel } from 'src/app/models/campo.model';
@@ -18,7 +18,7 @@ import { UsuarioService } from 'src/app/services/usuario/usuario.service';
   templateUrl: './inicio.component.html',
   styleUrls: ['./inicio.component.css'],
 })
-export class InicioComponent implements OnInit, OnDestroy, OnChanges {
+export class InicioComponent implements OnInit, OnDestroy {
   usuariosSubscription: Subscription;
   camposSubscription: Subscription;
   congregacionesSubscription: Subscription;
@@ -35,10 +35,15 @@ export class InicioComponent implements OnInit, OnDestroy, OnChanges {
 
   totalTodosLosUsuarios: number;
   totalUsuarios: number;
+  totalIngresos: number;
+  congregacionQueIngresa: any;
+
   titulo: string;
   placeholderBuscador: string;
 
   existeUsuario: boolean = false;
+  iniciarIngreso: boolean = false;
+  fecha = new Date().toLocaleDateString('en-CA');
 
   constructor(
     private usuarioServices: UsuarioService,
@@ -82,13 +87,7 @@ export class InicioComponent implements OnInit, OnDestroy, OnChanges {
       .listarMinisterios()
       .subscribe((ministerios: MinisterioModel[]) => {
         this.ministerios = ministerios;
-        console.log('Ministerios', this.ministerios);
       });
-
-    this.ingresoSubscription = this.ingresoService.getIngresos().subscribe((ingresos: IngresoModel[]) => {
-      this.ingresos = ingresos;
-      console.log('Ingresos', this.ingresos);
-    });
 
     this.contarUsuarioEnCongregacion();
   }
@@ -99,21 +98,7 @@ export class InicioComponent implements OnInit, OnDestroy, OnChanges {
     this.camposSubscription?.unsubscribe();
     this.ministeriosSubscription?.unsubscribe();
     this.todosLosusuariosSubscription?.unsubscribe();
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    console.log('Cahnges', changes);
-    // if (changes.busquedaUsuario) {
-    //   if (
-    //     (changes.busquedaUsuario.currentValue[0]?.id_vacuna === 4 ||
-    //       changes.busquedaUsuario.currentValue[0]?.id_dosis >= 2) &&
-    //     !!changes.busquedaUsuario.currentValue[0]?.carnet
-    //   ) {
-    //     this.ingreso = true;
-    //   } else {
-    //     this.ingreso = false;
-    //   }
-    // }
+    this.ingresoSubscription?.unsubscribe();
   }
 
   buscarUsuario(termino: string) {
@@ -131,16 +116,31 @@ export class InicioComponent implements OnInit, OnDestroy, OnChanges {
     this.router.navigateByUrl(`/registro`);
   }
 
-  ingresoUsuario(event) {
+  ingresoUsuario(idUsuario: string) {
     this.existeUsuario = false;
+    if (idUsuario) {
+      this.contarUsuarioEnCongregacion();
+    }
+  }
+
+  obtenerNombreCongregacion(nombreCongregacion: string) {
+    if (nombreCongregacion) {
+      this.congregacionQueIngresa = nombreCongregacion;
+      this.iniciarIngreso = true;
+    }
   }
 
   contarUsuarioEnCongregacion() {
     const idcongregacion = sessionStorage.getItem('congregacion_ingreso');
-    // console.log('Id de la congregación', idcongregacion);
-    return this.todosLosUsuarios.filter((usuario) => {
-      // console.log('usuarios', usuario);
-      usuario.id_congregacion.toString() === idcongregacion;
-    }).length;
+
+    if (!!idcongregacion) {
+      this.ingresoSubscription = this.ingresoService.getIngresos().subscribe((ingreso: IngresoModel[]) => {
+        this.ingresos = ingreso.filter(
+          (ingreso) =>
+            ingreso.id_congregacion.toString() === idcongregacion && ingreso.updatedAt.split('T')[0] === this.fecha
+        );
+        this.totalIngresos = this.ingresos.length;
+      });
+    }
   }
 }

@@ -32,9 +32,7 @@
       </div>
       <ng-template #noHayRegistro>
         <div class="info-box">
-          <span [ngClass]="ingreso ? 'info-box-icon' : 'no-ingreso'"
-            ><i [ngClass]="ingreso ? 'fas fa-check' : 'fas fa-ban'"></i
-          ></span>
+          <span [ngClass]="'no-ingreso'"><i [ngClass]="'fas fa-ban'"></i></span>
           <div class="info-box-content">
             <span class="info-box-text"> No existe un registro con el número de documento digitado</span>
           </div>
