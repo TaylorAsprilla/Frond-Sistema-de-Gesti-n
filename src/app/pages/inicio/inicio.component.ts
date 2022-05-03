@@ -3,11 +3,13 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CampoModel } from 'src/app/models/campo.model';
 import { CongregacionModel } from 'src/app/models/congregacion.model';
+import { IngresoModel } from 'src/app/models/ingreso.model';
 import { MinisterioModel } from 'src/app/models/ministerio.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { BusquedasService } from 'src/app/services/busquedas/busquedas.service';
 import { CampoService } from 'src/app/services/campo/campo.service';
 import { CongregacionService } from 'src/app/services/congregacion/congregacion.service';
+import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
 import { MinisterioService } from 'src/app/services/ministerio/ministerio.service';
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
@@ -22,19 +24,26 @@ export class InicioComponent implements OnInit, OnDestroy {
   congregacionesSubscription: Subscription;
   ministeriosSubscription: Subscription;
   todosLosusuariosSubscription: Subscription;
+  ingresoSubscription: Subscription;
 
   congregaciones: CongregacionModel[] = [];
   campos: CampoModel[] = [];
   ministerios: MinisterioModel[] = [];
   usuarios: UsuarioModel[] = [];
   todosLosUsuarios: UsuarioModel[] = [];
+  ingresos: IngresoModel[] = [];
 
   totalTodosLosUsuarios: number;
   totalUsuarios: number;
+  totalIngresos: number;
+  congregacionQueIngresa: any;
+
   titulo: string;
   placeholderBuscador: string;
 
   existeUsuario: boolean = false;
+  iniciarIngreso: boolean = false;
+  fecha = new Date().toLocaleDateString('en-CA');
 
   constructor(
     private usuarioServices: UsuarioService,
@@ -42,6 +51,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     private campoServices: CampoService,
     private ministerioService: MinisterioService,
     private busquedasService: BusquedasService,
+    private ingresoService: IngresoService,
     private router: Router
   ) {}
 
@@ -78,6 +88,8 @@ export class InicioComponent implements OnInit, OnDestroy {
       .subscribe((ministerios: MinisterioModel[]) => {
         this.ministerios = ministerios;
       });
+
+    this.contarUsuarioEnCongregacion();
   }
 
   ngOnDestroy(): void {
@@ -86,6 +98,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.camposSubscription?.unsubscribe();
     this.ministeriosSubscription?.unsubscribe();
     this.todosLosusuariosSubscription?.unsubscribe();
+    this.ingresoSubscription?.unsubscribe();
   }
 
   buscarUsuario(termino: string) {
@@ -101,5 +114,33 @@ export class InicioComponent implements OnInit, OnDestroy {
 
   volverAlRegistro() {
     this.router.navigateByUrl(`/registro`);
+  }
+
+  ingresoUsuario(idUsuario: string) {
+    this.existeUsuario = false;
+    if (idUsuario) {
+      this.contarUsuarioEnCongregacion();
+    }
+  }
+
+  obtenerNombreCongregacion(nombreCongregacion: string) {
+    if (nombreCongregacion) {
+      this.congregacionQueIngresa = nombreCongregacion;
+      this.iniciarIngreso = true;
+    }
+  }
+
+  contarUsuarioEnCongregacion() {
+    const idcongregacion = sessionStorage.getItem('congregacion_ingreso');
+
+    if (!!idcongregacion) {
+      this.ingresoSubscription = this.ingresoService.getIngresos().subscribe((ingreso: IngresoModel[]) => {
+        this.ingresos = ingreso.filter(
+          (ingreso) =>
+            ingreso.id_congregacion.toString() === idcongregacion && ingreso.updatedAt.split('T')[0] === this.fecha
+        );
+        this.totalIngresos = this.ingresos.length;
+      });
+    }
   }
 }

@@ -232,6 +232,9 @@ export class RegisterComponent implements OnInit, OnDestroy {
                 title: 'Usuario Actualizado',
                 text: `${usuarioActualizado.usuarioActualizado.primer_nombre} ${usuarioActualizado.usuarioActualizado.primer_apellido} actualizado correctamente`,
                 icon: 'success',
+                allowEscapeKey: false,
+                allowOutsideClick: false,
+                allowEnterKey: false,
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
@@ -378,7 +381,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   actualizaUsuario(usuario: UsuarioModel) {
-    console.log(usuario);
     const {
       primer_nombre,
       segundo_nombre,

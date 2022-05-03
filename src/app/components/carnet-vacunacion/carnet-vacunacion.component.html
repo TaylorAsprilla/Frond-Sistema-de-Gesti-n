@@ -4,10 +4,10 @@
       <div *ngIf="busquedaUsuario.length > 0; else noHayRegistro">
         <div *ngFor="let usuario of busquedaUsuario">
           <div class="titulo">
-            <span class="info-box-icon"> </span>
-
             <div class="info-box">
-              <span class="info-box-icon"><i class="fas fa-check"></i></span>
+              <span [ngClass]="ingreso ? 'info-box-icon' : 'no-ingreso'">
+                <i [ngClass]="ingreso ? 'fas fa-check' : 'fas fa-ban'"></i>
+              </span>
               <div class="info-box-content">
                 <span class="info-box-text">
                   {{ usuario.primer_nombre }} {{ usuario.segundo_nombre }} {{ usuario.primer_apellido }}
@@ -18,18 +18,30 @@
             </div>
           </div>
 
-          <div class="ingreso"></div>
+          <div *ngIf="ingreso" class="text-center">
+            <button class="btn btn-primary btn-lg" (click)="darIngreso()">Ingresar</button>
+          </div>
 
-          <div class="mt-4 text-center">
-            <img [src]="usuario.carnetUrl" class="img-thumbnail" />
+          <div class="ingreso">
+            <div *ngIf="!ingreso" class="badge bg-danger text-wrap">
+              ¡Ingreso denegado!
+              <p class="fs-6 mt-2">Disculpe los inconvenientes</p>
+            </div>
           </div>
         </div>
       </div>
       <ng-template #noHayRegistro>
         <div class="info-box">
-          <span class="info-box-icon"><i class="fas fa-times"></i></span>
+          <span [ngClass]="'no-ingreso'"><i [ngClass]="'fas fa-ban'"></i></span>
           <div class="info-box-content">
             <span class="info-box-text"> No existe un registro con el número de documento digitado</span>
+          </div>
+        </div>
+
+        <div class="ingreso">
+          <div class="badge bg-danger text-wrap">
+            ¡Ingreso denegado!
+            <p class="fs-6 mt-2">Disculpe los inconvenientes</p>
           </div>
         </div>
       </ng-template>

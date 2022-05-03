@@ -1,0 +1,36 @@
+<div>
+  <div class="card">
+    <div class="card-header">
+      <div>
+        <span
+          >Hola
+          <strong> {{ primerNombre }} {{ segundoNombre }} {{ primerApellido }} {{ segundoApellido }}, </strong>
+          para dar inicio al proceso de ingreso, seleccione la Congregación donde se encuentra.
+        </span>
+      </div>
+    </div>
+    <div class="card-body">
+      <form
+        [formGroup]="seleccionarCongregacionFormGroup"
+        autocomplete="off"
+        (ngSubmit)="guardarRegistroCongregacion()"
+      >
+        <select class="form-control" formControlName="id_congregacion">
+          <option value="" disabled>Seleccione la Congregación</option>
+          <option *ngFor="let congregacion of congregaciones" [value]="congregacion.id">
+            {{ congregacion.nombre }}
+          </option>
+        </select>
+
+        <button
+          type="submit"
+          name="submit"
+          class="btn btn-primary botonPrincipal mr-3 mt-4"
+          [disabled]="seleccionarCongregacionFormGroup.invalid"
+        >
+          Iniciar Ingresos
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

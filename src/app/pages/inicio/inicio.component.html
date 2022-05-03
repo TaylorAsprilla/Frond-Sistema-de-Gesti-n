@@ -1,11 +1,19 @@
 <app-dashboard
+  *ngIf="!!iniciarIngreso"
   [totalUsuarios]="totalTodosLosUsuarios"
   [totalCongregaciones]="congregaciones.length"
   [totalCampos]="campos.length"
   [totalMinisterios]="ministerios.length"
+  [totalIngresos]="totalIngresos"
+  [congregacionQueIngresa]="congregacionQueIngresa"
 ></app-dashboard>
 
-<div class="row">
+<app-seleccionar-congregacion-ingreso
+  *ngIf="!iniciarIngreso"
+  (onNombreCongregacionIngreso)="obtenerNombreCongregacion($event)"
+></app-seleccionar-congregacion-ingreso>
+
+<div class="row" *ngIf="!!iniciarIngreso">
   <div class="col-md-6">
     <app-buscador
       [titulo]="titulo"
@@ -15,7 +23,11 @@
     ></app-buscador>
   </div>
   <div class="col-md-6">
-    <app-carnet-vacunacion *ngIf="existeUsuario" [busquedaUsuario]="usuarios"></app-carnet-vacunacion>
+    <app-carnet-vacunacion
+      *ngIf="existeUsuario"
+      [busquedaUsuario]="usuarios"
+      (onIngresoUsuario)="ingresoUsuario($event)"
+    ></app-carnet-vacunacion>
   </div>
 </div>
 

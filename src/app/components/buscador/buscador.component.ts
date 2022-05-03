@@ -24,12 +24,14 @@ export class BuscadorComponent implements OnInit {
 
   ngOnInit(): void {
     this.buscadorForm = this.formBuilder.group({
-      busquedaUno: ['', [Validators.required, Validators.minLength(4), Validators.pattern('/^[0-9]+$/')]],
-      busquedaDos: ['', [Validators.required, Validators.minLength(4), Validators.pattern('/^[0-9]+$/')]],
+      busquedaUno: ['', [Validators.required, Validators.minLength(4), Validators.pattern('/^[1-9]+$/')]],
+      busquedaDos: ['', [Validators.required, Validators.minLength(4), Validators.pattern('/^[1-9]+$/')]],
     });
   }
 
   validaCampoBusqueda(termino: string = '') {
+    let numero = Number(termino);
+
     if (!!this.validaInput) {
       let busquedaUno = this.buscadorForm.get('busquedaUno').value;
       let busquedaDos = this.buscadorForm.get('busquedaDos').value;
@@ -39,16 +41,17 @@ export class BuscadorComponent implements OnInit {
       if (busquedaUno !== busquedaDos) {
         this.mostrarError = true;
       } else {
-        this.buscarUsuario(termino);
+        this.buscarUsuario(numero.toString());
       }
     } else {
-      this.buscarUsuario(termino);
+      this.buscarUsuario(numero.toString());
     }
   }
 
   buscarUsuario(termino: string) {
     if (!this.mostrarError) {
       this.onTerminoBusqueda.emit(termino);
+      this.buscadorForm.reset();
     } else {
       return;
     }

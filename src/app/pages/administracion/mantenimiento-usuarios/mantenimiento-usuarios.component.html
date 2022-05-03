@@ -127,7 +127,7 @@
           <div class="form-group">
             <label>Dosis:</label>
 
-            <select class="form-control" formControlName="id_vacuna">
+            <select class="form-control" formControlName="id_dosis">
               <option value="" disabled>Seleccione las Dosis</option>
               <option *ngFor="let dosi of dosis" [value]="dosi.id">{{ dosi.dosis }}</option>
             </select>
