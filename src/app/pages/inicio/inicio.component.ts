@@ -137,8 +137,9 @@ export class InicioComponent implements OnInit, OnDestroy {
       this.ingresoSubscription = this.ingresoService.getIngresos().subscribe((ingreso: IngresoModel[]) => {
         this.ingresos = ingreso.filter(
           (ingreso) =>
-            ingreso.id_congregacion.toString() === idcongregacion && ingreso.updatedAt.split('T')[0] === this.fecha
+            ingreso.id_congregacion === parseInt(idcongregacion) && ingreso.fecha_ingreso === this.fecha.toString()
         );
+
         this.totalIngresos = this.ingresos.length;
       });
     }

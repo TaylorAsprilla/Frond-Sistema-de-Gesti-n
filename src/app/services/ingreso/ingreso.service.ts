@@ -24,10 +24,15 @@ export class IngresoService {
     };
   }
 
-  crearIngreso(idVulunatrio: string, idUsuario: string, idCongregacion: string) {
+  crearIngreso(idVulunatrio: string, idUsuario: string, idCongregacion: string, fechaIngreso: string) {
     return this.httpClient.post(
       `${base_url}/ingreso`,
-      { id_daIngreso: idVulunatrio, id_usuario: idUsuario, id_congregacion: idCongregacion },
+      {
+        id_daIngreso: idVulunatrio,
+        id_usuario: idUsuario,
+        id_congregacion: idCongregacion,
+        fecha_ingreso: fechaIngreso,
+      },
       this.headers
     );
   }
