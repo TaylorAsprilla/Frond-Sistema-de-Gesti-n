@@ -15,8 +15,8 @@ export class CarnetVacunacionComponent implements OnInit, OnChanges {
   @Output() onIngresoUsuario = new EventEmitter<string>();
 
   ingreso: boolean = false;
-
   voluntario: UsuarioModel;
+  fecha = new Date().toLocaleDateString('en-CA');
 
   constructor(private ingresoServices: IngresoService) {}
 
@@ -61,13 +61,15 @@ export class CarnetVacunacionComponent implements OnInit, OnChanges {
     let primerApellido = this.busquedaUsuario[0].primer_apellido;
     let segundoApellido = this.busquedaUsuario[0].segundo_apellido;
 
-    this.ingresoServices.crearIngreso(idVoluntario, idUsuario, congregacionIngreso).subscribe((ingresoCreado: any) => {
-      Swal.fire(
-        '¡Ingreso Exitoso!',
-        `Bienvenido ${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`,
-        'success'
-      );
-    });
+    this.ingresoServices
+      .crearIngreso(idVoluntario, idUsuario, congregacionIngreso, this.fecha)
+      .subscribe((ingresoCreado: any) => {
+        Swal.fire(
+          '¡Ingreso Exitoso!',
+          `Bienvenido ${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`,
+          'success'
+        );
+      });
 
     this.onIngresoUsuario.emit(idUsuario);
   }
