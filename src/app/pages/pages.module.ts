@@ -21,6 +21,7 @@ import { MantenimientoCamposComponent } from './administracion/mantenimiento-cam
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { MantenimientoUsuariosComponent } from './administracion/mantenimiento-usuarios/mantenimiento-usuarios.component';
 import { MantenimientoUsuariosAdminComponent } from './administracion/mantenimiento-usuarios-admin/mantenimiento-usuarios-admin.component';
+import { InformePowerBiComponent } from './informes/informe-power-bi/informe-power-bi.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { MantenimientoUsuariosAdminComponent } from './administracion/mantenimie
     BusquedaComponent,
     MantenimientoUsuariosComponent,
     MantenimientoUsuariosAdminComponent,
+    InformePowerBiComponent,
   ],
   exports: [InicioComponent, PagesComponent, NopagefoundComponent],
   imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule, ComponentsModule, PipesModule],

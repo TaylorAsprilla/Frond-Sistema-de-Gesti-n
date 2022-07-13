@@ -26,10 +26,10 @@ export class SeleccionarCongregacionIngresoComponent implements OnInit, OnDestro
   constructor(private formBuilder: FormBuilder, private congregacionService: CongregacionService) {}
 
   ngOnInit(): void {
-    this.primerNombre = sessionStorage.getItem('primer_nombre');
-    this.segundoNombre = sessionStorage.getItem('segundo_nombre');
-    this.primerApellido = sessionStorage.getItem('primer_apellido');
-    this.segundoApellido = sessionStorage.getItem('segundo_apellido');
+    this.primerNombre = localStorage.getItem('primer_nombre');
+    this.segundoNombre = localStorage.getItem('segundo_nombre');
+    this.primerApellido = localStorage.getItem('primer_apellido');
+    this.segundoApellido = localStorage.getItem('segundo_apellido');
 
     this.congregacionSubscription = this.congregacionService.listarCongregaciones().subscribe((congregaciones) => {
       this.congregaciones = congregaciones.filter((congregacion) => congregacion.estado === true);
@@ -64,10 +64,10 @@ export class SeleccionarCongregacionIngresoComponent implements OnInit, OnDestro
       cancelButtonText: 'Cancelar',
     }).then((result) => {
       if (result.isConfirmed) {
-        sessionStorage.setItem('congregacion_ingreso', idCongregacion);
+        localStorage.setItem('congregacion_ingreso', idCongregacion);
         this.onNombreCongregacionIngreso.emit(nombreCongregacion.nombre);
       } else if (result.dismiss) {
-        sessionStorage.removeItem('congregacion_ingreso');
+        localStorage.removeItem('congregacion_ingreso');
       }
     });
   }

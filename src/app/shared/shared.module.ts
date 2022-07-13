@@ -8,10 +8,11 @@ import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { FormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { DirectiveModule } from '../directive/directive.module';
 
 @NgModule({
   declarations: [BreadcrumbsComponent, FooterComponent, HeaderComponent, SidebarComponent],
   exports: [BreadcrumbsComponent, FooterComponent, HeaderComponent, SidebarComponent],
-  imports: [CommonModule, RouterModule, FormsModule, FontAwesomeModule],
+  imports: [CommonModule, RouterModule, FormsModule, FontAwesomeModule, DirectiveModule],
 })
 export class SharedModule {}

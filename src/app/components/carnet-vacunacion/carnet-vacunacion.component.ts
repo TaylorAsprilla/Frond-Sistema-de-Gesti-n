@@ -53,9 +53,9 @@ export class CarnetVacunacionComponent implements OnInit, OnChanges {
   }
 
   darIngreso() {
-    let idVoluntario = sessionStorage.getItem('idUsuario');
+    let idVoluntario = localStorage.getItem('idUsuario');
     let idUsuario = this.busquedaUsuario[0].id;
-    let congregacionIngreso = sessionStorage.getItem('congregacion_ingreso');
+    let congregacionIngreso = localStorage.getItem('congregacion_ingreso');
     let primerNombre = this.busquedaUsuario[0].primer_nombre;
     let segundoNombre = this.busquedaUsuario[0].segundo_nombre;
     let primerApellido = this.busquedaUsuario[0].primer_apellido;

@@ -24,6 +24,7 @@ import Swal from 'sweetalert2';
 })
 export class MantenimientoUsuariosAdminComponent implements OnInit, OnDestroy {
   public usuarioForm: FormGroup;
+  public permisoForm: FormGroup;
 
   public usuarios: UsuarioModel[] = [];
   public usuarioSeleccionado: UsuarioModel;

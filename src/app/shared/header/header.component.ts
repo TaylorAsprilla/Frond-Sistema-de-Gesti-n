@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { UsuarioModel } from 'src/app/models/usuario.model';
+import { PermisoEnum } from 'src/app/services/sidebar/sidebar.service';
 
 import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 import { environment } from 'src/environments/environment';
@@ -15,6 +16,10 @@ const imagenes_url = environment.imagenes_url;
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit {
+  get PermisoEnum() {
+    return PermisoEnum;
+  }
+
   fabars = faBars;
 
   public usuario: UsuarioModel;
@@ -35,13 +40,13 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.primerNombre = sessionStorage.getItem('primer_nombre');
-    this.segundoNombre = sessionStorage.getItem('segundo_nombre');
-    this.primerApellido = sessionStorage.getItem('primer_apellido');
-    this.segundoApellido = sessionStorage.getItem('segundo_apellido');
-    this.email = sessionStorage.getItem('email');
-    this.imagen = sessionStorage.getItem('imagen');
-    this.idUsuario = sessionStorage.getItem('idUsuario');
+    this.primerNombre = localStorage.getItem('primer_nombre');
+    this.segundoNombre = localStorage.getItem('segundo_nombre');
+    this.primerApellido = localStorage.getItem('primer_apellido');
+    this.segundoApellido = localStorage.getItem('segundo_apellido');
+    this.email = localStorage.getItem('email');
+    this.imagen = localStorage.getItem('imagen');
+    this.idUsuario = localStorage.getItem('idUsuario');
 
     $('.search-box a, .search-box .app-search .srh-btn').on('click', function () {
       $('.app-search').toggle(200);
@@ -52,7 +57,7 @@ export class HeaderComponent implements OnInit {
     if (!this.imagen) {
       return `${imagenes_url}/uploads/no-image.jpg`;
     } else if (this.imagen) {
-      return `${imagenes_url}/uploads/usuarios/${sessionStorage.getItem('imagen')}`;
+      return `${imagenes_url}/uploads/usuarios/${localStorage.getItem('imagen')}`;
     } else {
       return `${imagenes_url}/uploads/no-image.jpg`;
     }

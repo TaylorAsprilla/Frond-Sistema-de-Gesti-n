@@ -9,6 +9,8 @@ import { LoginForm } from 'src/app/interfaces/login-form.interface';
 import { RegisterForm } from 'src/app/interfaces/register-form.interface';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { environment } from 'src/environments/environment';
+import { PermisosService } from '../permisos/permisos.service';
+import { PermisoEnum } from '../sidebar/sidebar.service';
 
 const base_url = environment.base_url;
 
@@ -18,7 +20,7 @@ const base_url = environment.base_url;
 export class UsuarioService {
   public usuario: UsuarioModel;
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(private httpClient: HttpClient, private router: Router, private permisosServices: PermisosService) {}
 
   get token(): string {
     return localStorage.getItem('token') || '';
@@ -33,7 +35,11 @@ export class UsuarioService {
   }
 
   get usuarioLogin() {
-    return sessionStorage.getItem('idUsuario') || '';
+    return localStorage.getItem('idUsuario') || '';
+  }
+
+  get existeUsuario() {
+    return this.usuario;
   }
 
   validarToken(): Observable<boolean> {
@@ -96,6 +102,7 @@ export class UsuarioService {
         }),
 
         catchError((error) => {
+          this.router.navigateByUrl('/login');
           console.log(error);
           return of(false);
         })
@@ -106,20 +113,28 @@ export class UsuarioService {
     return this.httpClient.post(`${base_url}/login`, formData).pipe(
       tap((resp: any) => {
         localStorage.setItem('token', resp.token);
-        sessionStorage.setItem('idUsuario', resp.usuario.id);
-        sessionStorage.setItem('primer_nombre', resp.usuario.primer_nombre);
-        sessionStorage.setItem('segundo_nombre', resp.usuario.segundo_nombre);
-        sessionStorage.setItem('primer_apellido', resp.usuario.primer_apellido);
-        sessionStorage.setItem('segundo_apellido', resp.usuario.segundo_apellido);
-        sessionStorage.setItem('email', resp.usuario.email);
-        sessionStorage.setItem('Número de documento', resp.usuario.numero_documento);
-        sessionStorage.setItem('imagen', resp.usuario.imagen);
+        localStorage.setItem('idUsuario', resp.usuario.id);
+        localStorage.setItem('primer_nombre', resp.usuario.primer_nombre);
+        localStorage.setItem('segundo_nombre', resp.usuario.segundo_nombre);
+        localStorage.setItem('primer_apellido', resp.usuario.primer_apellido);
+        localStorage.setItem('segundo_apellido', resp.usuario.segundo_apellido);
+        localStorage.setItem('email', resp.usuario.email);
+        localStorage.setItem('Número de documento', resp.usuario.numero_documento);
+        localStorage.setItem('imagen', resp.usuario.imagen);
       })
     );
   }
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('idUsuario');
+    localStorage.removeItem('primer_nombre');
+    localStorage.removeItem('segundo_nombre');
+    localStorage.removeItem('primer_apellido');
+    localStorage.removeItem('segundo_apellido');
+    localStorage.removeItem('email');
+    localStorage.removeItem('Número de documento');
+    localStorage.removeItem('imagen');
     sessionStorage.clear();
     this.router.navigateByUrl('/login');
   }
