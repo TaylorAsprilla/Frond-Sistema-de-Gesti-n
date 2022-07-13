@@ -131,7 +131,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   contarUsuarioEnCongregacion() {
-    const idcongregacion = sessionStorage.getItem('congregacion_ingreso');
+    const idcongregacion = localStorage.getItem('congregacion_ingreso');
 
     if (!!idcongregacion) {
       this.ingresoSubscription = this.ingresoService.getIngresos().subscribe((ingreso: IngresoModel[]) => {

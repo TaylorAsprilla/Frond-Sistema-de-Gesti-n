@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 
-export enum Role {
-  ADMINISTRADOR = 'administrador',
-  OBRERO = 'obrero',
-  VOLUNTARIO = 'voluntario',
+export enum PermisoEnum {
+  ADMINISTRADOR = 'ADMINISTRADOR',
+  OBRERO = 'OBRERO',
+  VOLUNTARIO = 'VOLUNTARIO',
 }
 
 @Injectable({
@@ -14,33 +14,31 @@ export class SidebarService {
     {
       titulo: 'Inicio',
       icono: 'fas fa-home',
-      role: [Role.ADMINISTRADOR],
+      permisos: [PermisoEnum.VOLUNTARIO],
       submenu: [
-        { titulo: 'Dashboard', url: '/' },
+        { titulo: 'Ingreso', url: '/' },
         { titulo: 'Registro', url: '../registro' },
       ],
     },
-    // {
-    //   titulo: 'Administración',
-    //   icono: 'fas fa-users-cog',
-    //   role: [Role.ADMINISTRADOR],
-    //   submenu: [
-    //     { titulo: 'Perfil', url: 'perfil' },
-    //     { titulo: 'Usuarios', url: 'usuarios' },
-    //     { titulo: 'Registro', url: '../registro' },
-    //     { titulo: 'Ministerios', url: 'ministerios' },
-    //     { titulo: 'Congregaciones', url: 'congregaciones' },
-    //     { titulo: 'Campos', url: 'campos' },
-    //   ],
-    // },
-    // {
-    //   titulo: 'Usuarios',
-    //   icono: 'fas fa-users',
-    //   submenu: [
-    //     { titulo: 'Perfil', url: 'perfil' },
-    //     { titulo: 'Usuarios', url: 'usuarios' },
-    //   ],
-    // },
+    {
+      titulo: 'Administración',
+      icono: 'fas fa-users-cog',
+      permisos: [PermisoEnum.ADMINISTRADOR],
+      submenu: [
+        { titulo: 'Perfil', url: 'perfil' },
+        { titulo: 'Usuarios', url: 'usuarios' },
+        { titulo: 'Registro', url: '../registro' },
+        { titulo: 'Ministerios', url: 'ministerios' },
+        { titulo: 'Congregaciones', url: 'congregaciones' },
+        { titulo: 'Campos', url: 'campos' },
+      ],
+    },
+    {
+      titulo: 'Informes',
+      icono: 'fas fa-chart-line',
+      permisos: [PermisoEnum.ADMINISTRADOR],
+      submenu: [{ titulo: 'Informe de Ingreso', url: 'informe' }],
+    },
   ];
   constructor() {}
 }

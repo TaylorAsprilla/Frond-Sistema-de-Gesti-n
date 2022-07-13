@@ -11,6 +11,8 @@ import { CamposComponent } from '../administracion/campos/campos.component';
 import { MantenimientoCamposComponent } from '../administracion/mantenimiento-campos/mantenimiento-campos.component';
 import { MantenimientoUsuariosComponent } from '../administracion/mantenimiento-usuarios/mantenimiento-usuarios.component';
 import { MantenimientoUsuariosAdminComponent } from '../administracion/mantenimiento-usuarios-admin/mantenimiento-usuarios-admin.component';
+import { PermisoEnum } from 'src/app/services/sidebar/sidebar.service';
+import { InformePowerBiComponent } from '../informes/informe-power-bi/informe-power-bi.component';
 
 const childRoutes: Routes = [
   {
@@ -31,6 +33,7 @@ const childRoutes: Routes = [
   {
     path: 'usuarios',
     component: UsuariosComponent,
+    data: { permisos: PermisoEnum.ADMINISTRADOR },
   },
   {
     path: 'usuario/:id',
@@ -44,7 +47,7 @@ const childRoutes: Routes = [
   {
     path: 'congregaciones',
     component: CongregacionesComponent,
-    data: { titulo: 'Congregaciones' },
+    data: { titulo: 'Congregaciones', permisos: PermisoEnum.ADMINISTRADOR },
   },
   {
     path: 'congregacion/:id',
@@ -66,6 +69,11 @@ const childRoutes: Routes = [
     path: 'usuarioadmin/:id',
     component: MantenimientoUsuariosAdminComponent,
     data: { titulo: 'Editar Usuarios - Administrador' },
+  },
+  {
+    path: 'informe',
+    component: InformePowerBiComponent,
+    data: { titulo: 'Tablero de informes' },
   },
 ];
 

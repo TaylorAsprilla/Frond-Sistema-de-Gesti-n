@@ -25,46 +25,34 @@
       </div>
     </div>
 
-    <!--TODO SidebarSearch Form -->
-    <!-- <div class="form-inline">
-      <div class="input-group" data-widget="sidebar-search">
-        <input class="form-control form-control-sidebar" type="search" placeholder="Busqueda" aria-label="Search" />
-        <div class="input-group-append">
-          <button class="btn btn-sidebar">
-            <i class="fas fa-search fa-fw"></i>
-          </button>
-        </div>
-      </div>
-    </div> -->
-
     <!-- Sidebar Menu -->
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
         <li *ngFor="let menuItem of menuItems" class="nav-item" aria-expanded="false">
-          <a href="#" class="nav-link" data-toggle="collapse">
-            <i class="nav-icon {{ menuItem.icono }}"></i>
+          <ng-container *appPermisos="menuItem.permisos">
+            <a href="#" class="nav-link" data-toggle="collapse">
+              <i class="nav-icon {{ menuItem.icono }}"></i>
 
-            <p class="opcionMenu">
-              {{ menuItem.titulo }}
-              <i class="right fas fa-angle-left"></i>
-              <span class="badge badge-info right conteoMenu">{{ menuItem.submenu.length }}</span>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item" *ngFor="let subMenuItem of menuItem.submenu">
-              <a
-                [routerLink]="subMenuItem.url"
-                routerLinkActive="active"
-                [routerLinkActiveOptions]="{ exact: true }"
-                class="nav-link"
-              >
-                <i class="far fa-circle nav-icon"></i>
-                <p>{{ subMenuItem.titulo }}</p>
-              </a>
-            </li>
-          </ul>
+              <p class="opcionMenu">
+                {{ menuItem.titulo }}
+                <i class="right fas fa-angle-left"></i>
+                <span class="badge badge-info right conteoMenu">{{ menuItem.submenu.length }}</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item" *ngFor="let subMenuItem of menuItem.submenu">
+                <a
+                  [routerLink]="subMenuItem.url"
+                  routerLinkActive="active"
+                  [routerLinkActiveOptions]="{ exact: true }"
+                  class="nav-link"
+                >
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>{{ subMenuItem.titulo }}</p>
+                </a>
+              </li>
+            </ul>
+          </ng-container>
         </li>
       </ul>
     </nav>

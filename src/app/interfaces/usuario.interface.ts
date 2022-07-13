@@ -12,4 +12,7 @@ export interface UsuarioInterface {
   tipoDocumento: number;
   genero: number;
   imagen: string;
+  permisos: {
+    ADMINISTRADOR: 1 | 0;
+  };
 }

@@ -23,8 +23,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   public loginForm = this.formBuilder.group({
     login: [localStorage.getItem('login') || '', [Validators.required, Validators.email]],
     password: ['', [Validators.required, Validators.minLength(3)]],
-    remember: [false],
+    remember: [localStorage.getItem('login') ? true : false],
   });
+
   constructor(private router: Router, private formBuilder: FormBuilder, private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
@@ -57,7 +58,26 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigateByUrl('/');
       },
       (err) => {
-        Swal.fire({ icon: 'error', html: err.error.msg });
+        if (!!err.error.errors) {
+          let errores = err.error.errors;
+          let listaErrores = [];
+
+          Object.entries(errores).forEach(([key, value]) => {
+            listaErrores.push('° ' + value['msg'] + '<br>');
+          });
+
+          Swal.fire({
+            title: 'Error al iniciar sesión',
+            icon: 'error',
+            html: `${listaErrores.join('')}`,
+          });
+        } else {
+          Swal.fire({
+            title: 'Error al iniciar sesión',
+            icon: 'error',
+            html: `${err.error.msg}`,
+          });
+        }
       }
     );
   }
