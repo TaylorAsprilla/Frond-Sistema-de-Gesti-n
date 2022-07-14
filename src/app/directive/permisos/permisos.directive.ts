@@ -40,7 +40,10 @@ export class PermisosDirective implements OnInit {
 
     if (this.permisoUsuario) {
       for (const permiso of this.permisos) {
-        const permisosUsuario = this.permisoUsuario.find((permiso) => permiso.nombre === this.permisos.toString());
+        const permisosUsuario = this.permisoUsuario.find(
+          (permiso) => permiso.nombre.toUpperCase() === this.permisos.toString()
+        );
+
         if (permisosUsuario) {
           tienePermiso = true;
           break;
