@@ -2,9 +2,6 @@ import { Directive, Input, OnInit, TemplateRef, ViewContainerRef } from '@angula
 import { ActivatedRoute } from '@angular/router';
 
 import { PermisoUsuarioModel } from 'src/app/models/permiso-usuario.model';
-import { PermisoModel } from 'src/app/models/permiso.model';
-import { PermisosService } from 'src/app/services/permisos/permisos.service';
-import { UsuarioService } from 'src/app/services/usuario/usuario.service';
 
 @Directive({
   selector: '[appPermisos]',
@@ -16,9 +13,7 @@ export class PermisosDirective implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private templateRef: TemplateRef<any>,
-    private viewContainer: ViewContainerRef,
-    private permisosServices: PermisosService,
-    private usuarioServices: UsuarioService
+    private viewContainer: ViewContainerRef
   ) {}
 
   ngOnInit(): void {}
@@ -30,7 +25,6 @@ export class PermisosDirective implements OnInit {
     });
 
     this.permisos = val;
-
     this.actualizarVista();
   }
 

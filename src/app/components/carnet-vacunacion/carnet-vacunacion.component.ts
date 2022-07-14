@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { Dosis, RangosDeEdad, Vacuna } from 'src/app/models/vacuna.model';
@@ -10,7 +11,7 @@ import Swal from 'sweetalert2';
   templateUrl: './carnet-vacunacion.component.html',
   styleUrls: ['./carnet-vacunacion.component.scss'],
 })
-export class CarnetVacunacionComponent implements OnInit, OnChanges {
+export class CarnetVacunacionComponent {
   @Input() busquedaUsuario: UsuarioModel[] = [];
   @Output() onIngresoUsuario = new EventEmitter<string>();
 
@@ -18,9 +19,11 @@ export class CarnetVacunacionComponent implements OnInit, OnChanges {
   voluntario: UsuarioModel;
   fecha = new Date().toLocaleDateString('en-CA');
 
-  constructor(private ingresoServices: IngresoService) {}
+  constructor(
+    private ingresoServices: IngresoService,
 
-  ngOnInit(): void {}
+    private router: Router
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.busquedaUsuario) {
@@ -61,15 +64,22 @@ export class CarnetVacunacionComponent implements OnInit, OnChanges {
     let primerApellido = this.busquedaUsuario[0].primer_apellido;
     let segundoApellido = this.busquedaUsuario[0].segundo_apellido;
 
-    this.ingresoServices
-      .crearIngreso(idVoluntario, idUsuario, congregacionIngreso, this.fecha)
-      .subscribe((ingresoCreado: any) => {
+    this.ingresoServices.crearIngreso(idVoluntario, idUsuario, congregacionIngreso, this.fecha).subscribe(
+      (ingresoCreado: any) => {
         Swal.fire(
           '¡Ingreso Exitoso!',
           `Bienvenido ${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`,
           'success'
         );
-      });
+      },
+      (err) => {
+        Swal.fire({
+          html: 'Debe iniciar sesión',
+          icon: 'error',
+        });
+        this.router.navigateByUrl('/login');
+      }
+    );
 
     this.onIngresoUsuario.emit(idUsuario);
   }

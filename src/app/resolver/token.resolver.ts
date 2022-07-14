@@ -11,7 +11,7 @@ export class TokenResolver implements Resolve<any> {
   constructor(private router: Router, private usuarioService: UsuarioService) {}
 
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    throw this.usuarioService.validarToken().pipe(
+    return this.usuarioService.validarToken().pipe(
       catchError((error) => {
         this.router.navigateByUrl('/login');
         return of('No data');
