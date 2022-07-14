@@ -10,7 +10,6 @@ import { RegisterForm } from 'src/app/interfaces/register-form.interface';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { environment } from 'src/environments/environment';
 import { PermisosService } from '../permisos/permisos.service';
-import { PermisoEnum } from '../sidebar/sidebar.service';
 
 const base_url = environment.base_url;
 
@@ -103,7 +102,6 @@ export class UsuarioService {
 
         catchError((error) => {
           this.router.navigateByUrl('/login');
-          console.log(error);
           return of(false);
         })
       );

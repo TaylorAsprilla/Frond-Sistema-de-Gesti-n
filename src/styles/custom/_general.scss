@@ -3,10 +3,11 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/icheck-bootstrap/3.0.1/icheck-bootstrap.min.css');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css');
-@import url(https://allfont.es/allfont.css?fonts=montserrat);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat');
+
 
 * {
-  font-family: 'Montserrat', arial;
+  font-family: 'Montserrat', sans-serif, arial;
 }
 input.form-control.ng-untouched.ng-pristine.ng-invalid {
   border-top-left-radius: 0.8em;
