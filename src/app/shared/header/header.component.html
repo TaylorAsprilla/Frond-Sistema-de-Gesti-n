@@ -9,30 +9,8 @@
     </li>
   </ul>
 
-  <a *appPermisos="[PermisoEnum.ADMINISTRADOR]" routerLink="./informe" class="btn-flat float-right"
-    >Informe de ingresos</a
-  >
-
   <!-- Right navbar links -->
   <ul class="navbar-nav ml-auto">
-    <!--TODO Navbar Search -->
-    <!-- <form class="form-inline ml-3" (submit)="buscar(tetTermino.value)">
-      <div class="input-group input-group-md">
-        <input
-          class="form-control form-control-navbar"
-          type="search"
-          placeholder="Buscar..."
-          aria-label="Search"
-          #tetTermino
-        />
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
-      </div>
-    </form> -->
-
     <li class="nav-item dropdown user-menu">
       <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">
         <img [src]="imagenSession" class="user-image img-circle elevation-2" alt="{{ primerNombre }}" />
