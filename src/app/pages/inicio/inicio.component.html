@@ -26,6 +26,7 @@
     <app-carnet-vacunacion
       *ngIf="existeUsuario"
       [busquedaUsuario]="usuarios"
+      [congregacionIngreso]="congregacionQueIngresa"
       (onIngresoUsuario)="ingresoUsuario($event)"
     ></app-carnet-vacunacion>
   </div>

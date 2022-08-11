@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { CampoModel } from 'src/app/models/campo.model';
 import { CongregacionModel } from 'src/app/models/congregacion.model';
 import { IngresoModel } from 'src/app/models/ingreso.model';
@@ -33,9 +34,10 @@ export class InicioComponent implements OnInit, OnDestroy {
   todosLosUsuarios: UsuarioModel[] = [];
   ingresos: IngresoModel[] = [];
 
+  congregacionIngreso: CongregacionModel;
   totalTodosLosUsuarios: number;
   totalUsuarios: number;
-  totalIngresos: number;
+  totalIngresos: number = 0;
   congregacionQueIngresa: any;
 
   titulo: string;
@@ -112,6 +114,13 @@ export class InicioComponent implements OnInit, OnDestroy {
     }
   }
 
+  buscarCongregacion() {
+    let idCongregacionIngreso = localStorage.getItem('congregacion_ingreso');
+    this.congregacionServices.getCongregacion(idCongregacionIngreso).subscribe((congregacion: CongregacionModel) => {
+      this.congregacionIngreso = congregacion;
+    });
+  }
+
   volverAlRegistro() {
     this.router.navigateByUrl(`/registro`);
   }
@@ -134,14 +143,17 @@ export class InicioComponent implements OnInit, OnDestroy {
     const idcongregacion = localStorage.getItem('congregacion_ingreso');
 
     if (!!idcongregacion) {
-      this.ingresoSubscription = this.ingresoService.getIngresos().subscribe((ingreso: IngresoModel[]) => {
-        this.ingresos = ingreso.filter(
-          (ingreso) =>
-            ingreso.id_congregacion === parseInt(idcongregacion) && ingreso.fecha_ingreso === this.fecha.toString()
-        );
+      this.ingresoSubscription = this.ingresoService
+        .getIngresos()
+        .pipe(delay(100))
+        .subscribe((ingreso: IngresoModel[]) => {
+          this.ingresos = ingreso.filter(
+            (ingreso, index) =>
+              ingreso.id_congregacion === parseInt(idcongregacion) && ingreso.fecha_ingreso === this.fecha.toString()
+          );
 
-        this.totalIngresos = this.ingresos.length;
-      });
+          this.totalIngresos = this.ingresos.length;
+        });
     }
   }
 }

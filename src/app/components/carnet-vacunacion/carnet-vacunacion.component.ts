@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 })
 export class CarnetVacunacionComponent {
   @Input() busquedaUsuario: UsuarioModel[] = [];
+  @Input() congregacionIngreso: string = '';
   @Output() onIngresoUsuario = new EventEmitter<string>();
 
   ingreso: boolean = false;
@@ -59,18 +60,21 @@ export class CarnetVacunacionComponent {
     let idVoluntario = localStorage.getItem('idUsuario');
     let idUsuario = this.busquedaUsuario[0].id;
     let congregacionIngreso = localStorage.getItem('congregacion_ingreso');
-    let primerNombre = this.busquedaUsuario[0].primer_nombre;
-    let segundoNombre = this.busquedaUsuario[0].segundo_nombre;
-    let primerApellido = this.busquedaUsuario[0].primer_apellido;
-    let segundoApellido = this.busquedaUsuario[0].segundo_apellido;
+    let primerNombre = this.busquedaUsuario[0]?.primer_nombre ? this.busquedaUsuario[0]?.primer_nombre : '';
+    let segundoNombre = this.busquedaUsuario[0].segundo_nombre ? this.busquedaUsuario[0].segundo_nombre : '';
+    let primerApellido = this.busquedaUsuario[0]?.primer_apellido ? this.busquedaUsuario[0]?.primer_apellido : '';
+    let segundoApellido = this.busquedaUsuario[0]?.segundo_apellido ? this.busquedaUsuario[0]?.segundo_apellido : '';
 
     this.ingresoServices.crearIngreso(idVoluntario, idUsuario, congregacionIngreso, this.fecha).subscribe(
       (ingresoCreado: any) => {
-        Swal.fire(
-          '¡Ingreso Exitoso!',
-          `Bienvenido ${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}`,
-          'success'
-        );
+        Swal.fire({
+          title: '¡Ingreso Exitoso!',
+          html: `Bienvenido ${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}
+                  <br> a la congregación de ${this.congregacionIngreso} <p></p>
+                  <b>Fecha:</b> ${this.fecha}`,
+
+          icon: 'success',
+        });
       },
       (err) => {
         Swal.fire({
