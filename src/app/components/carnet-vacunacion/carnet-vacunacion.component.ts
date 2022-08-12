@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
+import { IngresoModel } from 'src/app/models/ingreso.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
 import { Dosis, RangosDeEdad, Vacuna } from 'src/app/models/vacuna.model';
 import { IngresoService } from 'src/app/services/ingreso/ingreso.service';
@@ -12,8 +13,10 @@ import Swal from 'sweetalert2';
   styleUrls: ['./carnet-vacunacion.component.scss'],
 })
 export class CarnetVacunacionComponent {
-  @Input() busquedaUsuario: UsuarioModel[] = [];
+  @Input() busquedaUsuario: UsuarioModel;
+  @Input() todosLosUsuarios: UsuarioModel[] = [];
   @Input() congregacionIngreso: string = '';
+  @Input() ingresos: IngresoModel[] = [];
   @Output() onIngresoUsuario = new EventEmitter<string>();
 
   ingreso: boolean = false;
@@ -77,11 +80,18 @@ export class CarnetVacunacionComponent {
         });
       },
       (err) => {
-        Swal.fire({
-          html: 'Debe iniciar sesión',
-          icon: 'error',
-        });
-        this.router.navigateByUrl('/login');
+        if (!err.error.noToken) {
+          Swal.fire({
+            html: err.error.msg,
+            icon: 'error',
+          });
+        } else {
+          Swal.fire({
+            html: 'Debe iniciar sesión',
+            icon: 'error',
+          });
+          this.router.navigateByUrl('/login');
+        }
       }
     );
 
