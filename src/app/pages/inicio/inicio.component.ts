@@ -109,7 +109,6 @@ export class InicioComponent implements OnInit, OnDestroy {
       this.existeUsuario = false;
     } else {
       this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
-        console.log('Usuario encontrado', usuarios);
         this.usuarioEncontrado = usuarios;
         this.existeUsuario = true;
       });
@@ -128,7 +127,6 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   ingresoUsuario(idUsuario: string) {
-    console.log('Entró');
     this.existeUsuario = false;
     if (idUsuario) {
       this.contarUsuarioEnCongregacion();
@@ -143,7 +141,6 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   contarUsuarioEnCongregacion() {
-    console.log('Entró');
     const idcongregacion = localStorage.getItem('congregacion_ingreso');
 
     if (!!idcongregacion) {
@@ -152,11 +149,9 @@ export class InicioComponent implements OnInit, OnDestroy {
         .pipe(delay(100))
         .subscribe((ingreso: IngresoModel[]) => {
           this.ingresos = ingreso.filter(
-            (ingreso, index) =>
+            (ingreso) =>
               ingreso.id_congregacion === parseInt(idcongregacion) && ingreso.fecha_ingreso === this.fecha.toString()
           );
-
-          console.log(typeof this.ingresos);
 
           this.totalIngresos = this.ingresos.length;
         });

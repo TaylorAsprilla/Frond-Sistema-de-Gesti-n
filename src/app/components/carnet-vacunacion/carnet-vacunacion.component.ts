@@ -80,7 +80,6 @@ export class CarnetVacunacionComponent {
         });
       },
       (err) => {
-        console.log(err);
         if (!err.error.noToken) {
           Swal.fire({
             html: err.error.msg,
