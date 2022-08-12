@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import { IngresoModel } from 'src/app/models/ingreso.model';
 import { UsuarioModel } from 'src/app/models/usuario.model';
@@ -12,8 +12,8 @@ import Swal from 'sweetalert2';
   templateUrl: './carnet-vacunacion.component.html',
   styleUrls: ['./carnet-vacunacion.component.scss'],
 })
-export class CarnetVacunacionComponent {
-  @Input() busquedaUsuario: UsuarioModel;
+export class CarnetVacunacionComponent implements OnChanges {
+  @Input() busquedaUsuario: UsuarioModel[] = [];
   @Input() todosLosUsuarios: UsuarioModel[] = [];
   @Input() congregacionIngreso: string = '';
   @Input() ingresos: IngresoModel[] = [];
@@ -23,11 +23,7 @@ export class CarnetVacunacionComponent {
   voluntario: UsuarioModel;
   fecha = new Date().toLocaleDateString('en-CA');
 
-  constructor(
-    private ingresoServices: IngresoService,
-
-    private router: Router
-  ) {}
+  constructor(private ingresoServices: IngresoService, private router: Router) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.busquedaUsuario) {
@@ -72,12 +68,13 @@ export class CarnetVacunacionComponent {
       (ingresoCreado: any) => {
         Swal.fire({
           title: '¡Ingreso Exitoso!',
-          html: `Bienvenido ${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}
-                  <br> a la congregación de ${this.congregacionIngreso} <p></p>
+          html: `Bienvenido <b>${primerNombre} ${segundoNombre} ${primerApellido} ${segundoApellido}</b>
+                  <br> a la congregación de <b>${this.congregacionIngreso}</b> <p></p>
                   <b>Fecha:</b> ${this.fecha}`,
 
           icon: 'success',
         });
+        this.onIngresoUsuario.emit(idUsuario);
       },
       (err) => {
         if (!err.error.noToken) {
@@ -85,6 +82,7 @@ export class CarnetVacunacionComponent {
             html: err.error.msg,
             icon: 'error',
           });
+          this.onIngresoUsuario.emit();
         } else {
           Swal.fire({
             html: 'Debe iniciar sesión',
@@ -94,7 +92,5 @@ export class CarnetVacunacionComponent {
         }
       }
     );
-
-    this.onIngresoUsuario.emit(idUsuario);
   }
 }
