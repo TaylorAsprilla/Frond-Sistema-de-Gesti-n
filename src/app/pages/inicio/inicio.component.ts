@@ -39,7 +39,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   totalUsuarios: number;
   totalIngresos: number = 0;
   congregacionQueIngresa: any;
-  usuarioEncontrado: UsuarioModel;
+  usuarioEncontrado: UsuarioModel[] = [];
 
   titulo: string;
   placeholderBuscador: string;
@@ -126,7 +126,7 @@ export class InicioComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/registro`);
   }
 
-  ingresoUsuario(idUsuario: string) {
+  ingresoUsuario(idUsuario: string = null) {
     this.existeUsuario = false;
     if (idUsuario) {
       this.contarUsuarioEnCongregacion();
