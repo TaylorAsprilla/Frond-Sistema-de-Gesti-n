@@ -39,6 +39,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   totalUsuarios: number;
   totalIngresos: number = 0;
   congregacionQueIngresa: any;
+  usuarioEncontrado: UsuarioModel;
 
   titulo: string;
   placeholderBuscador: string;
@@ -108,7 +109,8 @@ export class InicioComponent implements OnInit, OnDestroy {
       this.existeUsuario = false;
     } else {
       this.busquedasService.buscarUsuario(termino).subscribe((usuarios: any) => {
-        this.usuarios = usuarios;
+        console.log('Usuario encontrado', usuarios);
+        this.usuarioEncontrado = usuarios;
         this.existeUsuario = true;
       });
     }
@@ -126,6 +128,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   ingresoUsuario(idUsuario: string) {
+    console.log('Entró');
     this.existeUsuario = false;
     if (idUsuario) {
       this.contarUsuarioEnCongregacion();
@@ -140,6 +143,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   }
 
   contarUsuarioEnCongregacion() {
+    console.log('Entró');
     const idcongregacion = localStorage.getItem('congregacion_ingreso');
 
     if (!!idcongregacion) {
@@ -151,6 +155,8 @@ export class InicioComponent implements OnInit, OnDestroy {
             (ingreso, index) =>
               ingreso.id_congregacion === parseInt(idcongregacion) && ingreso.fecha_ingreso === this.fecha.toString()
           );
+
+          console.log(typeof this.ingresos);
 
           this.totalIngresos = this.ingresos.length;
         });

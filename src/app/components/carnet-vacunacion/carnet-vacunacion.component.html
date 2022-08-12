@@ -1,7 +1,7 @@
 <div>
   <div class="card">
     <div class="card-body">
-      <div *ngIf="busquedaUsuario.length > 0; else noHayRegistro">
+      <div *ngIf="!!busquedaUsuario; else noHayRegistro">
         <div *ngFor="let usuario of busquedaUsuario">
           <div class="titulo">
             <div class="info-box">
