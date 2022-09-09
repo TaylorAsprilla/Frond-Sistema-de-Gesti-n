@@ -133,6 +133,7 @@ export class UsuarioService {
     localStorage.removeItem('email');
     localStorage.removeItem('Número de documento');
     localStorage.removeItem('imagen');
+    localStorage.removeItem('congregacion_ingreso');
     sessionStorage.clear();
     this.router.navigateByUrl('/login');
   }
