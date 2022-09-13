@@ -61,6 +61,7 @@ export class InicioComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.titulo = 'Buscar usuarios vacunados';
     this.placeholderBuscador = 'Ingrese el número de documento';
+    this.totalIngresos = 0;
 
     // Los usuarios paginados
     this.usuariosSubscription = this.usuarioServices.listarUsuarios().subscribe(({ totalUsuarios, usuarios }) => {

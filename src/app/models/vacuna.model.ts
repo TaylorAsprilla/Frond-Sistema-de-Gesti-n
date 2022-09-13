@@ -12,6 +12,7 @@ export enum Dosis {
   UNA_DOSIS = 1,
   DOS_DOSIS = 2,
   TERCERA_DOSIS = 3,
+  CUARTA_DOSIS = 4,
 }
 
 // Rangos de edad que no equieren vacuna
