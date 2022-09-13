@@ -80,7 +80,7 @@ export class CarnetVacunacionComponent implements OnChanges {
         if (!err.error.noToken) {
           Swal.fire({
             html: err.error.msg,
-            icon: 'error',
+            icon: 'warning',
           });
           this.onIngresoUsuario.emit();
         } else {

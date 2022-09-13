@@ -3,12 +3,20 @@
     <!-- small box -->
     <div class="small-box cuadroAzul">
       <div class="inner">
-        <h3>{{ numeroDeIngresos }}</h3>
+        <h3 class="col-md-12">
+          {{ numeroDeIngresos }}
+          <span class="text-right float-right iconActualizar"
+            ><i
+              (click)="actualizarNumeroDeIngresos()"
+              class="fa fa-sync-alt pointer animate__animated animate__heartBeat animate__slower animate__repeat-3"
+            ></i
+          ></span>
+        </h3>
 
         <p>Total de ingresos en {{ congregacionQueIngresa }}</p>
       </div>
       <div class="icon">
-        <i class="ion ion-bag"></i>
+        <i class="ion ion-bag"> </i>
       </div>
     </div>
   </div>
@@ -43,9 +51,8 @@
       ></a> -->
     </div>
   </div>
-  <!-- ./col -->
+
   <div class="col-lg-3 col-6">
-    <!-- small box -->
     <div class="small-box cuadroAzulClaro">
       <div class="inner">
         <h3>{{ totalCampos }}</h3>

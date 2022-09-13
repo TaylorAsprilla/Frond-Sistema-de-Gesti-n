@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit, OnChanges {
   @Input() totalIngresos: number = 0;
   @Input() congregacionQueIngresa: string;
 
+  @Output() onActualizarNumeroDeIngresos = new EventEmitter<boolean>();
+
   numeroDeIngresos: number = 0;
 
   constructor() {}
@@ -25,5 +27,8 @@ export class DashboardComponent implements OnInit, OnChanges {
         this.numeroDeIngresos = changes.totalIngresos.currentValue;
       }
     }
+  }
+  actualizarNumeroDeIngresos() {
+    this.onActualizarNumeroDeIngresos.emit(true);
   }
 }
