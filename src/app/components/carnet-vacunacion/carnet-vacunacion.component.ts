@@ -62,4 +62,8 @@ export class CarnetVacunacionComponent {
       }
     );
   }
+
+  volverAlRegistro() {
+    this.router.navigateByUrl(`/registro`);
+  }
 }
